@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
 const router = require('./routes')
+const userRouter = require('./routes/user')
+const productRouter = require('./routes/product')
 const path = require('path')
 
 const app = express()
@@ -22,6 +24,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api', router)
+app.use('/user', userRouter)
+app.use('/product', productRouter)
 
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/build")))
