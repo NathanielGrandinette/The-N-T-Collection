@@ -7,7 +7,7 @@ const router = require('./routes')
 const userRouter = require('./routes/user')
 const productRouter = require('./routes/product')
 const path = require('path')
-const { database } = require('./config/keys')
+const { database, } = require('./config/keys')
 
 
 const app = express()
@@ -41,7 +41,7 @@ app.listen(3001, function (error) {
     if(error) {
         console.log(error)
     }
-    console.log("Server listening on port", 3001)
+    console.log("Server listening on port", process.env.PORT)
 })
 
 module.exports = app
