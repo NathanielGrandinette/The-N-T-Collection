@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const express = require('express')
@@ -6,18 +7,19 @@ const router = require('./routes')
 const userRouter = require('./routes/user')
 const productRouter = require('./routes/product')
 const path = require('path')
+const { database } = require('./config/keys')
+
 
 const app = express()
 
-//Need to add DB connection string in place of DBURL on line 11 and line 17
-/*mongoose.connect(DBURL, {
+mongoose.connect(database.url, {
 }).catch((error) => {
     console.log(error)
 })
 
 mongoose.connection.on('connected', () => {
-    console.log('Connected to database', DBURL)
-})*/
+    console.log('Connected to database', database.url)
+})
 
 app.use(cors())
 app.use(express.json())
