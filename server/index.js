@@ -1,47 +1,48 @@
-const dotenv = require('dotenv').config()
-const cors = require('cors')
-const mongoose = require('mongoose')
-const express = require('express')
-const morgan = require('morgan')
-const router = require('./routes')
-const userRouter = require('./routes/user')
-const productRouter = require('./routes/product')
-const path = require('path')
-const { database, } = require('./config/keys')
+const dotenv = require("dotenv").config();
+const cors = require("cors");
+const mongoose = require("mongoose");
+const express = require("express");
+const morgan = require("morgan");
+const router = require("./routes");
+const userRouter = require("./routes/user");
+const productRouter = require("./routes/product");
+const path = require("path");
+const { database } = require("./config/keys");
 
+const app = express();
 
-const app = express()
+mongoose.connect(database.url, {}).catch((error) => {
+  console.log(error);
+});
 
-mongoose.connect(database.url, {
-}).catch((error) => {
-    console.log(error)
-})
+mongoose.connection.on("connected", () => {
+  console.log("Connected to database");
+});
 
-mongoose.connection.on('connected', () => {
-    console.log('Connected to database', database.url)
-})
+app.use(cors());
+app.use(express.json());
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: false }));
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use("/api", router);
+app.use("/user", userRouter);
+app.use("/product", productRouter);
 
-app.use('/api', router)
-app.use('/user', userRouter)
-app.use('/product', productRouter)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
 
-if(process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/build")))
-
-    app.all("*", (req, res, next) => {
-        res.sendFile(path.resolve(__dirname, "../client/build/index.html"))
-    })
+  app.all("*", (req, res, next) => {
+    res.sendFile(
+      path.resolve(__dirname, "../client/build/index.html")
+    );
+  });
 }
 
 app.listen(3001, function (error) {
-    if(error) {
-        console.log(error)
-    }
-    console.log("Server listening on port", process.env.PORT)
-})
+  if (error) {
+    console.log(error);
+  }
+  console.log("Server listening on port", process.env.PORT);
+});
 
-module.exports = app
+module.exports = app;
