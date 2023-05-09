@@ -18,7 +18,7 @@ router
     .post(async (req, res, next) => {
         const { name, price, description } = req.body
 
-        if (!(name || price || description)) {
+        if (!(name && price && description)) {
             return res.status(422).send({ error: "Please fill out all required fields" })
         }
 

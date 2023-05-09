@@ -5,9 +5,40 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 // route starts with /user
-router.get("/", (req, res, next) => {
-  res.status(200).send({ message: "user works" });
+router.get("/", async (req, res, next) => {
+  const users = await User.find()
+  res.status(200).send(users);
 });
+
+router.post("/login", async (req, res) => {
+  const { name, email, password } = req.body
+
+  if (!(name && email && password)) {
+    return res.status(422).send({ error: "Please fill out all required fields." })
+  }
+
+  try {
+    const user = await User.findOne({ email })
+
+    if(!user) {
+      return res.status(404).send({ error: "User account not found" })
+    }
+
+    if(await bcrypt.compare(password, user.password)) {
+      const token = jwt.sign(
+        {user_id: user._id, email},
+        keys.jwt.secret,
+        { expiresIn: "12h"}
+      )
+
+      user.token = token
+      return res.status(200).send({ user: user, token: user.token })
+    } 
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({ error: "Something went wrong" })
+  }
+})
 
 //@POST http://localhost:3001/user/register
 router.post("/register", async (req, res) => {
