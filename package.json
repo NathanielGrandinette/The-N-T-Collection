@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "client": "npm start --workspace=client",
-    "start": "npm run client",
+    "server": "npm run start --workspace=server",
+    "start": "concurrently --kill-others-on-fail \"npm run server\"  \"npm run client\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
