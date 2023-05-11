@@ -1,38 +1,37 @@
 import React, { useState, useEffect } from 'react'
+import Product from './Product'
 import axios from '../../utils/axiosConfig'
 
 const ProductList = () => {
     const [products, setProducts] = useState()
+    const [refresh, setRefresh] = useState(false)
 
-    const getProducts = async() => {
-        const productList = await axios.get('http://localhost:3001/product')
+    const getProducts = async () => {
+        const productList = await axios.get('/product')
         setProducts(productList.data)
     }
 
     useEffect(() => {
         getProducts()
-    }, [])
+    }, [refresh])
 
-    const deleteProduct = async(_id) => {
-        console.log(_id)
-        await axios.delete(`http://localhost:3001/product/${_id}`)
-        getProducts()
-    }
 
     return (
         <div>
             {products && products.map((product) => {
                 return (
                     <div className="product-list-card" key={product._id}>
-                        <h2><strong>{product.name}</strong></h2>
-                        <div>{product.price}</div>
-                        <div>{product.description}</div>
-                        <button className="m-2 bg-teal-500 w-1/6">Edit</button>
-                        <button className="m-2 bg-red-600 w-1/6" onClick={() => deleteProduct(product._id)}>Delete</button>
+                        <Product setRefresh={setRefresh} refresh={refresh} product={product} getProducts={getProducts} />
                     </div>
                 )
             })}
-            <button className="m-2 bg-green-600 w-1/3">Add Product</button>
+            <button className="m-2 bg-green-600 w-1/3" onClick={(e) => {
+                setProducts([...products, {
+                    name: "",
+                    price: "",
+                    description: ""
+                }])
+            }}>Add Product</button>
         </div>
     )
 }
