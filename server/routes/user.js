@@ -22,20 +22,24 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    const checkExistingUser = await User.findOne({ email });
 
-    if (!user) {
+    if (!checkExistingUser) {
       return res
         .status(404)
         .send({ error: "User account not found" });
     }
 
-    if (await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(password, checkExistingUser.password)) {
       const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: checkExistingUser._id, email },
         keys.jwt.secret,
         { expiresIn: "12h" }
       );
+
+      const user = await User.findById({
+        _id: checkExistingUser._id,
+      }).select("-password"); //lets send back the user minus the password hash.
 
       user.token = token;
       return res.status(200).send({ user: user, token: user.token });
