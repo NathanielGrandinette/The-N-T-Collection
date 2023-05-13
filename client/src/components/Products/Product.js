@@ -29,13 +29,15 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
             await axios.post('/product', {
                 name: item.name,
                 price: item.price,
-                description: item.description
+                description: item.description,
+                quantity: item.quantity
             })
         } else {
             await axios.put(`/product/${product._id}`, {
                 name: item.name,
                 price: item.price,
-                description: item.description
+                description: item.description,
+                quantity: item.quantity
             })
         }
         setRefresh(!refresh)
@@ -46,7 +48,7 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
         setEdit(false)
         setRefresh(!refresh)
     }
-
+    
     return (
         <div>
             {edit ?
@@ -55,6 +57,8 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
                     <input type='text' value={item.name} name='name' onChange={(e) => handleChange(e)}></input>
                     <label htmlFor="price"><strong>Price:</strong></label>
                     <input type='text' value={item.price} name='price' onChange={(e) => handleChange(e)}></input>
+                    <label htmlFor="quantity"><strong>Quantity:</strong></label>
+                    <input type='number' value={item.quantity} name='quantity' onChange={(e) => handleChange(e)}></input>
                     <label htmlFor="description"><strong>Description:</strong></label>
                     <input type='text' value={item.description} name='description' onChange={(e) => handleChange(e)}></input>
                     <button className="m-2 bg-red-600 w-1/3" onClick={() => handleCancel()}>Cancel</button>
@@ -62,9 +66,10 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
                 </div>
                 :
                 <div className="product-list-card" key={product._id}>
-                    <h2><strong>{product.name}</strong></h2>
-                    <div>{product.price}</div>
-                    <div>{product.description}</div>
+                    <h2><strong>Product: {product.name}</strong></h2>
+                    <div>Price: {product.price}</div>
+                    <div>Quantity: {product.quantity}</div>
+                    <div>Description: {product.description}</div>
                     <button className="m-2 bg-teal-500 w-1/6" onClick={() => setEdit(true)}>Edit</button>
                     <button className="m-2 bg-red-600 w-1/6" onClick={() => deleteProduct(product._id)}>Delete</button>
                 </div>

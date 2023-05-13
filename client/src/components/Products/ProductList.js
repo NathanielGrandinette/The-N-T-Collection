@@ -29,7 +29,8 @@ const ProductList = () => {
                 setProducts([...products, {
                     name: "",
                     price: "",
-                    description: ""
+                    description: "",
+                    quantity: ""
                 }])
             }}>Add Product</button>
         </div>

@@ -16,9 +16,9 @@ router
     })
 
     .post(async (req, res, next) => {
-        const { name, price, description } = req.body
+        const { name, price, description, quantity } = req.body
 
-        if (!(name && price && description)) {
+        if (!(name && price && description && quantity)) {
             return res.status(422).send({ error: "Please fill out all required fields" })
         }
 
@@ -31,7 +31,8 @@ router
                 const newProduct = await Product.create({
                     name,
                     price,
-                    description
+                    description,
+                    quantity
                 })
                 return res.status(201).send(newProduct)
             }
@@ -62,7 +63,7 @@ router
         }
     })
     .put(async (req, res, next) => {
-        const { name, price, description } = req.body
+        const { name, price, description, quantity } = req.body
         const { id } = req.params
 
         if (!id) {
@@ -73,7 +74,8 @@ router
             const updateProduct = await Product.findByIdAndUpdate(id, {
                 name,
                 price,
-                description
+                description,
+                quantity
             })
             return res.status(200).send(updateProduct)
         } catch (error) {
