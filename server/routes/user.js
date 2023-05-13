@@ -43,6 +43,10 @@ router.post("/login", async (req, res) => {
 
       user.token = token;
       return res.status(200).send({ user: user, token: user.token });
+    } else {
+      return res
+        .status(422)
+        .json({ error: "Email or Password do not match." });
     }
   } catch (error) {
     console.log(error);
