@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialFormState = {
   name: "",
@@ -12,6 +12,8 @@ const initialFormState = {
 
 const Register = () => {
   const [formData, setFormData] = useState(initialFormState);
+
+  const navigate = useNavigate();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -34,8 +36,8 @@ const Register = () => {
       .then((res) => {
         console.log(res);
         setFormData(initialFormState);
-        //redirect the user...
-        //handle user state
+
+        navigate("/login", { replace: true }); //receive token  from login
       })
       .catch((err) =>
         setFormData({

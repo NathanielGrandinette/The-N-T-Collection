@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialFormState = {
   email: "",
@@ -10,6 +10,7 @@ const initialFormState = {
 
 const Login = () => {
   const [formData, setFormData] = useState(initialFormState);
+  const navigate = useNavigate();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -27,10 +28,13 @@ const Login = () => {
     await axios
       .post("http://localhost:3001/user/login", formData)
       .then((res) => {
-        console.log(res);
         setFormData(initialFormState);
-        //redirect the user...
-        //handle user state
+        localStorage.setItem("jwt", JSON.stringify(res.data?.token));
+        localStorage.setItem(
+          "n-t-user",
+          JSON.stringify(res.data?.user)
+        );
+        navigate("/productcard", { replace: true });
       })
       .catch((err) =>
         setFormData({
