@@ -1,0 +1,12 @@
+.product-list-cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+}
+
+.product-list-button {
+    display: flex;
+    justify-content: center;
+}

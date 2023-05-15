@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Product from './Product'
 import axios from '../../utils/axiosConfig'
+import './productlist.css'
 
 const ProductList = () => {
     const [products, setProducts] = useState()
@@ -18,21 +19,25 @@ const ProductList = () => {
 
     return (
         <div>
-            {products && products.map((product) => {
-                return (
-                    <div className="product-list-card" key={product._id}>
-                        <Product setRefresh={setRefresh} refresh={refresh} product={product} getProducts={getProducts} />
-                    </div>
-                )
-            })}
-            <button className="m-2 bg-green-600 w-1/3" onClick={(e) => {
-                setProducts([...products, {
-                    name: "",
-                    price: "",
-                    description: "",
-                    quantity: ""
-                }])
-            }}>Add Product</button>
+            <h2>Products</h2>
+            <div className="product-list-cards">
+                {products && products.map((product) => {
+                    return (
+                        <Product key={product._id} setRefresh={setRefresh} refresh={refresh} product={product} getProducts={getProducts} />
+                    )
+                })}
+            </div>
+            <div className="w-full product-list-button">
+                <button className="bg-green-600 p-2 w-1/3 rounded" onClick={(e) => {
+                    setProducts([...products, {
+                        name: "",
+                        price: "",
+                        description: "",
+                        quantity: ""
+                    }])
+                }}>Add Product</button>
+            </div>
+
         </div>
     )
 }
