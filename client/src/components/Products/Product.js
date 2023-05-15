@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProductDetail from "./ProductDetail";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
+import { AuthContext } from "../../context/AuthContext";
 
 const Product = ({ product, getProducts, refresh, setRefresh }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
+  const { user } = useContext(AuthContext);
+
+  const { name } = user;
 
   useEffect(() => {
     if (product.name === "") {
@@ -53,6 +57,7 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
 
   return (
     <div>
+      <h1>Hello, {name}</h1>
       {edit ? (
         <div className="flex flex-col w-1/3">
           <label htmlFor="name">
