@@ -1,0 +1,54 @@
+input {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 0.5em;
+    background-color: #ffffff;
+    box-shadow: inset 2px 5px
+    10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+}
+
+input:focus {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 13px 13px
+    100px #969696, 
+    -13px -13px 100px #ffffff;
+}
+
+.display-card {
+    min-width: 350px;
+    width: 350px;
+    height: 350px;
+    max-width: 500px;
+    margin: 10px;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    box-shadow: inset 2px 5px
+    10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+}
+
+.display-card:hover {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 13px 13px
+    100px #969696, 
+    -13px -13px 100px #ffffff;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.product-img {
+    background-color: red;
+    border-radius: 15px;
+    height: 150px;
+    width: 200px;
+}
