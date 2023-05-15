@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ProductDetail from "./ProductDetail";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
 import "./product.css";
-import { AuthContext } from "../../context/AuthContext";
 
 const Product = ({ product, getProducts, refresh, setRefresh }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
-  const { user } = useContext(AuthContext);
-
-  const { name } = user;
 
   useEffect(() => {
     if (product.name === "") {
@@ -58,7 +54,6 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
 
   return (
     <div className="display-card">
-      <h1>Hello, {name}</h1>
       {edit ? (
         <div className="flex flex-col m-7">
           <label htmlFor="name">
@@ -68,6 +63,7 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
             type="text"
             value={item.name}
             name="name"
+            className="product-input"
             onChange={(e) => handleChange(e)}
           ></input>
           <label htmlFor="price">
@@ -77,6 +73,7 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
             type="text"
             value={item.price}
             name="price"
+            className="product-input"
             onChange={(e) => handleChange(e)}
           ></input>
           <label htmlFor="quantity">
@@ -86,6 +83,7 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
             type="number"
             value={item.quantity}
             name="quantity"
+            className="product-input"
             onChange={(e) => handleChange(e)}
           ></input>
           <label htmlFor="description">
@@ -95,6 +93,7 @@ const Product = ({ product, getProducts, refresh, setRefresh }) => {
             type="text"
             value={item.description}
             name="description"
+            className="product-input"
             onChange={(e) => handleChange(e)}
           ></input>
           <div className="flex flex-row justify-center">

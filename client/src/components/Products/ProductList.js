@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Product from './Product'
 import axios from '../../utils/axiosConfig'
 import './productlist.css'
+import { AuthContext } from "../../context/AuthContext";
 
 const ProductList = () => {
     const [products, setProducts] = useState()
     const [refresh, setRefresh] = useState(false)
+    const { user } = useContext(AuthContext);
 
     const getProducts = async () => {
         const productList = await axios.get('/product')
@@ -15,11 +17,12 @@ const ProductList = () => {
     useEffect(() => {
         getProducts()
     }, [refresh])
-
+    console.log(user.name)
 
     return (
         <div>
             <h2>Products</h2>
+            <h2>Hello, {user.name}</h2>
             <div className="product-list-cards">
                 {products && products.map((product) => {
                     return (
