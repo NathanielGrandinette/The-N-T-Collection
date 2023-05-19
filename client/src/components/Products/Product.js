@@ -4,11 +4,16 @@ import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
 import "./product.css";
 
-const Product = ({ product, getProducts, refresh, setRefresh, user }) => {
+const Product = ({
+  product,
+  getProducts,
+  refresh,
+  setRefresh,
+  user,
+}) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
-
-  user.role = "Admin"
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (product.name === "") {
@@ -25,7 +30,15 @@ const Product = ({ product, getProducts, refresh, setRefresh, user }) => {
   };
 
   const deleteProduct = async (_id) => {
-    await axios.delete(`/product/${_id}`);
+    await axios
+      .delete(`/product/${_id}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data.error || error.statusText);
+      });
     getProducts();
   };
 
@@ -56,7 +69,7 @@ const Product = ({ product, getProducts, refresh, setRefresh, user }) => {
 
   return (
     <div className="display-card">
-      {user && user.role === "Admin" ?
+      {user && user.role === "admin" ? (
         <div>
           {edit ? (
             <div className="flex flex-col m-7">
@@ -145,11 +158,14 @@ const Product = ({ product, getProducts, refresh, setRefresh, user }) => {
                 >
                   Delete
                 </button>
+                <span className="text-red-600">
+                  {error ? error : ""}
+                </span>
               </div>
             </div>
           )}
         </div>
-        :
+      ) : (
         <div className="m-5 product-info" key={product._id}>
           <img src="" className="product-img"></img>
           <h2>
@@ -174,7 +190,8 @@ const Product = ({ product, getProducts, refresh, setRefresh, user }) => {
               Add to Cart
             </button>
           </div>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };
