@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "../../utils/axiosConfig";
+import axios from "../utils/axiosConfig";
 
 const ProductCards = () => {
   const [products, setProducts] = useState();

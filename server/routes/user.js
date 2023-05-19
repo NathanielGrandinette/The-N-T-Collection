@@ -12,6 +12,27 @@ router.get("/", async (req, res, next) => {
   res.status(200).send(users);
 });
 
+router
+  .route('/:id')
+  .put(async (req, res) => {
+    const { name, email, password, role } = req.body
+    const { id } = req.params
+    try {
+      const user = await User.findByIdAndUpdate(id, {
+        name,
+        email,
+        password,
+        role
+      })
+
+      return res.status(200).send(user)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).send({ error: "Error processing your request" })
+    }
+
+  })
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 

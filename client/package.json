@@ -13,7 +13,8 @@
   "dependencies": {
     "@mui/material": "^5.13.0",
     "axios": "^1.4.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.1",
+    "react-toastify": "^9.1.3"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.2"
