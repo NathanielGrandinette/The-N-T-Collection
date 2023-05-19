@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
-import ProductList from "./components/Products/ProductList";
-import ProductDetail from "./components/Products/ProductDetail";
-import ProductCards from "./components/Products/ProductCards";
+import ProductList from "./components/ProductList";
+import ProductDetail from "./components/ProductDetail";
+import ProductCards from "./components/ProductCards";
 import Login from "./pages/Login";
+import Users from "./components/Users/Users";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         />
         <Route path="/productcard" element={<ProductCards />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </div>
   );

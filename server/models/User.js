@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema({
     type: ObjectId,
     ref: "Address",
   },
-
   role: {
     type: String,
     enum: ["user", "admin"],
