@@ -17,34 +17,43 @@ router
     }
   })
 
-  .post(async (req, res, next) => {
+  .post(verifyToken, async (req, res, next) => {
     const { name, price, description, quantity } = req.body;
+    const userId = req.user.user_id;
 
-    if (!(name && price && description && quantity)) {
+    const checkIsAdmin = await User.findOne({ _id: userId });
+
+    if (checkIsAdmin.role !== "admin") {
+      return res.status(401).json({ error: "Not Authorized." });
+    } else if (!(name && price && description && quantity)) {
       return res
         .status(422)
         .send({ error: "Please fill out all required fields" });
-    }
+    } else {
+      try {
+        const checkForProduct = await Product.findOne({ name });
 
-    try {
-      const checkForProduct = await Product.findOne({ name });
-
-      if (checkForProduct) {
+        if (checkForProduct) {
+          return res
+            .status(409)
+            .send({
+              error: "A product with that name already exists",
+            });
+        } else {
+          const newProduct = await Product.create({
+            name,
+            price,
+            description,
+            quantity,
+          });
+          return res.status(201).send(newProduct);
+        }
+      } catch (error) {
+        console.log(error);
         return res
-          .status(409)
-          .send({ error: "A product with that name already exists" });
-      } else {
-        const newProduct = await Product.create({
-          name,
-          price,
-          description,
-          quantity,
-        });
-        return res.status(201).send(newProduct);
+          .status(500)
+          .send({ error: "Something went wrong" });
       }
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
     }
   });
 
@@ -69,27 +78,34 @@ router
       return res.status(500).send({ error: "Something went wrong" });
     }
   })
-  .put(async (req, res, next) => {
+  .put(verifyToken, async (req, res, next) => {
     const { name, price, description, quantity } = req.body;
     const { id } = req.params;
+    const userId = req.user.user_id;
 
-    if (!id) {
+    const checkIsAdmin = await User.findOne({ _id: userId });
+
+    if (checkIsAdmin.role !== "admin") {
+      return res.status(401).json({ error: "Not Authorized." });
+    } else if (!id) {
       return res
         .status(409)
         .send({ error: "No product ID provided" });
-    }
-
-    try {
-      const updateProduct = await Product.findByIdAndUpdate(id, {
-        name,
-        price,
-        description,
-        quantity,
-      });
-      return res.status(200).send(updateProduct);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
+    } else {
+      try {
+        const updateProduct = await Product.findByIdAndUpdate(id, {
+          name,
+          price,
+          description,
+          quantity,
+        });
+        return res.status(200).send(updateProduct);
+      } catch (error) {
+        console.log(error);
+        return res
+          .status(500)
+          .send({ error: "Something went wrong" });
+      }
     }
   })
   .delete(verifyToken, async (req, res, next) => {

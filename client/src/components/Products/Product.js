@@ -37,26 +37,38 @@ const Product = ({
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response.data.error || error.statusText);
+        setError(err.response.data.error || err.statusText);
       });
     getProducts();
   };
 
   const handleSave = async () => {
     if (product._id === undefined) {
-      await axios.post("/product", {
-        name: item.name,
-        price: item.price,
-        description: item.description,
-        quantity: item.quantity,
-      });
+      await axios
+        .post("/product", {
+          name: item.name,
+          price: item.price,
+          description: item.description,
+          quantity: item.quantity,
+        })
+        .then((res) => console.log(res))
+        .catch((err) => {
+          console.log(err);
+          setError(err.response.data.error || err.statusText);
+        });
     } else {
-      await axios.put(`/product/${product._id}`, {
-        name: item.name,
-        price: item.price,
-        description: item.description,
-        quantity: item.quantity,
-      });
+      await axios
+        .put(`/product/${product._id}`, {
+          name: item.name,
+          price: item.price,
+          description: item.description,
+          quantity: item.quantity,
+        })
+        .then((res) => console.log(res))
+        .catch((err) => {
+          console.log(err);
+          setError(err.response.data.error || err.statusText);
+        });
     }
     setRefresh(!refresh);
     setEdit(false);
