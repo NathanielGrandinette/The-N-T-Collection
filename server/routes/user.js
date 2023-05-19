@@ -32,7 +32,11 @@ router.post("/login", async (req, res) => {
 
     if (await bcrypt.compare(password, checkExistingUser.password)) {
       const token = jwt.sign(
-        { user_id: checkExistingUser._id, email },
+        {
+          user_id: checkExistingUser._id,
+          email,
+          role: checkExistingUser.role,
+        },
         keys.jwt.secret,
         { expiresIn: "12h" }
       );
