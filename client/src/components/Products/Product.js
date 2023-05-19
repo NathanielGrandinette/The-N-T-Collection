@@ -179,18 +179,15 @@ const Product = ({
         </div>
       ) : (
         <div className="m-5 product-info" key={product._id}>
-          <img src="" className="product-img"></img>
-          <h2>
-            <strong>
-              Product:{" "}
-              <Link
-                to={`/productdetail/${product._id}`}
-                state={{ product: product }}
-              >
-                {product.name}
-              </Link>
-            </strong>
-          </h2>
+          <Link
+            to={`/productdetail/${product._id}`}
+            state={{ product: product }}
+          >
+            <img src="" className="product-img"></img>
+            <h2>
+              <strong>Product: {product.name}</strong>
+            </h2>
+          </Link>
           <div>Price: {product.price}</div>
           <div>Quantity: {product.quantity}</div>
           <div>Description: {product.description}</div>
