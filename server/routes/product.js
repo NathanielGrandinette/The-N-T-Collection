@@ -5,6 +5,7 @@ const multer = require("multer");
 const path = require("path");
 const upload = require("../config/multer");
 const User = require("../models/User");
+const verifyRole = require("../middleware/role");
 
 const router = express.Router();
 
@@ -20,15 +21,10 @@ router
     }
   })
 
-  .post(verifyToken, async (req, res, next) => {
+  .post(verifyToken, verifyRole(['admin']), async (req, res, next) => {
     const { name, price, description, quantity } = req.body;
-    const userId = req.user.user_id;
-
-    const checkIsAdmin = await User.findOne({ _id: userId });
-
-    if (checkIsAdmin.role !== "admin") {
-      return res.status(401).json({ error: "Not Authorized." });
-    } else if (!(name && price && description && quantity)) {
+    
+    if (!(name && price && description && quantity)) {
       return res
         .status(422)
         .send({ error: "Please fill out all required fields" });
@@ -79,7 +75,7 @@ router
       return res.status(500).send({ error: "Something went wrong" });
     }
   })
-  .put(verifyToken, async (req, res, next) => {
+  .put(verifyToken, verifyRole(['admin']), async (req, res, next) => {
     const { name, price, description, quantity } = req.body;
     const { id } = req.params;
     const userId = req.user.user_id;
@@ -109,7 +105,7 @@ router
       }
     }
   })
-  .delete(verifyToken, async (req, res, next) => {
+  .delete(verifyToken, verifyRole(['admin']), async (req, res, next) => {
     const { id } = req.params;
     const userId = req.user.user_id;
 

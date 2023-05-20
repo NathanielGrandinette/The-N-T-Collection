@@ -20,8 +20,7 @@
 .display-card {
     min-width: 350px;
     width: 350px;
-    height: 350px;
-    max-width: 500px;
+    height: 400px;
     margin: 10px;
     background-color: #e6e6e6;
     border-radius: 10px;
@@ -51,4 +50,15 @@
     border-radius: 15px;
     height: 150px;
     width: 200px;
+}
+
+.product-description {
+    height: 75px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.product-description::-webkit-scrollbar {
+    display: none;
 }

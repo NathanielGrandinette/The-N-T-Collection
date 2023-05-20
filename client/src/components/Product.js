@@ -35,13 +35,13 @@ const Product = ({
       .delete(`/product/${_id}`)
       .then((res) => {
         console.log(res);
+        toast.success("Product deleted")
       })
       .catch((err) => {
         console.log(err);
         setError(err.response.data.error || err.statusText);
       });
     getProducts();
-    toast.success("Product deleted")
   };
 
   const handleSave = async () => {
@@ -89,123 +89,129 @@ const Product = ({
 
   return (
     <div className="display-card">
-        {user && user.role === "admin" ? (
-          <div>
-            {edit ? (
-              <div className="flex flex-col m-7">
-                <label htmlFor="name">
-                  <strong>Name:</strong>
-                </label>
-                <input
-                  type="text"
-                  value={item.name}
-                  name="name"
-                  className="product-input"
-                  onChange={(e) => handleChange(e)}
-                ></input>
-                <label htmlFor="price">
-                  <strong>Price:</strong>
-                </label>
-                <input
-                  type="text"
-                  value={item.price}
-                  name="price"
-                  className="product-input"
-                  onChange={(e) => handleChange(e)}
-                ></input>
-                <label htmlFor="quantity">
-                  <strong>Quantity:</strong>
-                </label>
-                <input
-                  type="number"
-                  value={item.quantity}
-                  name="quantity"
-                  className="product-input"
-                  onChange={(e) => handleChange(e)}
-                ></input>
-                <label htmlFor="description">
-                  <strong>Description:</strong>
-                </label>
-                <input
-                  type="text"
-                  value={item.description}
-                  name="description"
-                  className="product-input"
-                  onChange={(e) => handleChange(e)}
-                ></input>
-                <div className="flex flex-row justify-center">
-                  <button
-                    className="m-2 bg-red-600 w-1/3"
-                    onClick={() => handleCancel()}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="m-2 bg-green-500 w-1/3"
-                    onClick={() => handleSave()}
-                  >
-                    Save
-                  </button>
-                </div>
+      {user && user.role === "admin" && window.location.pathname !== "/home" ? (
+        <div>
+          {edit ? (
+            <div className="flex flex-col m-7">
+              <label htmlFor="name">
+                <strong>Name:</strong>
+              </label>
+              <input
+                type="text"
+                value={item.name}
+                name="name"
+                className="product-input"
+                onChange={(e) => handleChange(e)}
+              ></input>
+              <label htmlFor="price">
+                <strong>Price:</strong>
+              </label>
+              <input
+                type="text"
+                value={item.price}
+                name="price"
+                className="product-input"
+                onChange={(e) => handleChange(e)}
+              ></input>
+              <label htmlFor="quantity">
+                <strong>Quantity:</strong>
+              </label>
+              <input
+                type="number"
+                value={item.quantity}
+                name="quantity"
+                className="product-input"
+                onChange={(e) => handleChange(e)}
+              ></input>
+              <label htmlFor="description">
+                <strong>Description:</strong>
+              </label>
+              <input
+                type="text"
+                value={item.description}
+                name="description"
+                className="product-input"
+                onChange={(e) => handleChange(e)}
+              ></input>
+              <div className="flex flex-row justify-center">
+                <button
+                  className="m-2 bg-red-600 w-1/3"
+                  onClick={() => handleCancel()}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="m-2 bg-green-500 w-1/3"
+                  onClick={() => handleSave()}
+                >
+                  Save
+                </button>
               </div>
-            ) : (
-              <div className="m-5 product-info" key={product._id}>
-                <img src="" className="product-img"></img>
-                <h2>
-                  <strong>
-                    Product:{" "}
-                    <Link
-                      to={`/productdetail/${product._id}`}
-                      state={{ product: product }}
-                    >
-                      {product.name}
-                    </Link>
-                  </strong>
-                </h2>
-                <div>Price: {product.price}</div>
-                <div>Quantity: {product.quantity}</div>
-                <div>Description: {product.description}</div>
-                <div className="w-64 mx-auto flex flex-row justify-center">
-                  <button
-                    className="m-2 bg-teal-500 w-1/3"
-                    onClick={() => setEdit(true)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="m-2 bg-red-600 w-1/3"
-                    onClick={() => deleteProduct(product._id)}
-                  >
-                    Delete
-                  </button>
-                  <span className="text-red-600">
-                    {error ? error : ""}
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="m-5 product-info" key={product._id}>
-            <img src="" className="product-img"></img>
-            <h2>
-              <strong>
-                Product:{" "}
-              </strong>
-            </h2>
-            <div>Price: {product.price}</div>
-            <div>Quantity: {product.quantity}</div>
-            <div>Description: {product.description}</div>
-            <div className="w-64 mx-auto flex flex-row justify-center">
-              <button
-                className="m-2 bg-green-600 w-1/2"
-                onClick={() => setEdit(true)}
-              >
-                Add to Cart
-              </button>
             </div>
+          ) : (
+            <div className="m-5 product-info" key={product._id}>
+              <img src="" className="product-img"></img>
+              <h2>
+                <strong>
+                  Product:{" "}
+                  <Link
+                    to={`/productdetail/${product._id}`}
+                    state={{ product: product }}
+                  >
+                    {product.name}
+                  </Link>
+                </strong>
+              </h2>
+              <div>${product.price}</div>
+              <div>Quantity: {product.quantity}</div>
+              <div className="product-description">{product.description}</div>
+              <div className="w-64 mx-auto flex flex-row justify-center">
+                <button
+                  className="m-2 bg-teal-500 w-1/3"
+                  onClick={() => setEdit(true)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="m-2 bg-red-600 w-1/3"
+                  onClick={() => deleteProduct(product._id)}
+                >
+                  Delete
+                </button>
+                <span className="text-red-600">
+                  {error ? error : ""}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="m-5 product-info" key={product._id}>
+          <img src="" className="product-img"></img>
+          <h2>
+            <strong>
+              Product:{" "}
+              <Link
+                to={`/productdetail/${product._id}`}
+                state={{ product: product }}
+              >
+                {product.name}
+              </Link>
+            </strong>
+          </h2>
+          <div>Price: {product.price}</div>
+          <div>Quantity: {product.quantity}</div>
+          <div className="product-description">Description: {product.description}</div>
+          <div className="w-64 mx-auto flex flex-row justify-center">
+            <button
+              className="m-2 bg-green-600 w-1/2"
+              onClick={() => setEdit(true)}
+            >
+              Add to Cart
+            </button>
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };
