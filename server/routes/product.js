@@ -1,6 +1,9 @@
 const express = require("express");
 const Product = require("../models/Product");
 const verifyToken = require("../middleware/auth");
+const multer = require("multer");
+const path = require("path");
+const upload = require("../config/multer");
 const User = require("../models/User");
 
 const router = express.Router();
@@ -34,11 +37,9 @@ router
         const checkForProduct = await Product.findOne({ name });
 
         if (checkForProduct) {
-          return res
-            .status(409)
-            .send({
-              error: "A product with that name already exists",
-            });
+          return res.status(409).send({
+            error: "A product with that name already exists",
+          });
         } else {
           const newProduct = await Product.create({
             name,
