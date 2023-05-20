@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const router = require("./routes");
 const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
-const addressRouter = require("./routes/address")
+const addressRouter = require("./routes/address");
 const path = require("path");
 const { database } = require("./config/keys");
 
@@ -24,11 +24,12 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 app.use("/api", router);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
-app.use("/address", addressRouter)
+app.use("/address", addressRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));

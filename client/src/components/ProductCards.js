@@ -32,13 +32,14 @@ const ProductCards = () => {
                 <h2>
                   <strong>{product.name}</strong>
                 </h2>
+
+                <div>{product.price}</div>
+                <div className="mt-5">
+                  <strong>Description</strong>
+                  <br></br>
+                  {product.description}
+                </div>
               </Link>
-              <div>{product.price}</div>
-              <div className="mt-5">
-                <strong>Description</strong>
-                <br></br>
-                {product.description}
-              </div>
             </div>
           );
         })}
