@@ -6,13 +6,14 @@ import ProductCards from "./components/ProductCards";
 import Login from "./pages/Login";
 import Users from "./components/Users/Users";
 import Landing from "./pages/Landing";
+import Home from './pages/Home/Home'
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Landing />} />
-
+        <Route path='/home' element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/productlist" element={<ProductList />} />
         <Route

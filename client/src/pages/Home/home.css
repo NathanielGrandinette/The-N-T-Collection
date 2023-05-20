@@ -1,0 +1,34 @@
+.product-display {
+    max-width: 75%;
+    max-height: 1500px;
+    border: 1px solid black;
+    overflow: scroll;
+}
+
+.home-products {
+    display: flex;  
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carousel {
+    min-height: 750px;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel:last-child {
+    display: none;
+}
+
+.carousel-img {
+    height: 750px;
+}
+
+.carousel-img img {
+    height: 100%;
+}

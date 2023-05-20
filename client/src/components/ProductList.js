@@ -20,7 +20,7 @@ const ProductList = () => {
     useEffect(() => {
         getProducts();
     }, [refresh]);
-
+    console.log(window.location.pathname)
     return (
         <div>
             <ToastContainer
@@ -50,6 +50,7 @@ const ProductList = () => {
                         );
                     })}
             </div>
+            {window.location.pathname !== '/home' ? 
             <div className="w-full product-list-button">
                 <button
                     hidden={user?.role === "user"} //hide if user is not admin.
@@ -68,7 +69,7 @@ const ProductList = () => {
                 >
                     Add Product
                 </button>
-            </div>
+            </div> : "" }
         </div>
     );
 };
