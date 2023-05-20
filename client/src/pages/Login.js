@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useState, React } from "react";
+import { useState, React, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const initialFormState = {
   email: "",
@@ -11,6 +12,7 @@ const initialFormState = {
 const Login = () => {
   const [formData, setFormData] = useState(initialFormState);
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ const Login = () => {
           "n-t-user",
           JSON.stringify(res.data?.user)
         );
+        setUser(res.data?.user);
         navigate("/productlist", { replace: true });
       })
       .catch((err) =>
