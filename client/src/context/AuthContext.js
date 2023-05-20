@@ -16,7 +16,7 @@ export function ProvideAuth({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
