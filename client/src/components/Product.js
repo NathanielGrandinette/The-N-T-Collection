@@ -89,10 +89,6 @@ const Product = ({
 
   return (
     <div className="display-card">
-      <Link
-        to={`/productdetail/${product._id}`}
-        state={{ product: product }}
-      >
         {user && user.role === "admin" ? (
           <div>
             {edit ? (
@@ -210,7 +206,6 @@ const Product = ({
             </div>
           </div>
         )}
-      </Link>
     </div>
   );
 };
