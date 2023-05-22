@@ -8,6 +8,7 @@ const User = require("../models/User");
 const verifyRole = require("../middleware/role");
 
 const router = express.Router();
+const upload = multer({ dest: 'uploads/'})
 
 router
   .route("/")
@@ -75,9 +76,10 @@ router
       return res.status(500).send({ error: "Something went wrong" });
     }
   })
-  .put(verifyToken, verifyRole(['admin']), async (req, res, next) => {
+  .put(verifyToken, verifyRole(['admin']), upload.single('file'), async (req, res, next) => {
     const { name, price, description, quantity } = req.body;
-    const { id } = req.params;
+    const { photoName, path, mimetype } = req.file
+    const { id } = req.params; 
     const userId = req.user.user_id;
 
     const checkIsAdmin = await User.findOne({ _id: userId });
@@ -95,6 +97,9 @@ router
           price,
           description,
           quantity,
+          photoName,
+          path,
+          mimetype
         });
         return res.status(200).send(updateProduct);
       } catch (error) {
