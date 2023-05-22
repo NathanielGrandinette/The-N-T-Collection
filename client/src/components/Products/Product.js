@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProductDetail from "../ProductDetail/ProductDetail";
+import { FileUpload } from "../FileUpload/FileUpload";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
 import "./product.css";
@@ -10,11 +11,12 @@ const Product = ({
   refresh,
   setRefresh,
   user,
-  toast
+  toast,
 }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
   const [error, setError] = useState("");
+  const [selected, setSelected] = useState("");
 
   useEffect(() => {
     if (product.name === "") {
@@ -30,12 +32,17 @@ const Product = ({
     });
   };
 
+  //file selector
+  const handleSelectedFiles = (e) => {
+    setSelected(e.target.files[0]);
+  };
+
   const deleteProduct = async (_id) => {
     await axios
       .delete(`/product/${_id}`)
       .then((res) => {
         console.log(res);
-        toast.success("Product deleted")
+        toast.success("Product deleted");
       })
       .catch((err) => {
         console.log(err);
@@ -44,34 +51,46 @@ const Product = ({
     getProducts();
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     if (product._id === undefined) {
+      const form = new FormData();
+      form.append("file", selected);
       await axios
         .post("/product", {
           name: item.name,
           price: item.price,
           description: item.description,
           quantity: item.quantity,
+          form,
         })
         .then((res) => {
-          console.log(res)
-          toast.success("Product created")
+          console.log(res);
+          toast.success("Product created");
         })
         .catch((err) => {
           console.log(err);
           setError(err.response.data.error || err.statusText);
         });
     } else {
+      const form = new FormData();
+      form.append("file", selected);
+
+      form.append("name", item.name);
+      form.append("price", item.price);
+      form.append("description", item.description);
+      form.append("quantity", item.quantity);
+
+      console.log(form);
       await axios
-        .put(`/product/${product._id}`, {
-          name: item.name,
-          price: item.price,
-          description: item.description,
-          quantity: item.quantity,
-        })
+        .put(
+          `/product/${product._id}`,
+
+          form
+        )
         .then((res) => {
-          console.log(res)
-          toast.success("Product updated")
+          console.log(res);
+          toast.success("Product updated");
         })
         .catch((err) => {
           console.log(err);
@@ -87,70 +106,76 @@ const Product = ({
     setRefresh(!refresh);
   };
 
+  console.log(selected);
   return (
     <div className="display-card">
-      {user && user.role === "admin" && window.location.pathname !== "/shop" ? (
+      {user &&
+      user.role === "admin" &&
+      window.location.pathname !== "/shop" ? (
         <div>
           {edit ? (
-            <div className="flex flex-col m-7">
-              <label htmlFor="name">
-                <strong>Name:</strong>
-              </label>
-              <input
-                type="text"
-                value={item.name}
-                name="name"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <label htmlFor="price">
-                <strong>Price:</strong>
-              </label>
-              <input
-                type="text"
-                value={item.price}
-                name="price"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <label htmlFor="quantity">
-                <strong>Quantity:</strong>
-              </label>
-              <input
-                type="number"
-                value={item.quantity}
-                name="quantity"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <label htmlFor="description">
-                <strong>Description:</strong>
-              </label>
-              <input
-                type="text"
-                value={item.description}
-                name="description"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <div className="flex flex-row justify-center">
-                <button
-                  className="m-2 bg-red-600 w-1/3"
-                  onClick={() => handleCancel()}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="m-2 bg-green-500 w-1/3"
-                  onClick={() => handleSave()}
-                >
-                  Save
-                </button>
+            <form encType="multipart/form-data" onSubmit={handleSave}>
+              <div className="flex flex-col m-7">
+                <label htmlFor="name">
+                  <strong>Name:</strong>
+                </label>
+                <input
+                  type="text"
+                  value={item.name}
+                  name="name"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="price">
+                  <strong>Price:</strong>
+                </label>
+                <input
+                  type="text"
+                  value={item.price}
+                  name="price"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="quantity">
+                  <strong>Quantity:</strong>
+                </label>
+                <input
+                  type="number"
+                  value={item.quantity}
+                  name="quantity"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="description">
+                  <strong>Description:</strong>
+                </label>
+                <input
+                  type="text"
+                  value={item.description}
+                  name="description"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <FileUpload
+                  handleSelectedFiles={handleSelectedFiles}
+                  selected={selected}
+                />
+                <div className="flex flex-row justify-center">
+                  <button
+                    className="m-2 bg-red-600 w-1/3"
+                    onClick={() => handleCancel()}
+                  >
+                    Cancel
+                  </button>
+                  <button className="m-2 bg-green-500 w-1/3">
+                    Save
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           ) : (
             <div className="m-5 product-info" key={product._id}>
-              <img src="" className="product-img"></img>
+              <img src={product.photo} className="product-img"></img>
               <h2>
                 <strong>
                   Product:{" "}
@@ -164,7 +189,9 @@ const Product = ({
               </h2>
               <div>${product.price}</div>
               <div>Quantity: {product.quantity}</div>
-              <div className="product-description">{product.description}</div>
+              <div className="product-description">
+                {product.description}
+              </div>
               <div className="w-64 mx-auto flex flex-row justify-center">
                 <button
                   className="m-2 bg-teal-500 w-1/3"
@@ -187,7 +214,7 @@ const Product = ({
         </div>
       ) : (
         <div className="m-5 product-info" key={product._id}>
-          <img src="" className="product-img"></img>
+          <img src={product.photo} className="product-img"></img>
           <h2>
             <strong>
               Product:{" "}
@@ -201,7 +228,9 @@ const Product = ({
           </h2>
           <div>Price: {product.price}</div>
           <div>Quantity: {product.quantity}</div>
-          <div className="product-description">Description: {product.description}</div>
+          <div className="product-description">
+            Description: {product.description}
+          </div>
           <div className="w-64 mx-auto flex flex-row justify-center">
             <button
               className="m-2 bg-green-600 w-1/2"
