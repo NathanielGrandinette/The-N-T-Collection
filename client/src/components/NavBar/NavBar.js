@@ -89,7 +89,7 @@ const NavBar = () => {
                 <Link to="/">Home</Link>
               </li>
               <li className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500">
-                <Link to="/productlist">Shop</Link>
+                <Link to="/shop">Shop</Link>
               </li>
               {isUserAdmin(user) ? (
                 <li>
@@ -137,7 +137,7 @@ const NavBar = () => {
           </li>
           <li>
             <Link
-              to="/productlist"
+              to="/shop"
               className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
             >
               Shop

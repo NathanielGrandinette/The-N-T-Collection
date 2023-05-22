@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Register from "./pages/Register";
-import ProductList from "./components/ProductList";
-import ProductDetail from "./components/ProductDetail";
-import ProductCards from "./components/ProductCards";
-import Login from "./pages/Login";
+import Register from "./pages/Register/Register";
+import ProductList from "./components/ProductList/ProductList";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
+import ProductCards from "./components/ProductCards/ProductCards";
+import Login from "./pages/Login/Login";
 import Users from "./components/Users/Users";
-import Landing from "./pages/Landing";
-import Home from "./pages/Home/Home";
+import Landing from "./pages/Landing/Landing";
+import Shop from "./pages/Shop/Shop";
 import NavBar from "./components/NavBar/NavBar";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/register" element={<Register />} />
         <Route path="/productlist" element={<ProductList />} />
         <Route

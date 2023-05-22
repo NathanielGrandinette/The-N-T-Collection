@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductDetail from "./ProductDetail";
+import ProductDetail from "../ProductDetail/ProductDetail";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
 import "./product.css";
@@ -10,6 +10,7 @@ const Product = ({
   refresh,
   setRefresh,
   user,
+  toast
 }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
@@ -34,6 +35,7 @@ const Product = ({
       .delete(`/product/${_id}`)
       .then((res) => {
         console.log(res);
+        toast.success("Product deleted")
       })
       .catch((err) => {
         console.log(err);
@@ -51,7 +53,10 @@ const Product = ({
           description: item.description,
           quantity: item.quantity,
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res)
+          toast.success("Product created")
+        })
         .catch((err) => {
           console.log(err);
           setError(err.response.data.error || err.statusText);
@@ -64,7 +69,10 @@ const Product = ({
           description: item.description,
           quantity: item.quantity,
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res)
+          toast.success("Product updated")
+        })
         .catch((err) => {
           console.log(err);
           setError(err.response.data.error || err.statusText);
@@ -81,7 +89,7 @@ const Product = ({
 
   return (
     <div className="display-card">
-      {user && user.role === "admin" ? (
+      {user && user.role === "admin" && window.location.pathname !== "/shop" ? (
         <div>
           {edit ? (
             <div className="flex flex-col m-7">
@@ -154,9 +162,9 @@ const Product = ({
                   </Link>
                 </strong>
               </h2>
-              <div>Price: {product.price}</div>
+              <div>${product.price}</div>
               <div>Quantity: {product.quantity}</div>
-              <div>Description: {product.description}</div>
+              <div className="product-description">{product.description}</div>
               <div className="w-64 mx-auto flex flex-row justify-center">
                 <button
                   className="m-2 bg-teal-500 w-1/3"
@@ -179,18 +187,21 @@ const Product = ({
         </div>
       ) : (
         <div className="m-5 product-info" key={product._id}>
-          <Link
-            to={`/productdetail/${product._id}`}
-            state={{ product: product }}
-          >
-            <img src="" className="product-img"></img>
-            <h2>
-              <strong>Product: {product.name}</strong>
-            </h2>
-          </Link>
+          <img src="" className="product-img"></img>
+          <h2>
+            <strong>
+              Product:{" "}
+              <Link
+                to={`/productdetail/${product._id}`}
+                state={{ product: product }}
+              >
+                {product.name}
+              </Link>
+            </strong>
+          </h2>
           <div>Price: {product.price}</div>
           <div>Quantity: {product.quantity}</div>
-          <div>Description: {product.description}</div>
+          <div className="product-description">Description: {product.description}</div>
           <div className="w-64 mx-auto flex flex-row justify-center">
             <button
               className="m-2 bg-green-600 w-1/2"

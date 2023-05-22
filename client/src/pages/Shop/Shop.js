@@ -1,10 +1,10 @@
 import React from 'react'
-import ProductList from '../../components/ProductList'
+import ProductList from '../../components/ProductList/ProductList'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
-import "./home.css"
+import "./shop.css"
 
-const Home = () => {
+const Shop = () => {
   return (
     <div>
       <Carousel
@@ -36,4 +36,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Shop

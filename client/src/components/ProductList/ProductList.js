@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import Product from "./Product";
-import axios from "../utils/axiosConfig";
+import Product from "../Products/Product";
+import axios from "../../utils/axiosConfig";
 import "./productlist.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProductList = () => {
   const [products, setProducts] = useState();
@@ -22,7 +22,7 @@ const ProductList = () => {
   }, [refresh]);
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'bisque'}}>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -32,8 +32,7 @@ const ProductList = () => {
         pauseOnHover
         theme="dark"
       />
-      <h2>Products</h2>
-      <h2>Hello, {user?.name}</h2>
+      <h1>Products</h1>
       <div className="product-list-cards">
         {products &&
           products.map((product) => {
@@ -50,7 +49,7 @@ const ProductList = () => {
             );
           })}
       </div>
-      {window.location.pathname !== "/home" ? (
+      {window.location.pathname !== "/shop" ? (
         <div className="w-full product-list-button">
           <button
             hidden={user?.role === "user"} //hide if user is not admin.
