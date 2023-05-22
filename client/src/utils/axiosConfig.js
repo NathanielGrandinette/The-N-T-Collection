@@ -10,7 +10,7 @@ const instance = axios.create({
   timeout: 5000,
   headers: {
     "x-access-token": verifyToken(),
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
   },
 });
 

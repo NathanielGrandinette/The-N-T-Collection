@@ -1,9 +1,9 @@
 import React from "react";
 
-export const FileUpload = ({ handleSelectedFiles }) => {
+export const FileUpload = ({ handleSelectedFiles, selected }) => {
   return (
-    <form>
-      <input type="file" onChange={handleSelectedFiles} />
-    </form>
+   
+      <input type="file" name="file" onChange={handleSelectedFiles} />
+    
   );
 };

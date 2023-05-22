@@ -51,7 +51,8 @@ const Product = ({
     getProducts();
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     if (product._id === undefined) {
       const form = new FormData();
       form.append("file", selected);
@@ -72,13 +73,21 @@ const Product = ({
           setError(err.response.data.error || err.statusText);
         });
     } else {
+      const form = new FormData();
+      form.append("file", selected);
+
+      form.append("name", item.name);
+      form.append("price", item.price);
+      form.append("description", item.description);
+      form.append("quantity", item.quantity);
+
+      console.log(form);
       await axios
-        .put(`/product/${product._id}`, {
-          name: item.name,
-          price: item.price,
-          description: item.description,
-          quantity: item.quantity,
-        })
+        .put(
+          `/product/${product._id}`,
+
+          form
+        )
         .then((res) => {
           console.log(res);
           toast.success("Product updated");
@@ -105,66 +114,68 @@ const Product = ({
       window.location.pathname !== "/shop" ? (
         <div>
           {edit ? (
-            <div className="flex flex-col m-7">
-              <label htmlFor="name">
-                <strong>Name:</strong>
-              </label>
-              <input
-                type="text"
-                value={item.name}
-                name="name"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <label htmlFor="price">
-                <strong>Price:</strong>
-              </label>
-              <input
-                type="text"
-                value={item.price}
-                name="price"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <label htmlFor="quantity">
-                <strong>Quantity:</strong>
-              </label>
-              <input
-                type="number"
-                value={item.quantity}
-                name="quantity"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <label htmlFor="description">
-                <strong>Description:</strong>
-              </label>
-              <input
-                type="text"
-                value={item.description}
-                name="description"
-                className="product-input"
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <FileUpload handleSelectedFiles={handleSelectedFiles} />
-              <div className="flex flex-row justify-center">
-                <button
-                  className="m-2 bg-red-600 w-1/3"
-                  onClick={() => handleCancel()}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="m-2 bg-green-500 w-1/3"
-                  onClick={() => handleSave()}
-                >
-                  Save
-                </button>
+            <form encType="multipart/form-data" onSubmit={handleSave}>
+              <div className="flex flex-col m-7">
+                <label htmlFor="name">
+                  <strong>Name:</strong>
+                </label>
+                <input
+                  type="text"
+                  value={item.name}
+                  name="name"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="price">
+                  <strong>Price:</strong>
+                </label>
+                <input
+                  type="text"
+                  value={item.price}
+                  name="price"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="quantity">
+                  <strong>Quantity:</strong>
+                </label>
+                <input
+                  type="number"
+                  value={item.quantity}
+                  name="quantity"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <label htmlFor="description">
+                  <strong>Description:</strong>
+                </label>
+                <input
+                  type="text"
+                  value={item.description}
+                  name="description"
+                  className="product-input"
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <FileUpload
+                  handleSelectedFiles={handleSelectedFiles}
+                  selected={selected}
+                />
+                <div className="flex flex-row justify-center">
+                  <button
+                    className="m-2 bg-red-600 w-1/3"
+                    onClick={() => handleCancel()}
+                  >
+                    Cancel
+                  </button>
+                  <button className="m-2 bg-green-500 w-1/3">
+                    Save
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           ) : (
             <div className="m-5 product-info" key={product._id}>
-              <img src="" className="product-img"></img>
+              <img src={product.photo} className="product-img"></img>
               <h2>
                 <strong>
                   Product:{" "}
@@ -203,7 +214,7 @@ const Product = ({
         </div>
       ) : (
         <div className="m-5 product-info" key={product._id}>
-          <img src="" className="product-img"></img>
+          <img src={product.photo} className="product-img"></img>
           <h2>
             <strong>
               Product:{" "}

@@ -1,12 +1,12 @@
 const multer = require("multer");
-const uuid = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../client/public/uploads");
+    cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, uuid() + file.originalname);
+    cb(null, uuidv4() + "-" + file.originalname);
   },
 });
 
@@ -17,16 +17,17 @@ const upload = multer({
     if (
       file.mimetype === "image/png" ||
       file.mimetype === "image/jpg" ||
-      file.mimetype === "image/jpeg"
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/svg"
     ) {
       cb(null, true);
     } else {
       cb(null, false);
       return cb(
-        new Error("Only .png .jpg and .jpeg pictures allowed.")
+        new Error("Only .png .jpg  .jpeg and .svg uploads allowed.")
       );
     }
   },
-}).array("multi-files", 5)
+}).single("file");
 
 module.exports = upload;
