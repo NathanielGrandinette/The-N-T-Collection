@@ -18,9 +18,19 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  photos: {
-    type: [String],
-    default: "server/assets/productImages/place-holder.png",
+  photo: {
+    name: {
+      type: String,
+      required: true,
+    },
+    path: {
+      type: String,
+      required: true,
+    },
+    contentType: {
+      type: String,
+      required: true,
+    },
   },
 });
 
