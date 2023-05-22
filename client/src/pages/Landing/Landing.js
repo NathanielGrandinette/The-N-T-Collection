@@ -1,4 +1,4 @@
-import nt from "../assets/the N-T Collection.svg";
+import nt from "../../assets/the N-T Collection.svg";
 import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
