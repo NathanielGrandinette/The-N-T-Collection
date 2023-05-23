@@ -22,10 +22,14 @@ router
   .post(
     verifyToken,
     verifyRole(["admin"]),
+    upload,
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
+      const { path } = req.file
 
-      if (!(name && price && description && quantity)) {
+      console.log(path)
+
+      if (!(name && price && description && quantity && path)) {
         return res
           .status(422)
           .send({ error: "Please fill out all required fields" });
@@ -43,6 +47,7 @@ router
               price,
               description,
               quantity,
+              photo: path
             });
             return res.status(201).send(newProduct);
           }
