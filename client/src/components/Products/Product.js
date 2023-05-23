@@ -56,14 +56,13 @@ const Product = ({
     if (product._id === undefined) {
       const form = new FormData();
       form.append("file", selected);
+      form.append("name", item.name);
+      form.append("price", item.price);
+      form.append("description", item.description);
+      form.append("quantity", item.quantity);
+
       await axios
-        .post("/product", {
-          name: item.name,
-          price: item.price,
-          description: item.description,
-          quantity: item.quantity,
-          form,
-        })
+        .post("/product", form)
         .then((res) => {
           console.log(res);
           toast.success("Product created");
