@@ -12,6 +12,7 @@ router
   .get(async (req, res, next) => {
     try {
       const productList = await Product.find();
+
       return res.status(200).send(productList);
     } catch (error) {
       console.log(error);
@@ -25,9 +26,13 @@ router
     upload,
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
-      const { path } = req.file
 
-      console.log(path)
+      if (!req.file) {
+        return res
+          .status(400)
+          .json({ error: "Please include a product image." });
+      }
+      const { path, originalname, mimetype } = req.file;
 
       if (!(name && price && description && quantity && path)) {
         return res
@@ -47,7 +52,11 @@ router
               price,
               description,
               quantity,
-              photo: path
+              photo: {
+                name: originalname,
+                path: path,
+                contentType: mimetype,
+              },
             });
             return res.status(201).send(newProduct);
           }
@@ -88,7 +97,7 @@ router
     upload, //multer middleware
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
-      const { path } = req.file;
+      const { path, originalname, mimetype } = req.file;
 
       const { id } = req.params;
       const userId = req.user.user_id;
@@ -108,7 +117,11 @@ router
             price,
             description,
             quantity,
-            photo: path,
+            photo: {
+              name: originalname,
+              path: path,
+              contentType: mimetype,
+            },
           });
           return res.status(200).send(updateProduct);
         } catch (error) {

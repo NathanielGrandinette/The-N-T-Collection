@@ -69,6 +69,7 @@ const Product = ({
         })
         .catch((err) => {
           console.log(err);
+          toast.error(err.response.data.error || err.statusText);
           setError(err.response.data.error || err.statusText);
         });
     } else {
@@ -80,7 +81,6 @@ const Product = ({
       form.append("description", item.description);
       form.append("quantity", item.quantity);
 
-      console.log(form);
       await axios
         .put(
           `/product/${product._id}`,
@@ -105,7 +105,6 @@ const Product = ({
     setRefresh(!refresh);
   };
 
-  console.log(selected);
   return (
     <div className="display-card">
       {user &&
@@ -174,7 +173,11 @@ const Product = ({
             </form>
           ) : (
             <div className="m-5 product-info" key={product._id}>
-              <img src={product.photo} className="product-img"></img>
+              <img
+                src={`/${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
+                className="product-img"
+                alt={product.name}
+              />
               <h2>
                 <strong>
                   Product:{" "}
@@ -213,7 +216,11 @@ const Product = ({
         </div>
       ) : (
         <div className="m-5 product-info" key={product._id}>
-          <img src={product.photo} className="product-img"></img>
+          <img
+            src={product.photo?.path || product.photo}
+            className="product-img"
+            alt={product.name}
+          />
           <h2>
             <strong>
               Product:{" "}
