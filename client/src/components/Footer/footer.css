@@ -1,0 +1,48 @@
+.footer {
+    min-height: 50px;
+    background-color: #FDF3E7;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.cart {
+    margin-left: 5px;
+    display: flex;
+}
+
+.cart-product-img {
+    margin: 5px;
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.75);
+    transform-style: preserve-3d;
+    animation: spin 15s linear infinite;
+}
+
+.cart-header {
+    font-weight: bolder;
+    font-size: 20px;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.cart-svg {
+    min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg); 
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}

@@ -10,3 +10,15 @@
     display: flex;
     justify-content: center;
 }
+
+.product-search {
+    background-color: #36454F;
+    border: 2px solid black;
+    color: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}

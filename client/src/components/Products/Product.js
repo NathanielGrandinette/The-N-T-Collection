@@ -3,6 +3,7 @@ import ProductDetail from "../ProductDetail/ProductDetail";
 import { FileUpload } from "../FileUpload/FileUpload";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
+import fileAxios from '../../utils/axiosFileConfig'
 import "./product.css";
 
 const Product = ({
@@ -12,6 +13,7 @@ const Product = ({
   setRefresh,
   user,
   toast,
+  addToCart
 }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
@@ -61,7 +63,7 @@ const Product = ({
       form.append("description", item.description);
       form.append("quantity", item.quantity);
 
-      await axios
+      await fileAxios
         .post("/product", form)
         .then((res) => {
           console.log(res);
@@ -81,11 +83,9 @@ const Product = ({
       form.append("description", item.description);
       form.append("quantity", item.quantity);
 
-      await axios
+      await fileAxios
         .put(
-          `/product/${product._id}`,
-
-          form
+          `/product/${product._id}`, form
         )
         .then((res) => {
           console.log(res);
@@ -240,7 +240,7 @@ const Product = ({
           <div className="w-64 mx-auto flex flex-row justify-center">
             <button
               className="m-2 bg-green-600 w-1/2"
-              onClick={() => setEdit(true)}
+              onClick={() => addToCart(product)}
             >
               Add to Cart
             </button>

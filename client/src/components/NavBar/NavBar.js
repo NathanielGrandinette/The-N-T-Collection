@@ -44,7 +44,7 @@ const NavBar = () => {
   return (
     <div
       id="navigation"
-      className="flex items-center justify-between lg:justify-around border-b border-blue-500 shadow-lg py-8 pb-0"
+      className="flex items-center justify-between lg:justify-around border-b border-blue-500 shadow-lg h-24"
     >
       <Link to="/">
         <BsBag size={30} />
@@ -79,7 +79,7 @@ const NavBar = () => {
           </button>
           <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
             <ul
-              className="menu-link-mobile-open flex flex-col items-center   justify-between min-h-[250px]"
+              className="menu-link-mobile-open flex flex-col items-center justify-between min-h-[250px]"
               onClick={() => setIsNavOpen(false)}
             >
               <Link to="/">

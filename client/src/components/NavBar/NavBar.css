@@ -2,6 +2,10 @@
   display: none;
 }
 
+#navigation {
+  background-color: #FDF3E7;
+}
+
 .showMenuNav {
   display: block;
   position: absolute;

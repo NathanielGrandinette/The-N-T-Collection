@@ -17,6 +17,7 @@ router
   .put(async (req, res) => {
     const { name, email, password, role } = req.body
     const { id } = req.params
+    
     try {
       const user = await User.findByIdAndUpdate(id, {
         name,
@@ -30,7 +31,21 @@ router
       console.log(error)
       return res.status(500).send({ error: "Error processing your request" })
     }
+  })
+  .delete(async (req, res) => {
+    const { id } = req.params
 
+    if(!id) {
+      return res.status(500).send({ error: "Error processing your request" })
+    }
+
+    try {
+      await User.findByIdAndDelete(id)
+      return res.status(200).send({ success: "User deleted" })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).send({ error: "Something went wrong" })
+    }
   })
 
 router.post("/login", async (req, res) => {
