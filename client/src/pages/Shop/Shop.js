@@ -23,13 +23,9 @@ const Shop = () => {
         </div>
       </Carousel>
       <div className="home-products">
-        <div>
-          Sidebar
-        </div>
         <div className="product-display">
           <ProductList />
         </div>
-
       </div>
 
     </div>

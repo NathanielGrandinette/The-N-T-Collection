@@ -8,6 +8,7 @@ import Users from "./components/Users/Users";
 import Landing from "./pages/Landing/Landing";
 import Shop from "./pages/Shop/Shop";
 import NavBar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<Users />} />
       </Routes>
+
+      <Footer />
     </div>
   );
 }

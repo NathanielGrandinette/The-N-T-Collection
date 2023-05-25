@@ -1,6 +1,78 @@
+.user-display {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #36454F;
+}
+
 .user-card {
-    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
     border: 1px solid black;
-    width: 40%;
-    padding: 10px;
+    width: 90%;
+    max-width: 1000px;
+    padding: 25px;
+    min-height: 200px;
+    margin-bottom: 50px;
+    border-radius: 5px;
+    background-color: bisque;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.role-select {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.user-search {
+    background-color: #36454F;
+    border: 2px solid black;
+    color: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.role-select-div {
+    margin-top: 10px;
+}
+
+.delete-user {
+    max-height: 25px;
+    max-width: 25px;
+}
+
+.delete-user svg {
+    color: red;
+    height: 100%;
+    width: 25px;
+    cursor: pointer;
+}
+
+.confirm-delete {
+    border: 1px solid black;
+    background-color: #C04000;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.cancel-button {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    width: 75px;
+    background-color: #6C7B8B;
+}
+
+button:hover {
+    transform: scale3d(1.1, 1.1, 1.1);
 }

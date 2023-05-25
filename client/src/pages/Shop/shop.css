@@ -1,8 +1,5 @@
 .product-display {
-    max-width: 75%;
-    max-height: 1500px;
-    border: 1px solid black;
-    overflow: scroll;
+    width: 100%;
 }
 
 .home-products {
