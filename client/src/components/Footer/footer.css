@@ -38,6 +38,22 @@
     align-content: center;
 }
 
+.subtotal {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.product svg {
+    color: red;
+    cursor: pointer;
+}
+
 @keyframes spin {
     from {
         transform: rotateY(0deg); 

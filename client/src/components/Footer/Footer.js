@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { TiDelete } from 'react-icons/ti'
 import { BsBag } from "react-icons/bs";
 import "./footer.css"
 
 const Footer = () => {
-    const [cart, setCart] = useState()
-    const [open, setOpen] = useState(false)
+    const [cart, setCart] = useState([])
+    const [open, setOpen] = useState(true)
 
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem("Cart")))
-    }, [])
+    }, [open])
+
+    const getTotal = () => {
+        let total = 0
+        cart && cart.map((product) => {
+            total += product.price
+        })
+        return parseFloat(total.toFixed(2))
+    }
+
+    const removeFromCart = (id) => {
+        localStorage.setItem("Cart", JSON.stringify(cart.filter((product) => {
+            return product._id !== id
+        })))
+    }
 
     return (
         <div className="footer" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
@@ -18,9 +33,10 @@ const Footer = () => {
                         Cart:
                     </h3>
                     <div className="cart">
-                        {cart ? cart.map((product) => {
+                        {cart.length > 0 ? cart.map((product) => {
                             return (
-                                <div className="product">
+                                <div className="product" testId={product._id}>
+                                    <TiDelete onClick={() => removeFromCart(product._id)}/>
                                     <img
                                         src={product.photo?.path || product.photo}
                                         className="cart-product-img"
@@ -30,10 +46,13 @@ const Footer = () => {
                             )
                         }) : "Your cart is empty"}
                     </div>
+                    <div className="subtotal">
+                        Subtotal: ${getTotal()}
+                    </div>
                 </div>
                 :
                 <div className="cart-svg">
-                    <BsBag size={30}/>
+                    <BsBag size={30} />
                 </div>
             }
         </div>
