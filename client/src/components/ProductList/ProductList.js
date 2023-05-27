@@ -21,12 +21,12 @@ const ProductList = () => {
 
   const searchProduct = (e) => {
     setProductSearch(e.target.value)
-    if(e.target.value.length === 0) {
+    if (e.target.value.length === 0) {
       getProducts()
       return
     }
     productSearch && setProducts(products.filter((product) => {
-      if(product.name.toLowerCase().includes(productSearch.toLowerCase())) {
+      if (product.name.toLowerCase().includes(productSearch.toLowerCase())) {
         return product
       }
     }))
@@ -35,12 +35,15 @@ const ProductList = () => {
   const addToCart = (product) => {
     setCart([...cart, product])
     localStorage.setItem("Cart", JSON.stringify([...cart, product]))
+    setRefresh(!refresh)
   }
 
   useEffect(() => {
     getProducts();
-    setCart(JSON.parse(localStorage.getItem("Cart")))
-  }, [refresh]);
+    if (localStorage.getItem("Cart")) {
+      setCart(JSON.parse(localStorage.getItem("Cart")))
+    }
+  }, []);
 
   return (
     <div style={{ backgroundColor: '#36454F', padding: "25px", minHeight: '100vh' }}>
