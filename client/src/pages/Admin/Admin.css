@@ -1,0 +1,14 @@
+.select-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-buttons {
+    border: 1px solid black;
+    padding: 2px;
+    margin: 5px;
+    border-radius: 5px;
+}

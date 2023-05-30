@@ -95,7 +95,7 @@ const NavBar = () => {
                 <li>
                   {" "}
                   <Link
-                    to="/users"
+                    to="/admin"
                     className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
                   >
                     Admin

@@ -5,7 +5,7 @@ import useCart from "../../hooks/useCart";
 import "./footer.css";
 
 const Footer = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const { cart, getCart, setCart, setCartChange } = useCart();
 
