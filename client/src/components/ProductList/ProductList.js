@@ -5,12 +5,14 @@ import "./productlist.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/AuthContext";
+import useCart from "../../hooks/useCart";
 
 const ProductList = () => {
   const [products, setProducts] = useState();
   const [refresh, setRefresh] = useState(false);
-  const [productSearch, setProductSearch] = useState()
-  const [cart, setCart] = useState([])
+  const [productSearch, setProductSearch] = useState();
+
+  const { cart, addProductToCart } = useCart();
 
   const { user } = useContext(AuthContext);
 
@@ -19,41 +21,38 @@ const ProductList = () => {
     setProducts(productList.data);
   };
 
-  const getCart = () => {
-    if (localStorage.getItem("Cart")) {
-      setCart(JSON.parse(localStorage.getItem("Cart")))
-    }
-  }
-
   const searchProduct = (e) => {
-    setProductSearch(e.target.value)
+    setProductSearch(e.target.value);
     if (e.target.value.length === 0) {
-      getProducts()
-      return
+      getProducts();
+      return;
     }
-    productSearch && setProducts(products.filter((product) => {
-      if (product.name.toLowerCase().includes(productSearch.toLowerCase())) {
-        return product
-      }
-    }))
-  }
-
-  const addToCart = (product) => {
-    setCart([...cart, product])
-    localStorage.setItem("Cart", JSON.stringify([...cart, product]))
-    setRefresh(!refresh)
-  }
+    productSearch &&
+      setProducts(
+        products.filter((product) => {
+          if (
+            product.name
+              .toLowerCase()
+              .includes(productSearch.toLowerCase())
+          ) {
+            return product;
+          }
+        })
+      );
+  };
 
   useEffect(() => {
     getProducts();
-  }, [refresh]);
-
-  useEffect(() => {
-    getCart()
-  }, [])
+  }, []);
 
   return (
-    <div style={{ backgroundColor: '#36454F', padding: "25px", minHeight: '100vh' }}>
+    <div
+      style={{
+        backgroundColor: "#36454F",
+        padding: "25px",
+        minHeight: "100vh",
+      }}
+    >
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -63,15 +62,24 @@ const ProductList = () => {
         pauseOnHover
         theme="dark"
       />
-      <h1 style={{ textAlign: "center", color: "white", fontWeight: "bolder", fontSize: "50px", padding: "25px" }}>Shop Products</h1>
+      <h1
+        style={{
+          textAlign: "center",
+          color: "white",
+          fontWeight: "bolder",
+          fontSize: "50px",
+          padding: "25px",
+        }}
+      >
+        Shop Products
+      </h1>
       <div className="w-full flex justify-center">
         <input
-          className='product-search'
+          className="product-search"
           placeholder="Search Products"
           value={productSearch}
           onChange={(e) => searchProduct(e)}
-        >
-        </input>
+        ></input>
       </div>
 
       <div className="product-list-cards">
@@ -85,7 +93,7 @@ const ProductList = () => {
                 refresh={refresh}
                 product={product}
                 getProducts={getProducts}
-                addToCart={addToCart}
+                addProductToCart={addProductToCart}
                 toast={toast}
               />
             );

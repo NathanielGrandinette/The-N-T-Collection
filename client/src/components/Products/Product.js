@@ -3,7 +3,7 @@ import ProductDetail from "../ProductDetail/ProductDetail";
 import { FileUpload } from "../FileUpload/FileUpload";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
-import fileAxios from '../../utils/axiosFileConfig'
+import fileAxios from "../../utils/axiosFileConfig";
 import "./product.css";
 
 const Product = ({
@@ -13,7 +13,7 @@ const Product = ({
   setRefresh,
   user,
   toast,
-  addToCart
+  addProductToCart,
 }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
@@ -84,9 +84,7 @@ const Product = ({
       form.append("quantity", item.quantity);
 
       await fileAxios
-        .put(
-          `/product/${product._id}`, form
-        )
+        .put(`/product/${product._id}`, form)
         .then((res) => {
           console.log(res);
           toast.success("Product updated");
@@ -240,7 +238,7 @@ const Product = ({
           <div className="w-64 mx-auto flex flex-row justify-center">
             <button
               className="m-2 bg-green-600 w-1/2"
-              onClick={() => addToCart(product)}
+              onClick={() => addProductToCart(product)}
             >
               Add to Cart
             </button>
