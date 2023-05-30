@@ -37,7 +37,7 @@ const Login = () => {
           JSON.stringify(res.data?.user)
         );
         setUser(res.data?.user);
-        navigate("/productlist", { replace: true });
+        navigate("/shop", { replace: true });
       })
       .catch((err) =>
         setFormData({

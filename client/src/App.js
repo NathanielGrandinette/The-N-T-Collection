@@ -9,6 +9,7 @@ import Landing from "./pages/Landing/Landing";
 import Shop from "./pages/Shop/Shop";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import Admin from "./pages/Admin/Admin";
 
 function App() {
   return (
@@ -19,14 +20,13 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/productlist" element={<ProductList />} />
+        <Route path='/admin' element={<Admin />} />
         <Route
           path="/productdetail/:productId"
           element={<ProductDetail />}
         />
         <Route path="/productcard" element={<ProductCards />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/users" element={<Users />} />
       </Routes>
 
       <Footer />

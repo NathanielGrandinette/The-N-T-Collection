@@ -13,23 +13,32 @@ const useCart = () => {
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
 
-    savedCart ? setCart(savedCart) : setCart(initialCart);
+    savedCart && setCart(savedCart);
+    console.log('1')
   };
 
   const getTotal = () => {
-    if (cart.cart.length === 0) {
-      return;
-    }
     let total = 0;
     cart?.cart &&
       cart.cart.map((product) => (total += product.price));
+      console.log('2')
+
     return parseFloat(total.toFixed(2));
   };
 
   useEffect(() => {
     getCart();
+    console.log('3')
+
   }, [cartChange]);
 
+  useEffect(() => {
+    localStorage.setItem("Cart", JSON.stringify(cart))
+    console.log('4')
+
+  }, [cart])
+
+  console.log(cart)
   const addProductToCart = (product) => {
     setCart((prev) => ({
       ...prev,
@@ -37,7 +46,6 @@ const useCart = () => {
       totalItems: cart.cart.length + 1,
       cartTotal: getTotal(),
     }));
-    localStorage.setItem("Cart", JSON.stringify(cart));
   };
   return { cart, addProductToCart, getCart, setCart, setCartChange };
 };
