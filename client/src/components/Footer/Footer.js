@@ -33,7 +33,7 @@ const Footer = () => {
                         Cart:
                     </h3>
                     <div className="cart">
-                        {cart.length > 0 ? cart.map((product) => {
+                        {cart?.length > 0 ? cart.map((product) => {
                             return (
                                 <div className="product" testId={product._id}>
                                     <TiDelete onClick={() => removeFromCart(product._id)}/>
