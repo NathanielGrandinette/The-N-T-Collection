@@ -51,7 +51,7 @@ const ProductList = () => {
         backgroundColor: "#36454F",
         padding: "25px",
         minHeight: "100vh",
-        marginBottom: "75px"
+        marginBottom: "75px",
       }}
     >
       <ToastContainer
@@ -63,18 +63,21 @@ const ProductList = () => {
         pauseOnHover
         theme="dark"
       />
-      {window.location.pathname === "/shop" ? 
-      <h1
-        style={{
-          textAlign: "center",
-          color: "white",
-          fontWeight: "bolder",
-          fontSize: "50px",
-          padding: "25px",
-        }}
-      >
-        Shop Products
-      </h1> : "" }
+      {window.location.pathname === "/shop" ? (
+        <h1
+          style={{
+            textAlign: "center",
+            color: "white",
+            fontWeight: "bolder",
+            fontSize: "50px",
+            padding: "25px",
+          }}
+        >
+          Shop Products
+        </h1>
+      ) : (
+        ""
+      )}
       <div className="w-full flex justify-center">
         <input
           className="product-search"
