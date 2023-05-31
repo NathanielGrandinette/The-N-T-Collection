@@ -5,19 +5,20 @@ import useCart from "../../hooks/useCart";
 import "./footer.css";
 
 const Footer = () => {
-  const [open, setOpen] = useState(false);
-
-  const { cart, getCart, setCart, setCartChange } = useCart();
+  const {
+    cart,
+    getCart,
+    setCart,
+    setCartChange,
+    removeFromCart,
+    open,
+    setOpen,
+  } = useCart();
 
   useEffect(() => {
     getCart(); // get cart every time the footer opens
   }, [open]);
-
-  const removeFromCart = (id) => {
-    setCart(cart.cart.filter((item) => item._id !== id));
-    setCartChange((prevState) => !prevState);
-  };
-
+  console.log("footer", cart?.cart?.length);
   return (
     <div
       className="footer"
@@ -28,7 +29,7 @@ const Footer = () => {
         <div>
           <h3 className="cart-header">Cart:</h3>
           <div className="cart">
-            {cart && cart.cart?.length > 0
+            {cart.cart?.length > 0
               ? cart.cart.map((product) => {
                   return (
                     <div className="product" testId={product._id}>

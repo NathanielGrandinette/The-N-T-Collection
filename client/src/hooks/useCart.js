@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export const initialCart = {
   cart: [],
@@ -9,45 +9,70 @@ export const initialCart = {
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
   const [cartChange, setCartChange] = useState(false);
+  const [open, setOpen] = useState(false); //for footer
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
 
-    savedCart && setCart(savedCart);
-    console.log('1')
+    if (savedCart && savedCart.totalItems === 0) {
+      setCart(initialCart);
+    } else if (savedCart) {
+      setCart(savedCart);
+    }
   };
 
   const getTotal = () => {
     let total = 0;
     cart?.cart &&
-      cart.cart.map((product) => (total += product.price));
-      console.log('2')
+      cart.cart.forEach((product) => (total += product.price)); //I was using .map before but I think this is more efficient because map creates a new array.
+    console.log("2");
 
     return parseFloat(total.toFixed(2));
   };
 
   useEffect(() => {
     getCart();
-    console.log('3')
-
-  }, [cartChange]);
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("Cart", JSON.stringify(cart))
-    console.log('4')
+    localStorage.setItem("Cart", JSON.stringify(cart));
+    console.log("4");
+  }, [cart]);
 
-  }, [cart])
-
-  console.log(cart)
+  console.log(cart);
   const addProductToCart = (product) => {
-    setCart((prev) => ({
-      ...prev,
-      cart: [...prev.cart, product],
+    setCart({
+      ...cart,
+      cart: [...cart.cart, product],
       totalItems: cart.cart.length + 1,
       cartTotal: getTotal(),
-    }));
+    });
   };
-  return { cart, addProductToCart, getCart, setCart, setCartChange };
+
+  const removeFromCart = (id) => {
+    const updatedCart = cart.cart.filter((item) => id !== item._id);
+
+    console.log(updatedCart);
+
+    setCart({
+      ...cart,
+      cart: updatedCart,
+      totalItems: cart.cart.length - 1,
+      cartTotal: getTotal(),
+    });
+    localStorage.setItem("Cart", JSON.stringify(updatedCart));
+    setOpen((open) => !open);
+  };
+  return {
+    cart,
+    addProductToCart,
+    getCart,
+    setCart,
+    setCartChange,
+    removeFromCart,
+    open,
+    setOpen,
+  };
 };
 
 export default useCart;

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import "./index.css";
 import App from "./App";
 import { ProvideAuth } from "./context/AuthContext";
@@ -8,11 +9,13 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ProvideAuth>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ProvideAuth>
+  <ErrorBoundary fallback="There has been an error...">
+    <ProvideAuth>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ProvideAuth>
+  </ErrorBoundary>
 );
 
 // If you want to start measuring performance in your app, pass a function
