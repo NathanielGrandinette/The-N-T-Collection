@@ -12,7 +12,7 @@ const ProductList = () => {
   const [refresh, setRefresh] = useState(false);
   const [productSearch, setProductSearch] = useState();
 
-  const { cart, addProductToCart } = useCart();
+
 
   const { user } = useContext(AuthContext);
 
@@ -98,7 +98,6 @@ const ProductList = () => {
                 refresh={refresh}
                 product={product}
                 getProducts={getProducts}
-                addProductToCart={addProductToCart}
                 toast={toast}
               />
             );
