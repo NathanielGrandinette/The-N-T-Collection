@@ -8,7 +8,6 @@ export const initialCart = {
 
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
-  const [cartChange, setCartChange] = useState(false);
   const [open, setOpen] = useState(false); //for footer
 
   const getCart = () => {
@@ -39,11 +38,11 @@ const useCart = () => {
     console.log("4");
   }, [cart]);
 
-  console.log(cart);
   const addProductToCart = (product) => {
+    console.log(cart.cart);
     setCart({
       ...cart,
-      cart: [...cart.cart, product],
+      cart: [...cart?.cart, product],
       totalItems: cart.cart.length + 1,
       cartTotal: getTotal(),
     });
@@ -52,23 +51,20 @@ const useCart = () => {
   const removeFromCart = (id) => {
     const updatedCart = cart.cart.filter((item) => id !== item._id);
 
-    console.log(updatedCart);
-
     setCart({
       ...cart,
       cart: updatedCart,
-      totalItems: cart.cart.length - 1,
+      totalItems: updatedCart.length,
       cartTotal: getTotal(),
     });
-    localStorage.setItem("Cart", JSON.stringify(updatedCart));
-    setOpen((open) => !open);
+    localStorage.setItem("Cart", JSON.stringify(cart));
+    // setOpen((open) => !open); when I commented this out, the delete seemed to work
   };
   return {
     cart,
     addProductToCart,
     getCart,
     setCart,
-    setCartChange,
     removeFromCart,
     open,
     setOpen,

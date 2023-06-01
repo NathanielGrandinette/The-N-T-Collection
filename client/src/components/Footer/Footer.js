@@ -2,24 +2,18 @@ import React, { useState, useEffect } from "react";
 import { TiDelete } from "react-icons/ti";
 import { Badge } from "@mui/material";
 import { BsBag } from "react-icons/bs";
-import useCart from "../../hooks/useCart";
+import { useCartContext } from "../../context/CartContex";
 import "./footer.css";
 
 const Footer = () => {
-  const {
-    cart,
-    getCart,
-    setCart,
-    setCartChange,
-    removeFromCart,
-    open,
-    setOpen,
-  } = useCart();
+  const { cart, getCart, removeFromCart, open, setOpen } =
+    useCartContext();
 
   useEffect(() => {
     getCart(); // get cart every time the footer opens
   }, [open]);
-  console.log("footer", cart?.cart?.length);
+
+  
   return (
     <div
       className="footer"
