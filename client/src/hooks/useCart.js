@@ -12,7 +12,7 @@ const useCart = () => {
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
-
+    console.log("saved cart", savedCart)
     if (savedCart && savedCart.totalItems === 0) {
       setCart(initialCart);
     } else if (savedCart) {
@@ -24,7 +24,6 @@ const useCart = () => {
     let total = 0;
     cart?.cart &&
       cart.cart.forEach((product) => (total += product.price)); //I was using .map before but I think this is more efficient because map creates a new array.
-    console.log("2");
 
     return parseFloat(total.toFixed(2));
   };
