@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
 import fileAxios from "../../utils/axiosFileConfig";
 import "./product.css";
+import useCart from "../../hooks/useCart";
 
 const Product = ({
   product,
@@ -13,12 +14,13 @@ const Product = ({
   setRefresh,
   user,
   toast,
-  addProductToCart,
 }) => {
   const [edit, setEdit] = useState(false);
   const [item, setItem] = useState({});
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("");
+
+  const { addProductToCart } = useCart();
 
   useEffect(() => {
     if (product.name === "") {

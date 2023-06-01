@@ -9,7 +9,6 @@ const Footer = () => {
     cart,
     getCart,
     setCart,
-    setCartChange,
     removeFromCart,
     open,
     setOpen,
@@ -18,7 +17,7 @@ const Footer = () => {
   useEffect(() => {
     getCart(); // get cart every time the footer opens
   }, [open]);
-  console.log("footer", cart?.cart?.length);
+
   return (
     <div
       className="footer"

@@ -13,7 +13,7 @@ const useCart = () => {
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
-
+    console.log("saved cart", savedCart)
     if (savedCart && savedCart.totalItems === 0) {
       setCart(initialCart);
     } else if (savedCart) {
@@ -25,7 +25,6 @@ const useCart = () => {
     let total = 0;
     cart?.cart &&
       cart.cart.forEach((product) => (total += product.price)); //I was using .map before but I think this is more efficient because map creates a new array.
-    console.log("2");
 
     return parseFloat(total.toFixed(2));
   };
@@ -39,28 +38,28 @@ const useCart = () => {
     console.log("4");
   }, [cart]);
 
-  console.log(cart);
+  console.log("Cart", cart)
   const addProductToCart = (product) => {
-    setCart({
-      ...cart,
-      cart: [...cart.cart, product],
-      totalItems: cart.cart.length + 1,
-      cartTotal: getTotal(),
-    });
+    setCart((prevCart) => {
+      const updatedCart = {
+        ...prevCart,
+        cart: [...prevCart.cart, product],
+        totalItems: prevCart.totalItems + 1,
+        cartTotal: prevCart.cartTotal + product.price
+      }
+      return updatedCart
+    })
   };
 
   const removeFromCart = (id) => {
     const updatedCart = cart.cart.filter((item) => id !== item._id);
 
-    console.log(updatedCart);
-
-    setCart({
-      ...cart,
+    setCart((prevCart) => ({
+      ...prevCart,
       cart: updatedCart,
-      totalItems: cart.cart.length - 1,
+      totalItems: prevCart.totalItems - 1,
       cartTotal: getTotal(),
-    });
-    localStorage.setItem("Cart", JSON.stringify(updatedCart));
+    }));
     setOpen((open) => !open);
   };
   return {
@@ -68,7 +67,6 @@ const useCart = () => {
     addProductToCart,
     getCart,
     setCart,
-    setCartChange,
     removeFromCart,
     open,
     setOpen,
