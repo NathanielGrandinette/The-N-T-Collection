@@ -12,6 +12,8 @@ const ProductList = () => {
   const [refresh, setRefresh] = useState(false);
   const [productSearch, setProductSearch] = useState();
 
+
+
   const { user } = useContext(AuthContext);
 
   const getProducts = async () => {

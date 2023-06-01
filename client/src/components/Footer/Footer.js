@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { TiDelete } from "react-icons/ti";
+import { Badge } from "@mui/material";
 import { BsBag } from "react-icons/bs";
-import useCart from "../../hooks/useCart";
+import { useCartContext } from "../../context/CartContex";
 import "./footer.css";
 
 const Footer = () => {
-  const {
-    cart,
-    getCart,
-    setCart,
-    removeFromCart,
-    open,
-    setOpen,
-  } = useCart();
+  const { cart, getCart, removeFromCart, open, setOpen } =
+    useCartContext();
 
   useEffect(() => {
     getCart(); // get cart every time the footer opens
   }, [open]);
 
+  
   return (
     <div
       className="footer"
@@ -29,9 +25,13 @@ const Footer = () => {
           <h3 className="cart-header">Cart:</h3>
           <div className="cart">
             {cart.cart?.length > 0
-              ? cart.cart.map((product) => {
+              ? cart.cart.map((product, i) => {
                   return (
-                    <div className="product" testId={product._id}>
+                    <div
+                      className="product"
+                      testId={product._id}
+                      key={i}
+                    >
                       <TiDelete
                         onClick={() => removeFromCart(product._id)}
                       />
@@ -49,7 +49,9 @@ const Footer = () => {
         </div>
       ) : (
         <div className="cart-svg">
-          <BsBag size={30} />
+          <Badge badgeContent={cart?.totalItems} color="primary">
+            <BsBag size={30} />
+          </Badge>
         </div>
       )}
     </div>

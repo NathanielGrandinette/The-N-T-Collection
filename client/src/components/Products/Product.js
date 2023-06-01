@@ -4,6 +4,7 @@ import { FileUpload } from "../FileUpload/FileUpload";
 import { Link } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
 import fileAxios from "../../utils/axiosFileConfig";
+import { useCartContext } from "../../context/CartContex";
 import "./product.css";
 import useCart from "../../hooks/useCart";
 
@@ -20,7 +21,7 @@ const Product = ({
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("");
 
-  const { addProductToCart } = useCart();
+  const { addProductToCart } = useCartContext();
 
   useEffect(() => {
     if (product.name === "") {

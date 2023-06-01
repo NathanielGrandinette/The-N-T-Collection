@@ -6,15 +6,18 @@ import App from "./App";
 import { ProvideAuth } from "./context/AuthContext";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import { CartProvider } from "./context/CartContex";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ErrorBoundary fallback="There has been an error...">
-    <ProvideAuth>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ProvideAuth>
+    <CartProvider>
+      <ProvideAuth>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ProvideAuth>
+    </CartProvider>
   </ErrorBoundary>
 );
 
