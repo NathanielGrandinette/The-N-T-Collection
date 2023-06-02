@@ -12,13 +12,14 @@ const useCart = () => {
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
-
+    console.log("saved cart", savedCart)
     if (savedCart && savedCart.totalItems === 0) {
       setCart(initialCart);
     } else if (savedCart) {
       setCart(savedCart);
     }
   };
+
 
   const getTotal = (cartItems) => {
     const total = cartItems.reduce(

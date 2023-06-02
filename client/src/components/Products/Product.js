@@ -6,6 +6,7 @@ import axios from "../../utils/axiosConfig";
 import fileAxios from "../../utils/axiosFileConfig";
 import { useCartContext } from "../../context/CartContex";
 import "./product.css";
+import useCart from "../../hooks/useCart";
 
 const Product = ({
   product,
