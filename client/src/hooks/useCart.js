@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 export const initialCart = {
   items: [],
@@ -8,25 +8,29 @@ export const initialCart = {
 
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
-  const [open, setOpen] = useState(false); //for footer
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
 
-    if (savedCart && savedCart.totalItems === 0) {
+    if (savedCart && savedCart.cartTotal <= 0) {
       setCart(initialCart);
     } else if (savedCart) {
       setCart(savedCart);
     }
   };
 
-  const getTotal = (cartItems) => {
+  const getCartTotal = (cartItems) => {
     const total = cartItems.reduce(
       (acc, item) => acc + item.price * item.shopped,
       0
     );
 
     return parseFloat(total.toFixed(2));
+  };
+
+  //get total items in cart including item.shopped.
+  const getTotalCartItems = (cartItems) => {
+    return cartItems.reduce((total, item) => total + item.shopped, 0);
   };
 
   useEffect(() => {
@@ -45,6 +49,7 @@ const useCart = () => {
 
     if (checkExistingItemIndex !== -1) {
       cartCopy[checkExistingItemIndex].shopped += 1;
+      cart.totalItems += 1;
     } else {
       product.shopped = 1;
       cartCopy.push(product);
@@ -53,8 +58,8 @@ const useCart = () => {
     setCart({
       ...cart,
       items: cartCopy,
-      totalItems: cartCopy.length,
-      cartTotal: getTotal(cartCopy),
+      totalItems: getTotalCartItems(cartCopy),
+      cartTotal: getCartTotal(cartCopy),
     });
   };
 
@@ -75,8 +80,9 @@ const useCart = () => {
     setCart({
       ...cart,
       items: cartCopy,
-      totalItems: cart.totalItems - 1,
-      cartTotal: getTotal(cartCopy),
+      totalItems:
+        cartCopy.length > 0 ? getTotalCartItems(cartCopy) : 0,
+      cartTotal: getCartTotal(cartCopy),
     });
   };
   return {
@@ -85,8 +91,6 @@ const useCart = () => {
     getCart,
     setCart,
     removeFromCart,
-    open,
-    setOpen,
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { Badge } from "@mui/material";
 import { BsBag } from "react-icons/bs";
@@ -6,8 +6,8 @@ import { useCartContext } from "../../context/CartContex";
 import "./footer.css";
 
 const Footer = () => {
-  const { cart, getCart, removeFromCart, open, setOpen } =
-    useCartContext();
+  const [open, setOpen] = useState(false); //for footer
+  const { cart, getCart, removeFromCart } = useCartContext();
 
   useEffect(() => {
     getCart(); // get cart every time the footer opens
@@ -35,7 +35,9 @@ const Footer = () => {
                         onClick={() => removeFromCart(product._id)}
                       />
                       <Badge
-                        badgeContent={product.shopped}
+                        badgeContent={
+                          product.shopped > 1 ? product.shopped : null
+                        }
                         color="primary"
                         anchorOrigin={{
                           vertical: "bottom",
