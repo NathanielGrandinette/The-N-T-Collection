@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 
 export const initialCart = {
-  cart: [],
+  items: [],
   totalItems: 0,
   cartTotal: 0,
 };
@@ -20,10 +20,12 @@ const useCart = () => {
     }
   };
 
-  const getTotal = () => {
-    let total = 0;
-    cart?.cart &&
-      cart.cart.forEach((product) => (total += product.price)); //I was using .map before but I think this is more efficient because map creates a new array.
+
+  const getTotal = (cartItems) => {
+    const total = cartItems.reduce(
+      (acc, item) => acc + item.price * item.shopped,
+      0
+    );
 
     return parseFloat(total.toFixed(2));
   };
@@ -34,30 +36,49 @@ const useCart = () => {
 
   useEffect(() => {
     localStorage.setItem("Cart", JSON.stringify(cart));
-    console.log("4");
   }, [cart]);
 
   const addProductToCart = (product) => {
-    console.log(cart.cart);
+    const cartCopy = [...cart.items];
+    const checkExistingItemIndex = cartCopy.findIndex(
+      (item) => item._id === product._id
+    );
+
+    if (checkExistingItemIndex !== -1) {
+      cartCopy[checkExistingItemIndex].shopped += 1;
+    } else {
+      product.shopped = 1;
+      cartCopy.push(product);
+    }
+
     setCart({
       ...cart,
-      cart: [...cart?.cart, product],
-      totalItems: cart.cart.length + 1,
-      cartTotal: getTotal(),
+      items: cartCopy,
+      totalItems: cartCopy.length,
+      cartTotal: getTotal(cartCopy),
     });
   };
 
   const removeFromCart = (id) => {
-    const updatedCart = cart.cart.filter((item) => id !== item._id);
+    const cartCopy = [...cart.items];
+    const existingItemIndex = cartCopy.findIndex(
+      (item) => item._id === id
+    );
+
+    if (existingItemIndex !== -1) {
+      const existingItem = cartCopy[existingItemIndex];
+      existingItem.shopped -= 1;
+      if (existingItem.shopped === 0) {
+        cartCopy.splice(existingItemIndex, 1); //delete item if shopped is 0
+      }
+    }
 
     setCart({
       ...cart,
-      cart: updatedCart,
-      totalItems: updatedCart.length,
-      cartTotal: getTotal(),
+      items: cartCopy,
+      totalItems: cart.totalItems - 1,
+      cartTotal: getTotal(cartCopy),
     });
-    localStorage.setItem("Cart", JSON.stringify(cart));
-    // setOpen((open) => !open); when I commented this out, the delete seemed to work
   };
   return {
     cart,
