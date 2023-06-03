@@ -1,0 +1,21 @@
+.carousel {
+  min-height: 750px;
+  width: 100%;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel:last-child {
+  display: none;
+}
+
+.carousel-img {
+  height: 750px;
+  cursor: pointer;
+}
+
+.carousel-img img {
+  height: 100%;
+}
