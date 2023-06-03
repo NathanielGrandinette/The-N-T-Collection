@@ -45,7 +45,9 @@ const Footer = () => {
                         }}
                       >
                         <img
-                          src={product.photo?.path || product.photo}
+                          src={`/${
+                            product.photo.path || product.photo
+                          }`}
                           className="cart-product-img"
                           alt={product.name}
                         />
