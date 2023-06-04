@@ -13,11 +13,14 @@ const ProductCarousel = () => {
     navigate(`/productdetail/${productId}`);
   };
 
+  const featuredProducts =
+    products && products?.filter((product) => product.featured);
+
   return (
     <div>
       <Carousel autoPlay={true} infiniteLoop={true} interval={5000}>
         {products &&
-          products.map((product) => (
+          featuredProducts.map((product) => (
             <div
               className="carousel-img"
               onClick={() => handleClickPhoto(product._id)}
