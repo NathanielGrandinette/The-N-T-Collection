@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "../../utils/axiosConfig";
 import { Switch, FormControlLabel, FormControl } from "@mui/material";
 
