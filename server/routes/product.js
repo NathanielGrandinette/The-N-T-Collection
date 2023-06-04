@@ -162,4 +162,33 @@ router
     }
   );
 
+/*
+@PUT
+@ Protected - Admin
+@ /product/featured
+*/
+router.route("/featured/:productId").put(
+  verifyToken,
+  verifyRole(["admin"]),
+
+  async (req, res, next) => {
+    const { isFeatured } = req.body;
+
+    const { productId } = req.params;
+
+    try {
+      const updateProduct = await Product.findByIdAndUpdate(
+        productId,
+        {
+          featured: isFeatured ? isFeatured : false,
+        }
+      );
+      return res.status(200).send(updateProduct);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({ error: "Something went wrong" });
+    }
+  }
+);
+
 module.exports = router;

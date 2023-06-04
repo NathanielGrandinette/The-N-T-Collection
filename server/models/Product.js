@@ -32,6 +32,9 @@ const ProductSchema = new mongoose.Schema({
       required: true,
     },
   },
+  featured: {
+    type: Boolean,
+  },
 });
 
 const Product = mongoose.model("Product", ProductSchema);
