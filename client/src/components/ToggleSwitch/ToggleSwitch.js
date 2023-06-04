@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "../../utils/axiosConfig";
 import { Switch, FormControlLabel, FormControl } from "@mui/material";
 
-const ToggleSwitch = ({ productId }) => {
-  const [isFeatured, setIsFeatured] = useState(false);
+const ToggleSwitch = ({ product }) => {
+  const [isFeatured, setIsFeatured] = useState(
+    product.featured || false
+  );
 
   const handleFeatured = async (e) => {
     console.log(isFeatured);
     await axios
-      .put(`/product/featured/${productId}`, {
+      .put(`/product/featured/${product._id}`, {
         isFeatured: !isFeatured,
       })
       .then((res) => {
@@ -21,7 +23,7 @@ const ToggleSwitch = ({ productId }) => {
     const { checked } = e.target;
     setIsFeatured(checked);
   };
-
+  console.log(product);
   return (
     <FormControl component="fieldset" onClick={handleFeatured}>
       <FormControlLabel

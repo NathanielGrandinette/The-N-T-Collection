@@ -196,7 +196,7 @@ const Product = ({
                 {product.description}
               </div>
               <div className="w-64 mx-auto flex flex-row justify-center">
-                <ToggleSwitch productId={product._id} />
+                <ToggleSwitch product={product} />
                 <button
                   className="m-2 bg-teal-500 w-1/3"
                   onClick={() => setEdit(true)}
