@@ -4,14 +4,16 @@ import axios from "../utils/axiosConfig";
 function useGetProducts() {
   const [products, setProducts] = useState("");
 
+  const getProducts = async () => {
+    const productList = await axios.get("/product");
+    setProducts(productList.data);
+  };
+
   useEffect(() => {
-    axios
-      .get("/product")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err));
+    getProducts();
   }, []);
 
-  return products;
+  return { products, setProducts, getProducts };
 }
 
 export default useGetProducts;

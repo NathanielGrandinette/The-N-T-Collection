@@ -7,12 +7,18 @@ const verifyRole = require("../middleware/role");
 
 const router = express.Router();
 
+const populateProductOwner = {
+  path: "productOwner",
+  select: "email",
+};
+
 router
   .route("/")
   .get(async (req, res, next) => {
     try {
-      const productList = await Product.find();
-
+      const productList = await Product.find().populate(
+        populateProductOwner
+      );
       return res.status(200).send(productList);
     } catch (error) {
       console.log(error);
@@ -26,6 +32,7 @@ router
     upload,
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
+      console.log(req.user);
 
       if (!req.file) {
         return res
@@ -57,6 +64,7 @@ router
                 path: path,
                 contentType: mimetype,
               },
+              productOwner: req.user.user_id,
             });
             return res.status(201).send(newProduct);
           }

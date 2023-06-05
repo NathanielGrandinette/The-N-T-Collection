@@ -8,13 +8,12 @@ const ToggleSwitch = ({ product }) => {
   );
 
   const handleFeatured = async (e) => {
-    console.log(isFeatured);
     await axios
       .put(`/product/featured/${product._id}`, {
         isFeatured: !isFeatured,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.status);
       })
       .catch((err) => console.log(err));
   };
@@ -23,17 +22,18 @@ const ToggleSwitch = ({ product }) => {
     const { checked } = e.target;
     setIsFeatured(checked);
   };
-  console.log(product);
+
   return (
     <FormControl component="fieldset" onClick={handleFeatured}>
       <FormControlLabel
         value="bottom"
         control={
           <Switch
-            color="primary"
+            color="info"
             onChange={handleToggleChange}
             checked={isFeatured}
             inputProps={{ "aria-label": "controlled" }}
+            size="small"
           />
         }
         label={isFeatured ? "Featured" : "Make Featured"}

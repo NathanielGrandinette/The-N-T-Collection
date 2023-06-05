@@ -35,6 +35,12 @@ const ProductSchema = new mongoose.Schema({
   featured: {
     type: Boolean,
   },
+
+  productOwner: {
+    type: ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 const Product = mongoose.model("Product", ProductSchema);

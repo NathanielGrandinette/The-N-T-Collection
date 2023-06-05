@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./carousel.css";
 
 const ProductCarousel = () => {
-  const products = useGetProducts();
+  const { products } = useGetProducts();
 
   const navigate = useNavigate();
 

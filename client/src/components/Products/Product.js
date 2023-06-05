@@ -47,12 +47,15 @@ const Product = ({
       .delete(`/product/${_id}`)
       .then((res) => {
         console.log(res);
-        toast.success("Product deleted");
+        if (res.status === 200) {
+          toast.success("Product deleted");
+        }
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response.data.error || err.statusText);
+        setError(err.response?.data.error || err.statusText);
       });
+
     getProducts();
   };
 
