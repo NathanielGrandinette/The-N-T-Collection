@@ -6,7 +6,7 @@ import axios from "../../utils/axiosConfig";
 import fileAxios from "../../utils/axiosFileConfig";
 import { useCartContext } from "../../context/CartContex";
 import "./product.css";
-import useCart from "../../hooks/useCart";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 const Product = ({
   product,
@@ -47,12 +47,15 @@ const Product = ({
       .delete(`/product/${_id}`)
       .then((res) => {
         console.log(res);
-        toast.success("Product deleted");
+        if (res.status === 200) {
+          toast.success("Product deleted");
+        }
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response.data.error || err.statusText);
+        setError(err.response?.data.error || err.statusText);
       });
+
     getProducts();
   };
 
@@ -196,6 +199,7 @@ const Product = ({
                 {product.description}
               </div>
               <div className="w-64 mx-auto flex flex-row justify-center">
+                <ToggleSwitch product={product} />
                 <button
                   className="m-2 bg-teal-500 w-1/3"
                   onClick={() => setEdit(true)}

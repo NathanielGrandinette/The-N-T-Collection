@@ -1,25 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Product from "../Products/Product";
-import axios from "../../utils/axiosConfig";
 import "./productlist.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useGetProducts from "../../hooks/useGetProducts";
 import { AuthContext } from "../../context/AuthContext";
-import useCart from "../../hooks/useCart";
 
 const ProductList = () => {
-  const [products, setProducts] = useState();
   const [refresh, setRefresh] = useState(false);
   const [productSearch, setProductSearch] = useState();
 
-
+  const { products, setProducts, getProducts } = useGetProducts();
 
   const { user } = useContext(AuthContext);
-
-  const getProducts = async () => {
-    const productList = await axios.get("/product");
-    setProducts(productList.data);
-  };
 
   const searchProduct = (e) => {
     setProductSearch(e.target.value);
@@ -41,10 +34,6 @@ const ProductList = () => {
       );
   };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
   return (
     <div
       style={{
@@ -54,15 +43,6 @@ const ProductList = () => {
         marginBottom: "75px",
       }}
     >
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        theme="dark"
-      />
       {window.location.pathname === "/shop" ? (
         <h1
           style={{

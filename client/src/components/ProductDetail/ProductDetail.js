@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
+import { useCartContext } from "../../context/CartContex";
 import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState("");
   const navigate = useNavigate();
   const { productId } = useParams();
+
+  const { addProductToCart } = useCartContext();
 
   useEffect(() => {
     axios
@@ -45,7 +48,10 @@ const ProductDetail = () => {
         </div>
       </div>
       <div className="flex flex-wrap -mx-2 mb-12">
-        <button className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-green-600 focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl">
+        <button
+          className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-green-600 focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl"
+          onClick={() => addProductToCart(product)}
+        >
           Add to cart
         </button>
         <div className="w-full md:w-1/3 px-2">

@@ -10,17 +10,28 @@ import Shop from "./pages/Shop/Shop";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import Admin from "./pages/Admin/Admin";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div>
       <NavBar />
 
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        theme="dark"
+      />
+
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/register" element={<Register />} />
-        <Route path='/admin' element={<Admin />} />
+        <Route path="/admin" element={<Admin />} />
         <Route
           path="/productdetail/:productId"
           element={<ProductDetail />}
