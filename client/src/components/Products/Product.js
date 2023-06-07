@@ -20,14 +20,15 @@ const Product = ({
   const [item, setItem] = useState({});
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("");
-
   const { addProductToCart } = useCartContext();
 
+  console.log(product)
   useEffect(() => {
     if (product.name === "") {
       setEdit(true);
     }
     setItem(product);
+    setSelected(product.photos)
   }, [product]);
 
   const handleChange = (e) => {
@@ -100,8 +101,8 @@ const Product = ({
           setError(err.response.data.error || err.statusText);
         });
     }
-    setRefresh(!refresh);
     setEdit(false);
+    getProducts()
   };
 
   const handleCancel = () => {
@@ -184,7 +185,6 @@ const Product = ({
               />
               <h2>
                 <strong>
-                  Product:{" "}
                   <Link
                     to={`/productdetail/${product._id}`}
                     state={{ product: product }}

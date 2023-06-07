@@ -56,25 +56,22 @@ const NavBar = () => {
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div
-              className={`${hamburgerLine} ${
-                isNavOpen
+              className={`${hamburgerLine} ${isNavOpen
                   ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
                   : "opacity-50 group-hover:opacity-100"
-              }`}
+                }`}
             />
             <div
-              className={`${hamburgerLine} ${
-                isNavOpen
+              className={`${hamburgerLine} ${isNavOpen
                   ? "opacity-0"
                   : "opacity-50 group-hover:opacity-100"
-              }`}
+                }`}
             />
             <div
-              className={`${hamburgerLine} ${
-                isNavOpen
+              className={`${hamburgerLine} ${isNavOpen
                   ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
                   : "opacity-50 group-hover:opacity-100"
-              }`}
+                }`}
             />
           </button>
           <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
@@ -135,14 +132,17 @@ const NavBar = () => {
               Home
             </Link>
           </li>
-          <li>
-            <Link
-              to="/shop"
-              className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
-            >
-              Shop
-            </Link>
-          </li>
+          {isLoggedIn(user) ? (
+            <li>
+              <Link
+                to="/shop"
+                className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+              >
+                Shop
+              </Link>
+            </li>
+          ) : null}
+
 
           {isUserAdmin(user) ? (
             <li>
