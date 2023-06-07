@@ -12,7 +12,7 @@ const useCart = () => {
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
-    console.log("saved cart", savedCart)
+
     if (savedCart && savedCart.totalItems === 0) {
       setCart(initialCart);
     } else if (savedCart) {
@@ -38,23 +38,27 @@ const useCart = () => {
   }, [cart]);
 
   const addProductToCart = (product) => {
+    const newProduct = {
+      ...product,
+      numItems: 1
+    }
     console.log(cart.cart);
     setCart({
       ...cart,
-      cart: [...cart?.cart, product],
+      cart: [...cart?.cart, newProduct],
       totalItems: cart.cart.length + 1,
-      cartTotal: getTotal(),
+      cartTotal: cart.cartTotal += product.price,
     });
   };
 
-  const removeFromCart = (id) => {
-    const updatedCart = cart.cart.filter((item) => id !== item._id);
+  const removeFromCart = (product) => {
+    const updatedCart = cart.cart.filter((item) => product._id !== item._id);
 
     setCart({
       ...cart,
       cart: updatedCart,
       totalItems: updatedCart.length,
-      cartTotal: getTotal(),
+      cartTotal: cart.cartTotal - product.price,
     });
     localStorage.setItem("Cart", JSON.stringify(cart));
     // setOpen((open) => !open); when I commented this out, the delete seemed to work

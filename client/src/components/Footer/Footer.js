@@ -33,13 +33,14 @@ const Footer = () => {
                       key={i}
                     >
                       <TiDelete
-                        onClick={() => removeFromCart(product._id)}
+                        onClick={() => removeFromCart(product)}
                       />
                       <img
                         src={product.photo?.path || product.photo}
                         className="cart-product-img"
                         alt={product.name}
                       />
+                      - {product.numItems} <span onClick={() => product.numItems += 1}>+</span>
                     </div>
                   );
                 })
