@@ -105,6 +105,7 @@ router
     upload, //multer middleware
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
+      
       const { path, originalname, mimetype } = req.file;
 
       const { id } = req.params;

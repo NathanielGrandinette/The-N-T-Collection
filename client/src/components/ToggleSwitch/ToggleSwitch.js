@@ -36,7 +36,7 @@ const ToggleSwitch = ({ product }) => {
             size="small"
           />
         }
-        label={isFeatured ? "Featured" : "Make Featured"}
+        label={isFeatured ? "Featured" : "Unfeatured"}
         labelPlacement="bottom"
       />
     </FormControl>

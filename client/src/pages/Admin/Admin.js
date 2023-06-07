@@ -31,6 +31,7 @@ const Admin = () => {
         >
           Edit Users
         </button>
+        <span className="space"> | </span>
         <button
           onClick={() => setPage("myProducts")}
           className="admin-buttons"

@@ -13,6 +13,7 @@ const Footer = () => {
     getCart(); // get cart every time the footer opens
   }, [open]);
 
+
   return (
     <div
       className="footer"
@@ -32,7 +33,7 @@ const Footer = () => {
                       key={i}
                     >
                       <TiDelete
-                        onClick={() => removeFromCart(product._id)}
+                        onClick={() => removeFromCart(product)}
                       />
                       <Badge
                         badgeContent={

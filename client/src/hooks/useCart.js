@@ -63,10 +63,10 @@ const useCart = () => {
     });
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (product) => {
     const cartCopy = [...cart.items];
     const existingItemIndex = cartCopy.findIndex(
-      (item) => item._id === id
+      (item) => item._id === product._id
     );
 
     if (existingItemIndex !== -1) {
