@@ -8,6 +8,11 @@
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
