@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import axios from "../utils/axiosConfig";
+import { toast } from "react-toastify";
 
 export const initialCart = {
   items: [],
@@ -8,6 +10,7 @@ export const initialCart = {
 
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
+  const [wishedProduct, setWishedProduct] = useState("");
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
@@ -85,12 +88,31 @@ const useCart = () => {
       cartTotal: getCartTotal(cartCopy),
     });
   };
+
+  const addProductToWishList = async (product) => {
+    await axios
+      .put(`wishlist`, { product }, { baseURL: "/" })
+      .then((res) => {
+        console.log(res.data);
+        setWishedProduct(res.data);
+        toast.success(
+          `${
+            res.data[res.data.length - 1].product.name //only toast the last item in the wish list array which would be the most recent.
+          } added to wishlist!`
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return {
     cart,
     addProductToCart,
     getCart,
     setCart,
     removeFromCart,
+    addProductToWishList,
+    wishedProduct,
   };
 };
 
