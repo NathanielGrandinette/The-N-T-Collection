@@ -93,7 +93,6 @@ const useCart = () => {
     await axios
       .put(`wishlist`, { product }, { baseURL: "/" })
       .then((res) => {
-        console.log(res.data);
         setWishedProduct(res.data);
         toast.success(
           `${

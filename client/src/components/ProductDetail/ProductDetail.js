@@ -13,8 +13,6 @@ const ProductDetail = () => {
   const { addProductToCart, addProductToWishList, wishedProduct } =
     useCartContext();
 
-  console.log(wishedProduct);
-
   const isProductWished = (wishedProduct) => {
     return (
       wishedProduct &&
