@@ -56,22 +56,25 @@ const NavBar = () => {
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div
-              className={`${hamburgerLine} ${isNavOpen
+              className={`${hamburgerLine} ${
+                isNavOpen
                   ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
                   : "opacity-50 group-hover:opacity-100"
-                }`}
+              }`}
             />
             <div
-              className={`${hamburgerLine} ${isNavOpen
+              className={`${hamburgerLine} ${
+                isNavOpen
                   ? "opacity-0"
                   : "opacity-50 group-hover:opacity-100"
-                }`}
+              }`}
             />
             <div
-              className={`${hamburgerLine} ${isNavOpen
+              className={`${hamburgerLine} ${
+                isNavOpen
                   ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
                   : "opacity-50 group-hover:opacity-100"
-                }`}
+              }`}
             />
           </button>
           <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
@@ -143,7 +146,6 @@ const NavBar = () => {
             </li>
           ) : null}
 
-
           {isUserAdmin(user) ? (
             <li>
               {" "}
@@ -183,58 +185,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-//   <nav className="bg-white border-b-2 border-blue-500 shadow-lg">
-//       <div className="max-w-7xl mx-auto px-4">
-//         <div>
-//           <div className="flex space-x-4">
-//             <div className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-//               <BsBag size={32} />
-//             </div>
-//             <div className="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
-//               <Link
-//                 to="/home"
-//                 className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400"
-//               >
-//                 Home
-//               </Link>
-//               <Link
-//                 to="/productlist"
-//                 className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400 "
-//               >
-//                 Shop
-//               </Link>
-//               <Link
-//                 to="account"
-//                 className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400 "
-//               >
-//                 Account
-//               </Link>
-//               {!user ? (
-//                 <div className="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
-//                   <Link
-//                     to="/login"
-//                     className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400 "
-//                   >
-//                     Login
-//                   </Link>
-//                   <Link
-//                     to="/register"
-//                     className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400 "
-//                   >
-//                     Register
-//                   </Link>
-//                 </div>
-//               ) : (
-//                 <button
-//                   className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-indigo-400 "
-//                   onClick={handleLogout}
-//                 >
-//                   Logout
-//                 </button>
-//               )}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </nav>
