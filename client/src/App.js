@@ -1,23 +1,21 @@
-import { useContext } from 'react'
+import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register/Register";
-import ProductList from "./components/ProductList/ProductList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import ProductCards from "./components/ProductCards/ProductCards";
 import Login from "./pages/Login/Login";
-import Users from "./components/Users/Users";
 import Landing from "./pages/Landing/Landing";
 import Shop from "./pages/Shop/Shop";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import Admin from "./pages/Admin/Admin";
 import AdminRoutes from "./utils/PrivateRoutes/AdminRoutes";
-import UserRoutes from './utils/PrivateRoutes/UserRoutes'
+import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 
 function App() {
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const isLoggedIn = (user) => {
     return user ? true : false;
@@ -38,7 +36,11 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Landing />} />
+        {}
+        <Route
+          path="/"
+          element={isLoggedIn(user) ? <Shop /> : <Landing />}
+        />
         <Route path="/login" element={<Login />} />
         <Route element={<UserRoutes />}>
           <Route element={<AdminRoutes />}>
@@ -52,12 +54,9 @@ function App() {
           />
           <Route path="/productcard" element={<ProductCards />} />
         </Route>
-
       </Routes>
-      {isLoggedIn(user) ?
-        <Footer />
-        : null}
 
+      {isLoggedIn(user) ? <Footer /> : null}
     </div>
   );
 }
