@@ -15,6 +15,7 @@ const product = {
 
 test("it shows a checkbox (Toggle Switch)", () => {
   render(<ToggleSwitch product={product} />);
+
   const toggle = screen.getByRole("checkbox");
   expect(toggle).toBeChecked();
 });

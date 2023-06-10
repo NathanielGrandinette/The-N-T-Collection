@@ -7,6 +7,8 @@ const router = require("./routes");
 const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
 const addressRouter = require("./routes/address");
+const wishlistRouter = require("./routes/wishlist");
+
 const path = require("path");
 const { database } = require("./config/keys");
 
@@ -30,6 +32,7 @@ app.use("/api", router);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/address", addressRouter);
+app.use("/wishlist", wishlistRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
