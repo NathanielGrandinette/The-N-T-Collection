@@ -1,9 +1,11 @@
 const express = require("express");
+
 const Product = require("../models/Product");
 const verifyToken = require("../middleware/auth");
 const upload = require("../config/multer");
 const User = require("../models/User");
 const verifyRole = require("../middleware/role");
+const deleteProductImage = require("../utils/deleteProductImage");
 
 const router = express.Router();
 
@@ -105,7 +107,7 @@ router
     upload, //multer middleware
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
-      
+
       const { path, originalname, mimetype } = req.file;
 
       const { id } = req.params;
@@ -160,6 +162,9 @@ router
       } else {
         try {
           const deleteProduct = await Product.findByIdAndDelete(id);
+
+          deleteProductImage(deleteProduct);
+
           return res.status(200).send(deleteProduct);
         } catch (error) {
           console.log(error);
