@@ -42,25 +42,25 @@ const useCart = () => {
   }, [cart]);
 
   const addProductToCart = (product) => {
-    const cartCopy = [...cart.items];
-    const checkExistingItemIndex = cartCopy.findIndex(
-      (item) => item._id === product._id
-    );
+      const cartCopy = [...cart.items];
+      const checkExistingItemIndex = cartCopy.findIndex(
+        (item) => item._id === product._id
+      );
 
-    if (checkExistingItemIndex !== -1) {
-      cartCopy[checkExistingItemIndex].shopped += 1;
-      cart.totalItems += 1;
-    } else {
-      product.shopped = 1;
-      cartCopy.push(product);
-    }
+      if (checkExistingItemIndex !== -1) {
+        cartCopy[checkExistingItemIndex].shopped += 1;
+        cart.totalItems += 1;
+      } else {
+        product.shopped = 1;
+        cartCopy.push(product);
+      }
+      setCart({
+        ...cart,
+        items: cartCopy,
+        totalItems: getTotalCartItems(cartCopy),
+        cartTotal: getCartTotal(cartCopy),
+      });
 
-    setCart({
-      ...cart,
-      items: cartCopy,
-      totalItems: getTotalCartItems(cartCopy),
-      cartTotal: getCartTotal(cartCopy),
-    });
   };
 
   const removeFromCart = (product) => {

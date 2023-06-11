@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, React, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const initialFormState = {
   email: "",
@@ -11,11 +12,13 @@ const initialFormState = {
 
 const Login = () => {
   const [formData, setFormData] = useState(initialFormState);
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+    setLoading(true)
     if (formData.email.length === 0 || formData.password === 0) {
       return setFormData({
         ...formData,
@@ -27,24 +30,28 @@ const Login = () => {
         error: "Password must be atleast 7 characters.",
       });
     }
-    await axios
-      .post("http://localhost:3001/user/login", formData)
-      .then((res) => {
-        setFormData(initialFormState);
-        localStorage.setItem("jwt", JSON.stringify(res.data?.token));
-        localStorage.setItem(
-          "n-t-user",
-          JSON.stringify(res.data?.user)
-        );
-        setUser(res.data?.user);
-        navigate("/shop", { replace: true });
-      })
-      .catch((err) =>
-        setFormData({
-          ...formData,
-          error: err.response.data.error || err.name,
+    setTimeout(async () => {
+      await axios
+        .post("http://localhost:3001/user/login", formData)
+        .then((res) => {
+          setFormData(initialFormState);
+          localStorage.setItem("jwt", JSON.stringify(res.data?.token));
+          localStorage.setItem(
+            "n-t-user",
+            JSON.stringify(res.data?.user)
+          );
+          setUser(res.data?.user);
+          navigate("/shop", { replace: true });
         })
-      );
+        .catch((err) =>
+          setFormData({
+            ...formData,
+            error: err.response.data.error || err.name,
+          })
+        );
+        setLoading(false)
+    }, 1000)
+
   };
 
   const handleInputChange = (e) => {
@@ -98,7 +105,7 @@ const Login = () => {
           </div>
 
           <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
-            Submit
+            {loading ? <LoadingSpinner /> : 'Submit'}
           </button>
           <div>{formData.error && formData.error}</div>
         </form>
