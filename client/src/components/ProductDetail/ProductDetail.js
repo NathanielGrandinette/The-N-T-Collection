@@ -13,11 +13,16 @@ const ProductDetail = () => {
   const { addProductToCart, addProductToWishList, wishedProduct } =
     useCartContext();
 
-  const isProductWished = (wishedProduct) => {
+  /**
+   * Check if a product is in the user's wishlist
+   * @param {Object} wishedProduct - The user's wishlist
+   * @returns {Array} - An array of products that match the given product ID
+   */
+  const isProductWished = (wishedProduct = { wishList: [] }) => {
     return (
       wishedProduct &&
-      wishedProduct.find(
-        (product) => product.product._id === productId
+      wishedProduct.wishList.filter(
+        (product) => product._id === productId
       )
     );
   };
