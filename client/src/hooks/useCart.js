@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "../utils/axiosConfig";
-import { toast } from "react-toastify";
 
 export const initialCart = {
   items: [],
@@ -10,6 +9,7 @@ export const initialCart = {
 
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
+  const [wishedProduct, setWishedProduct] = useState("");
   const [wishedProduct, setWishedProduct] = useState("");
 
   const getCart = () => {
@@ -89,19 +89,11 @@ const useCart = () => {
   };
 
   const addProductToWishList = async (product) => {
-    await axios
-      .put(`wishlist`, { product }, { baseURL: "/" })
-      .then((res) => {
-        if (res.data) {
-          setWishedProduct(res.data);
-        }
+    setWishedProduct(product);
 
-        toast.success(
-          `${
-            product.name //only toast the last item in the wish list array which would be the most recent.
-          } added to wishlist!`
-        );
-      })
+    await axios
+      .put(`wishlist`, { product })
+      .then((res) => console.log(res))
       .catch((err) => {
         console.log(err);
       });
@@ -113,7 +105,6 @@ const useCart = () => {
     setCart,
     removeFromCart,
     addProductToWishList,
-    wishedProduct,
   };
 };
 
