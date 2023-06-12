@@ -7,11 +7,11 @@ import { toast } from "react-toastify";
 const ProductDetail = () => {
   const [product, setProduct] = useState("");
 
-
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  const { addProductToCart, addProductToWishList } = useCartContext();
+  const { addProductToCart, addProductToWishList, wishedProduct } =
+    useCartContext();
 
   /**
    * Check if a product is in the user's wishlist
@@ -71,10 +71,6 @@ const ProductDetail = () => {
           Add to cart
         </button>
         <div className="w-full md:w-1/3 px-2">
-          <button
-            className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-white focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl"
-            onClick={() => addProductToWishList(product)}
-          >
           <button
             className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-white focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl"
             onClick={() => addProductToWishList(product)}
