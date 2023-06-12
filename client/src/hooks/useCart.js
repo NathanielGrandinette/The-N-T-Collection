@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "../utils/axiosConfig";
 
 export const initialCart = {
   items: [],
@@ -8,6 +9,7 @@ export const initialCart = {
 
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
+  const [wishedProduct, setWishedProduct] = useState("");
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
@@ -85,12 +87,24 @@ const useCart = () => {
       cartTotal: getCartTotal(cartCopy),
     });
   };
+
+  const addProductToWishList = async (product) => {
+    setWishedProduct(product);
+
+    await axios
+      .put(`wishlist`, { product })
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return {
     cart,
     addProductToCart,
     getCart,
     setCart,
     removeFromCart,
+    addProductToWishList,
   };
 };
 

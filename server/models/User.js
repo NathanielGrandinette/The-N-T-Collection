@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  wishList: {
+    type: ObjectId,
+    ref: "Product",
+  },
 });
 
 const User = mongoose.model("User", userSchema);
