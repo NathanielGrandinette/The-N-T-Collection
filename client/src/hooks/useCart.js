@@ -8,13 +8,15 @@ export const initialCart = {
   cartTotal: 0,
 };
 
+const savedCart = JSON.parse(localStorage.getItem("Cart"));
+
 const useCart = () => {
-  const [cart, setCart] = useState(initialCart);
+  const [cart, setCart] = useState(
+    savedCart ? savedCart : initialCart
+  );
   const [wishedProduct, setWishedProduct] = useState("");
 
   const getCart = () => {
-    const savedCart = JSON.parse(localStorage.getItem("Cart"));
-
     if (savedCart && savedCart.cartTotal <= 0) {
       setCart(initialCart);
     } else if (savedCart) {
