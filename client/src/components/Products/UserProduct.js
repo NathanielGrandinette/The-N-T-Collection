@@ -41,7 +41,7 @@ const UserProduct = ({
                         setTimeout(() => {
                             addProductToCart(product)
                             setLoading(false)
-                        }, 2000)
+                        }, 500)
                     }}
                 >
                     {loading ? <LoadingSpinner /> : 'Add To Cart'}

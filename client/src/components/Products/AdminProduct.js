@@ -93,6 +93,7 @@ const AdminProduct = ({
                 .catch((err) => {
                     console.log(err);
                     setError(err.response.data.error || err.statusText);
+                    return
                 });
         }
         setLoading(true)
