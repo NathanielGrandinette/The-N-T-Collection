@@ -13,6 +13,7 @@ import AdminRoutes from "./utils/PrivateRoutes/AdminRoutes";
 import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
+import Checkout from "./pages/Checkout/Checkout";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -41,13 +42,17 @@ function App() {
           path="/"
           element={isLoggedIn(user) ? <Shop /> : <Landing />}
         />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
         <Route element={<UserRoutes />}>
+
           <Route element={<AdminRoutes />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
+
+          <Route path='/checkout' element={<Checkout />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/register" element={<Register />} />
           <Route
             path="/productdetail/:productId"
             element={<ProductDetail />}
