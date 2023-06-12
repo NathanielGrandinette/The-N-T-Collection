@@ -6,11 +6,27 @@ import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState("");
+
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  const { addProductToCart } = useCartContext();
+  const { addProductToCart, addProductToWishList, wishedProduct } =
+    useCartContext();
 
+  /**
+   * Check if a product is in the user's wishlist
+   * @param {Object} wishedProduct - The user's wishlist
+   * @returns {Array} - An array of products that match the given product ID
+   */
+  const isProductWished = (wishedProduct = { wishList: [] }) => {
+    return (
+      wishedProduct &&
+      wishedProduct.wishList.filter(
+        (product) => product._id === productId
+      )
+    );
+  };
+  isProductWished(wishedProduct);
   useEffect(() => {
     axios
       .get(`/product/${productId}`)
@@ -55,13 +71,16 @@ const ProductDetail = () => {
           Add to cart
         </button>
         <div className="w-full md:w-1/3 px-2">
-          <button className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-white focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl">
+          <button
+            className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-white focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl"
+            onClick={() => addProductToWishList(product)}
+          >
             <span className="mr-2">Wishlist</span>
             <svg
               width="23"
               height="22"
               viewBox="0 0 23 22"
-              fill="none"
+              fill={isProductWished(wishedProduct) ? "red" : "white"}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path

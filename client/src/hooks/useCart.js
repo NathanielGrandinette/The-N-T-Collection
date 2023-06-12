@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import axios from "../utils/axiosConfig";
+import { toast } from "react-toastify";
 
 export const initialCart = {
   items: [],
@@ -8,6 +10,7 @@ export const initialCart = {
 
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
+  const [wishedProduct, setWishedProduct] = useState("");
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
@@ -42,25 +45,24 @@ const useCart = () => {
   }, [cart]);
 
   const addProductToCart = (product) => {
-      const cartCopy = [...cart.items];
-      const checkExistingItemIndex = cartCopy.findIndex(
-        (item) => item._id === product._id
-      );
+    const cartCopy = [...cart.items];
+    const checkExistingItemIndex = cartCopy.findIndex(
+      (item) => item._id === product._id
+    );
 
-      if (checkExistingItemIndex !== -1) {
-        cartCopy[checkExistingItemIndex].shopped += 1;
-        cart.totalItems += 1;
-      } else {
-        product.shopped = 1;
-        cartCopy.push(product);
-      }
-      setCart({
-        ...cart,
-        items: cartCopy,
-        totalItems: getTotalCartItems(cartCopy),
-        cartTotal: getCartTotal(cartCopy),
-      });
-
+    if (checkExistingItemIndex !== -1) {
+      cartCopy[checkExistingItemIndex].shopped += 1;
+      cart.totalItems += 1;
+    } else {
+      product.shopped = 1;
+      cartCopy.push(product);
+    }
+    setCart({
+      ...cart,
+      items: cartCopy,
+      totalItems: getTotalCartItems(cartCopy),
+      cartTotal: getCartTotal(cartCopy),
+    });
   };
 
   const removeFromCart = (product) => {
@@ -85,12 +87,33 @@ const useCart = () => {
       cartTotal: getCartTotal(cartCopy),
     });
   };
+
+  const addProductToWishList = async (product) => {
+    await axios
+      .put(`wishlist`, { product }, { baseURL: "/" })
+      .then((res) => {
+        if (res.data) {
+          setWishedProduct(res.data);
+        }
+
+        toast.success(
+          `${
+            product.name //only toast the last item in the wish list array which would be the most recent.
+          } added to wishlist!`
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return {
     cart,
     addProductToCart,
     getCart,
     setCart,
     removeFromCart,
+    addProductToWishList,
+    wishedProduct,
   };
 };
 

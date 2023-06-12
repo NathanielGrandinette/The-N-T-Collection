@@ -1,8 +1,25 @@
+import {
+  render,
+  screen,
+  fireEvent,
+  renderHook,
+} from "@testing-library/react";
+import Footer from "./Footer";
+import CartContext from "../../context/CartContex";
+import useCart from "../../hooks/useCart";
 
+const utils = renderHook(useCart);
 
-it("test_cart_has_products", () => {
-    const mockCart = [{_id: 1, name: "Product 1", price: 10, photo: "path/to/photo"}]
-    localStorage.setItem("Cart", JSON.stringify(mockCart))
-    const wrapper = shallow(<Footer />)
-    expect(wrapper.find(".product")).toHaveLength(1)
-})
+// Tests that the cart updates when a user adds an item to it
+it("test_user_adds_item_to_cart_and_cart_updates", () => {
+  jest.mock(CartContext);
+  screen.logTestingPlaygroundURL();
+
+  const { wrapper } = render(<Footer cart={utils} />);
+
+  console.log(wrapper);
+
+  let footer = screen.getAllByRole();
+
+  expect(footer).toBeInTheDocument();
+});
