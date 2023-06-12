@@ -1,11 +1,11 @@
 const express = require("express");
+
 const Product = require("../models/Product");
 const verifyToken = require("../middleware/auth");
 const upload = require("../config/multer");
 const User = require("../models/User");
 const verifyRole = require("../middleware/role");
 const deleteProductImage = require("../utils/deleteProductImage");
-const handleMulterError = require("../middleware/handleMulterError");
 
 const router = express.Router();
 
@@ -34,6 +34,7 @@ router
     upload,
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
+      console.log(req.user);
 
       if (!req.file) {
         return res

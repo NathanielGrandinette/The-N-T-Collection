@@ -11,7 +11,6 @@ const wishlistRouter = require("./routes/wishlist");
 
 const path = require("path");
 const { database } = require("./config/keys");
-const handleMulterError = require("./middleware/handleMulterError");
 
 const app = express();
 
@@ -44,9 +43,6 @@ if (process.env.NODE_ENV === "production") {
     );
   });
 }
-
-//multer error handler
-app.use(handleMulterError);
 
 app.listen(3001, function (error) {
   if (error) {
