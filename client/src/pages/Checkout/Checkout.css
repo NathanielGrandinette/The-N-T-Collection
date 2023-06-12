@@ -1,0 +1,21 @@
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid black;
+}
+
+.checkout-item-img-name {
+    display: flex;
+}
+
+.checkout-item-img-name div {
+    margin-left: 10px;
+}
+
+.checkout-item img {
+    height: 150px;
+    width: 150px;
+}
