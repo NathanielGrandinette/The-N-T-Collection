@@ -1,29 +1,34 @@
 const express = require("express");
 const router = express.Router();
+const verifyToken = require("../middleware/auth");
+const User = require("../models/User");
+router.route("/").put(verifyToken, async (req, res, next) => {
+  const { product } = req.body;
 
-const Product = require("../models/Product");
-router
-  .route("productdetail/product/wishlist")
-  .put(async (req, res, next) => {
-    const { isFeatured } = req.body;
+  const { user_id } = req.user;
 
-    const { productId } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(
+      user_id,
+      {
+        $push: { wishList: { product: product._id } },
+      },
+      { new: true }
+    )
+      .populate({
+        path: "wishList",
 
-    const { user } = req.user;
+        populate: {
+          path: "product",
+          select: "name price description updatedAt",
+        },
+      })
+      .select("-password");
 
-    console.log(user);
-
-    try {
-      const updateProduct = await Product.findByIdAndUpdate(
-        productId,
-        {
-          featured: isFeatured ? isFeatured : false,
-        }
-      );
-      return res.status(200).send(updateProduct);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
-    }
-  });
+    return res.status(200).send(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ error: "Something went wrong" });
+  }
+});
 module.exports = router;

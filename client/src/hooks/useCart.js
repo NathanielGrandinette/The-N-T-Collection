@@ -10,6 +10,7 @@ export const initialCart = {
 const useCart = () => {
   const [cart, setCart] = useState(initialCart);
   const [wishedProduct, setWishedProduct] = useState("");
+  const [wishedProduct, setWishedProduct] = useState("");
 
   const getCart = () => {
     const savedCart = JSON.parse(localStorage.getItem("Cart"));
@@ -56,7 +57,6 @@ const useCart = () => {
       product.shopped = 1;
       cartCopy.push(product);
     }
-
     setCart({
       ...cart,
       items: cartCopy,
