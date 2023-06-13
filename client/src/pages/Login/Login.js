@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import TogglePasswordIcon from "../../components/TooglePasswordIcon";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import "./Login.css"
 
 const initialFormState = {
   email: "",
@@ -98,7 +99,7 @@ const Login = () => {
 
   return (
     <div className="w-full items-center h-screen ">
-      <div className="md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
+      <div className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
         <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
           Welcome Back!
         </h1>
@@ -106,13 +107,13 @@ const Login = () => {
           Please enter your details
         </h2>
         <form
-          className="mb-4 md:flex md:flex-wrap shadow:lg md:justify-between"
+          className="mb-4 shadow:lg md:justify-between login-form"
           onSubmit={handleSubmitForm}
         >
           <div className="flex flex-col mb-4 md:w-full">
             <label
               htmlFor="email"
-              className="mb-2 tracking-wide font-bold text-lg py-2 px-3"
+              className="mb-2 tracking-wide font-bold text-lg"
             >
               Email:
             </label>
@@ -133,7 +134,7 @@ const Login = () => {
             >
               Password:
             </label>
-            <div className="relative">
+            <div className="password-input">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
@@ -144,7 +145,7 @@ const Login = () => {
                 onChange={handleInputChange}
               />
               <span
-                className={`absolute m-0 top-1/2 transform -translate-y-1/2 cursor-pointer`}
+                className={`hide-password relative m-0 top-1/2 transform cursor-pointer`}
                 onClick={() => setShowPassword(!showPassword)}
               >
                 <TogglePasswordIcon showPassword={showPassword} />

@@ -1,0 +1,28 @@
+.password-input {
+    border: 1px solid gray;
+    width: 280px;
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#email {
+    border: 1px solid gray;
+    width: 280px;
+}
+
+#password {
+    border: none;
+}
+
+.hide-password {
+    height: 100%;
+    background-color: white;
+    padding: 5px;
+}

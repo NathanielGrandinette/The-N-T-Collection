@@ -2,9 +2,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 5px;
-    padding: 5px;
+    margin: 20px;
+    padding: 10px;
     border: 2px solid black;
+    background-color: bisque;
+}
+
+.checkout {
+    min-height: 100vh;
 }
 
 .checkout-item-img-name {
@@ -18,4 +23,11 @@
 .checkout-item img {
     height: 150px;
     width: 150px;
+}
+
+.checkout-total {
+    margin: 25px;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
 }
