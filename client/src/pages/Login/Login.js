@@ -151,19 +151,26 @@ const Login = () => {
               </span>
             </div>
           </div>
-          <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
-            {loading ? <LoadingSpinner /> : "Submit"}
-          </button>
+          {loading ?
+            <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+              <LoadingSpinner />
+            </button>
+            :
+            <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+              Submit
+            </button>
+          }
           <div className="text-red-500 text-center ml-5 mt-2">
             {formData.error && formData.error}
           </div>
         </form>
-        <button
-          onClick={() => testLogin()}
-          className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded"
-        >
-          {loading ? <LoadingSpinner /> : "Test Login"}
-        </button>
+        {loading ? "" :
+          <button
+            onClick={() => testLogin()}
+            className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+            Test Login
+          </button>
+        }
         <span className="block w-full text-center no-underline hover:slate-300 text-sm">
           <Link to="/register" className="hover:blue">
             Need an account?
