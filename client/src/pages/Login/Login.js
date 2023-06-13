@@ -49,7 +49,7 @@ const Login = () => {
             error: err.response.data.error || err.name,
           })
         );
-        setLoading(false)
+      setLoading(false)
     }, 1000)
   };
 
@@ -76,7 +76,7 @@ const Login = () => {
             error: err.response.data.error || err.name,
           })
         );
-        setLoading(false)
+      setLoading(false)
     }, 1000)
   }
 
@@ -129,16 +129,24 @@ const Login = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
-            {loading ? <LoadingSpinner /> : 'Submit'}
-          </button>
+          {loading ?
+            <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+              <LoadingSpinner />
+            </button>
+            :
+            <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+              Submit
+            </button>
+          }
           <div>{formData.error && formData.error}</div>
         </form>
-        <button 
-          onClick={() => testLogin()}
-          className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
-            {loading ? <LoadingSpinner /> : 'Test Login'}
+        {loading ? "" :
+          <button
+            onClick={() => testLogin()}
+            className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+            Test Login
           </button>
+        }
         <span className="block w-full text-center no-underline hover:slate-300 text-sm">
           <Link to="/register" className="hover:blue">
             Need an account??
