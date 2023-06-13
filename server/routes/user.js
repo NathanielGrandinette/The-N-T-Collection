@@ -13,40 +13,44 @@ router.get("/", async (req, res, next) => {
 });
 
 router
-  .route('/:id')
+  .route("/:id")
   .put(async (req, res) => {
-    const { name, email, password, role } = req.body
-    const { id } = req.params
-    
+    const { name, email, password, role } = req.body;
+    const { id } = req.params;
+
     try {
       const user = await User.findByIdAndUpdate(id, {
         name,
         email,
         password,
-        role
-      })
+        role,
+      });
 
-      return res.status(200).send(user)
+      return res.status(200).send(user);
     } catch (error) {
-      console.log(error)
-      return res.status(500).send({ error: "Error processing your request" })
+      console.log(error);
+      return res
+        .status(500)
+        .send({ error: "Error processing your request" });
     }
   })
   .delete(async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
 
-    if(!id) {
-      return res.status(500).send({ error: "Error processing your request" })
+    if (!id) {
+      return res
+        .status(500)
+        .send({ error: "Error processing your request" });
     }
 
     try {
-      await User.findByIdAndDelete(id)
-      return res.status(200).send({ success: "User deleted" })
+      await User.findByIdAndDelete(id);
+      return res.status(200).send({ success: "User deleted" });
     } catch (error) {
-      console.log(error)
-      return res.status(500).send({ error: "Something went wrong" })
+      console.log(error);
+      return res.status(500).send({ error: "Something went wrong" });
     }
-  })
+  });
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -115,17 +119,17 @@ router.post("/register", async (req, res) => {
       }); //409 code means conflict.
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = await User.create({
+      let newUser = await User.create({
         name,
         email,
         password: hashedPassword,
-      });
+      }).select("-password");
 
       return res.status(201).json(newUser);
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "Something went wrong." });
+    return res.status(500).json({ error: error });
   }
 });
 

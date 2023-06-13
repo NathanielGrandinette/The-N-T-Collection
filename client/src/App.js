@@ -23,7 +23,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="bg-[#36454F]">
       <NavBar />
 
       <ToastContainer
@@ -46,12 +46,11 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route element={<UserRoutes />}>
-
           <Route element={<AdminRoutes />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
 
-          <Route path='/checkout' element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/shop" element={<Shop />} />
           <Route
             path="/productdetail/:productId"

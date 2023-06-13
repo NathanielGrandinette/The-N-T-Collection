@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, React, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import TogglePasswordIcon from "../../components/TooglePasswordIcon";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const initialFormState = {
@@ -12,13 +13,14 @@ const initialFormState = {
 
 const Login = () => {
   const [formData, setFormData] = useState(initialFormState);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     if (formData.email.length === 0 || formData.password === 0) {
       return setFormData({
         ...formData,
@@ -35,7 +37,10 @@ const Login = () => {
         .post("http://localhost:3001/user/login", formData)
         .then((res) => {
           setFormData(initialFormState);
-          localStorage.setItem("jwt", JSON.stringify(res.data?.token));
+          localStorage.setItem(
+            "jwt",
+            JSON.stringify(res.data?.token)
+          );
           localStorage.setItem(
             "n-t-user",
             JSON.stringify(res.data?.user)
@@ -43,26 +48,30 @@ const Login = () => {
           setUser(res.data?.user);
           navigate("/shop", { replace: true });
         })
-        .catch((err) =>
+        .catch((err) => {
           setFormData({
             ...formData,
             error: err.response.data.error || err.name,
-          })
-        );
-      setLoading(false)
-    }, 1000)
+          });
+          setLoading(false);
+        });
+      setLoading(false);
+    }, 1000);
   };
 
   const testLogin = () => {
-    setLoading(true)
+    setLoading(true);
     setTimeout(async () => {
       await axios
         .post("http://localhost:3001/user/login", {
           email: "admin@gmail.com",
-          password: "admintest"
+          password: "admintest",
         })
         .then((res) => {
-          localStorage.setItem("jwt", JSON.stringify(res.data?.token));
+          localStorage.setItem(
+            "jwt",
+            JSON.stringify(res.data?.token)
+          );
           localStorage.setItem(
             "n-t-user",
             JSON.stringify(res.data?.user)
@@ -76,9 +85,9 @@ const Login = () => {
             error: err.response.data.error || err.name,
           })
         );
-      setLoading(false)
-    }, 1000)
-  }
+      setLoading(false);
+    }, 1000);
+  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -89,12 +98,15 @@ const Login = () => {
 
   return (
     <div className="w-full items-center h-screen ">
-      <h1 className="block w-full text-center mb-6">
-        Login to your account
-      </h1>
-      <div className="w-full bg-white rounded shadow-lg p-8 m-4 md:max-w-sm md:mx-auto">
+      <div className="md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
+        <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
+          Welcome Back!
+        </h1>
+        <h2 className="text-center text-gray-600">
+          Please enter your details
+        </h2>
         <form
-          className="mb-4 md:flex md:flex-wrap md:justify-between"
+          className="mb-4 md:flex md:flex-wrap shadow:lg md:justify-between"
           onSubmit={handleSubmitForm}
         >
           <div className="flex flex-col mb-4 md:w-full">
@@ -105,10 +117,11 @@ const Login = () => {
               Email:
             </label>
             <input
+              id="email"
               type="email"
               name="email"
               className="border py-2 px-3 "
-              autoComplete="user"
+              autoComplete="email"
               value={formData.email}
               onChange={handleInputChange}
             />
@@ -120,14 +133,23 @@ const Login = () => {
             >
               Password:
             </label>
-            <input
-              type="password"
-              name="password"
-              className="border py-2 px-3"
-              autoComplete="new-password"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                className="border py-2 px-3 pr-10 w-full"
+                autoComplete="current-password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+              <span
+                className={`absolute m-0 top-1/2 transform -translate-y-1/2 cursor-pointer`}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <TogglePasswordIcon showPassword={showPassword} />
+              </span>
+            </div>
           </div>
           {loading ?
             <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
@@ -138,7 +160,9 @@ const Login = () => {
               Submit
             </button>
           }
-          <div>{formData.error && formData.error}</div>
+          <div className="text-red-500 text-center ml-5 mt-2">
+            {formData.error && formData.error}
+          </div>
         </form>
         {loading ? "" :
           <button
@@ -149,7 +173,7 @@ const Login = () => {
         }
         <span className="block w-full text-center no-underline hover:slate-300 text-sm">
           <Link to="/register" className="hover:blue">
-            Need an account??
+            Need an account?
           </Link>
         </span>
       </div>
