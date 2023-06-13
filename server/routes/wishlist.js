@@ -38,7 +38,7 @@ router.route("/").put(verifyToken, async (req, res, next) => {
       })
       .select("-password");
 
-    return res.status(200).send(user);
+    return res.status(200).send(user.wishList);
   } catch (error) {
     console.log(error);
     return res.status(500).send({ error: "Something went wrong" });
