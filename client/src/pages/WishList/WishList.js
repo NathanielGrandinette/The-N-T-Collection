@@ -2,9 +2,13 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import useGetWishList from "../../hooks/useGetWishList";
 import WishListCard from "./WishListCard";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const WishList = () => {
-  const { wishList } = useGetWishList();
+  const navigate = useNavigate();
+
+  const { wishList, error } = useGetWishList();
 
   const responsive = {
     desktop: {
@@ -24,9 +28,15 @@ const WishList = () => {
     },
   };
 
+  useEffect(() => {
+    if (error) {
+      navigate("/login");
+    }
+  }, [error, navigate]);
+
   return (
     <div>
-      <div className=" flex flex-col justify-center text-center text-1xl md:text-1xl lg:text-2xl font-heading font-medium static top-0 inset-x-0 p-2 h-64 bg-gradient-to-r from-indigo-500 transition-colors duration-200 ease-out transform origin-top-right">
+      <div className=" flex flex-col h-full justify-center text-center text-1xl md:text-1xl lg:text-2xl font-heading font-medium static top-0 inset-x-0 p-2  bg-gradient-to-r from-indigo-500 transition-colors duration-200 ease-out transform origin-top-right">
         <h2 className="flex flex-row flex-nowrap items-center my-8">
           <span
             className="flex-grow block border-t border-black"

@@ -16,18 +16,18 @@ router
       });
 
       const wishListItems = currUser.wishList.map((item) => {
-        const { product, dateAdded, _id } = item ?? {};
-        const { name, price, photo, description, quantity } =
+        const { product, dateAdded } = item ?? {};
+        const { name, price, photo, description, quantity, _id } =
           product ?? {};
 
         console.log(product);
-        const { path } = photo;
+
         return {
           _id,
           name,
           price,
           dateAdded,
-          photo: path,
+          photo,
           description,
           quantity,
         };

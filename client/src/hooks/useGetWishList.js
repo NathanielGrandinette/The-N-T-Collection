@@ -15,7 +15,7 @@ function useGetWishList() {
         setWishList(list.data);
       } catch (error) {
         console.log(error);
-        toast.error("failed to fetch wish list.");
+        console.error("From useGetWishList: Error with user token.");
       }
     } else {
       return;
