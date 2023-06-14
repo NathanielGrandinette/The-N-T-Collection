@@ -2,7 +2,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useGetProducts from "../../hooks/useGetProducts";
 import { useNavigate } from "react-router-dom";
-import "./carousel.css";
+import "./ProductCarousel.css";
 
 const ProductCarousel = () => {
   const { products } = useGetProducts();
