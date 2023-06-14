@@ -14,10 +14,6 @@ const Footer = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getCart(); // get cart every time the footer opens
-  }, [open]);
-
   return (
     <div
       className="footer"

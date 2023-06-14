@@ -8,18 +8,24 @@ const Checkout = () => {
     const { cart, getCart } = useCartContext();
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        getCart(); // get cart every time the footer opens
-    }, []);
-    console.log(cart)
+    let total
+    const getTotal = () => {
+        const itemsPrices = cart.items.map((item) => {
+            return item.price
+        })
+        total = itemsPrices.reduce((accumulator, value) => {
+            return accumulator + value
+        })
+    }
+    getTotal()
+    console.log(cart)    
     return (
-        <div>
+        <div className="checkout">
             {cart && cart.items?.map((item) => {
                 return (
                     <div className="checkout-item">
                         <div className="checkout-item-img-name">
-                            <img src={item.photo}></img>
+                            <img src={item.photo.path}></img>
                             <div>{item.name}</div>
                         </div>
                         <div>
@@ -29,6 +35,9 @@ const Checkout = () => {
                     </div>
                 )
             })}
+            <div className="checkout-total">
+                Total: ${total}
+            </div>
         </div>
     )
 }
