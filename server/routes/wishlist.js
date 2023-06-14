@@ -21,14 +21,14 @@ router
         return {
           productId: product?.id,
           productName: name,
-          productPrice: price,
+          price: price,
           dateAdded,
           wishListItemId: _id,
           photo: path,
         };
       });
 
-      return res.status(200).send(wishListItems);
+      return res.status(200).send({ list: wishListItems });
     } catch (error) {
       console.log(error);
       return res.status(500).send({ error: "Something went wrong" });
