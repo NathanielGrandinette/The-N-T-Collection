@@ -11,20 +11,25 @@ router
     try {
       const currUser = await User.findOne({ _id: user_id }).populate({
         path: "wishList.product",
-        select: " photo.path name price description updatedAt",
+        select:
+          " photo.path name price description updatedAt quantity",
       });
 
       const wishListItems = currUser.wishList.map((item) => {
         const { product, dateAdded, _id } = item ?? {};
-        const { name, price, photo } = product ?? {};
+        const { name, price, photo, description, quantity } =
+          product ?? {};
+
+        console.log(product);
         const { path } = photo;
         return {
-          productId: product?.id,
-          productName: name,
-          price: price,
+          _id,
+          name,
+          price,
           dateAdded,
-          wishListItemId: _id,
           photo: path,
+          description,
+          quantity,
         };
       });
 
