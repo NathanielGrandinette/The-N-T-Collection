@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { BsBag } from "react-icons/bs";
 import "./NavBar.css";
-import logo from "../../assets/the N-T Collection.svg";
+import logo from "../../assets/n-t-logo.png";
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -47,7 +47,11 @@ const NavBar = () => {
       className="flex items-center justify-between lg:justify-around border-b border-blue-500 shadow-lg h-24"
     >
       <Link to="/">
-        <BsBag size={30} />
+        <img
+          src={logo}
+          alt=""
+          className="object-fit h-20 bg-clip-content"
+        />
       </Link>
       <nav>
         <section className="mobile-menu flex lg:hidden">

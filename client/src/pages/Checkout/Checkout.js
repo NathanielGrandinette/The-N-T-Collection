@@ -27,7 +27,6 @@ const Checkout = () => {
     const confirmOrder = () => {
         setLoading(true)
         setTimeout(() => {
-            console.log("test")
             setLoading(false)
         }, 1000)
     }
@@ -72,4 +71,4 @@ const Checkout = () => {
     )
 }
 
-export default Checkout
+export default Checkout;
