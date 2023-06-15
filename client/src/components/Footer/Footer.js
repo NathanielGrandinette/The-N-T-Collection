@@ -10,10 +10,10 @@ import "./footer.css";
 
 const Footer = () => {
   const [open, setOpen] = useState(false); //for footer
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { cart, getCart, removeFromCart } = useCartContext();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div
@@ -27,35 +27,36 @@ const Footer = () => {
           <div className="cart">
             {cart.items?.length > 0
               ? cart.items.map((product, i) => {
-                return (
-                  <div
-                    className="product"
-                    testId={product._id}
-                    key={i}
-                  >
-                    <TiDelete
-                      onClick={() => removeFromCart(product)}
-                    />
-                    <Badge
-                      badgeContent={
-                        product.shopped > 1 ? product.shopped : null
-                      }
-                      color="primary"
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
-                      }}
+                  return (
+                    <div
+                      className="product"
+                      testId={product._id}
+                      key={i}
                     >
-                      <img
-                        src={`/${product.photo.path || product.photo
-                          }`}
-                        className="cart-product-img"
-                        alt={product.name}
+                      <TiDelete
+                        onClick={() => removeFromCart(product)}
                       />
-                    </Badge>
-                  </div>
-                );
-              })
+                      <Badge
+                        badgeContent={
+                          product.shopped > 1 ? product.shopped : null
+                        }
+                        color="primary"
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                      >
+                        <img
+                          src={`/${
+                            product.photo.path || product.photo
+                          }`}
+                          className="cart-product-img"
+                          alt={product.name}
+                        />
+                      </Badge>
+                    </div>
+                  );
+                })
               : "Your cart is empty"}
           </div>
           <button
@@ -65,10 +66,10 @@ const Footer = () => {
               } else {
                 toast.error("Your cart is empty")
               }
-              
             }}
-            className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
-            {loading ? <LoadingSpinner /> : 'Checkout'}
+            className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded"
+          >
+            {loading ? <LoadingSpinner /> : "Checkout"}
           </button>
           <div className="subtotal">Subtotal: ${cart?.cartTotal}</div>
         </div>

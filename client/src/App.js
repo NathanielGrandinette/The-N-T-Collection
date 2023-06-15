@@ -14,6 +14,7 @@ import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Checkout from "./pages/Checkout/Checkout";
+import WishList from "./pages/WishList/WishList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -37,7 +38,6 @@ function App() {
       />
 
       <Routes>
-        {}
         <Route
           path="/"
           element={isLoggedIn(user) ? <Shop /> : <Landing />}
@@ -58,6 +58,7 @@ function App() {
           />
           <Route path="/productcard" element={<ProductCards />} />
         </Route>
+        <Route path="/wishlist" element={<WishList />} />
       </Routes>
 
       {isLoggedIn(user) ? <Footer /> : null}
