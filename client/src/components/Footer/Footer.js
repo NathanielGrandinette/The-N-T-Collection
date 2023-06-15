@@ -5,6 +5,7 @@ import { BsBag } from "react-icons/bs";
 import { useCartContext } from "../../context/CartContex";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./footer.css";
 
 const Footer = () => {
@@ -60,7 +61,11 @@ const Footer = () => {
           </div>
           <button
             onClick={() => {
-              navigate("/checkout", { replace: true });
+              if(cart.items?.length > 0) {
+                navigate("/checkout", { replace: true })
+              } else {
+                toast.error("Your cart is empty")
+              }
             }}
             className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded"
           >
