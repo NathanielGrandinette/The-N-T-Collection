@@ -8,6 +8,7 @@ const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
 const addressRouter = require("./routes/address");
 const wishlistRouter = require("./routes/wishlist");
+const orderRouter = require("./routes/order")
 
 const path = require("path");
 const { database } = require("./config/keys");
@@ -33,6 +34,7 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/address", addressRouter);
 app.use("/wishlist", wishlistRouter);
+app.use("/order", orderRouter)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));

@@ -3,7 +3,6 @@ import axios from "axios";
 const verifyToken = () => {
   try {
     const token = JSON.parse(localStorage.getItem("jwt"));
-
     return token ? token : "";
   } catch (error) {
     console.log(error);

@@ -78,7 +78,6 @@ const AdminProduct = ({
     } else {
       const form = new FormData();
       form.append("file", selected);
-
       form.append("name", item.name);
       form.append("price", item.price);
       form.append("description", item.description);
