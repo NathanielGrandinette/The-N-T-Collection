@@ -6,7 +6,9 @@ const WishListBtn = ({ product, productId }) => {
   const isProductWished = () => {
     return (
       wishList &&
-      wishList.list.some((product) => product.productId === productId)
+      wishList.list?.some(
+        (product) => product.productId === productId
+      )
     );
   };
   console.log(wishList);
