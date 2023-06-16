@@ -20,9 +20,11 @@ const AdminProduct = ({
   useEffect(() => {
     if (product.name === "") {
       setEdit(true);
+    } else {
+      setItem(product);
+      setSelected(product.photos);
+      setEdit(false);
     }
-    setItem(product);
-    setSelected(product.photos);
   }, [product]);
 
   const handleChange = (e) => {
@@ -56,6 +58,8 @@ const AdminProduct = ({
 
   const handleSave = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+
     if (product._id === undefined) {
       const form = new FormData();
       form.append("file", selected);
@@ -89,6 +93,7 @@ const AdminProduct = ({
         .then((res) => {
           console.log(res);
           toast.success("Product updated");
+          setEdit(false);
         })
         .catch((err) => {
           console.log(err);
@@ -101,13 +106,18 @@ const AdminProduct = ({
       setEdit(false);
       setLoading(false);
     }, 5000);
+
     getProducts();
   };
 
-  const handleCancel = () => {
-    setEdit(false);
-    setRefresh(!refresh);
+  const handleCancel = (e) => {
+    e.stopPropagation();
+    if (product.name !== "") {
+      setEdit(false);
+      setRefresh(!refresh);
+    }
   };
+
   return (
     <div>
       {edit ? (
@@ -160,7 +170,7 @@ const AdminProduct = ({
             <div className="flex flex-row justify-center">
               <button
                 className="m-2 bg-red-600 w-1/3"
-                onClick={() => handleCancel()}
+                onClick={(e) => handleCancel(e)}
               >
                 Cancel
               </button>
