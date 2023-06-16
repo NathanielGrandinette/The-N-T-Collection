@@ -4,11 +4,13 @@ import { useCartContext } from '../../context/CartContex';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import CheckoutForm from './CheckoutForm';
+import axios from '../../utils/axiosConfig';
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const [address, setAddress] = useState()
     const [payment, setPayment] = useState()
+    const [error, setError] = useState()
     const { cart, getCart } = useCartContext();
 
     const navigate = useNavigate()
@@ -23,10 +25,27 @@ const Checkout = () => {
     }
 
     getTotal()
-
     const confirmOrder = () => {
         setLoading(true)
-        setTimeout(() => {
+        setTimeout(async () => {
+            if(!(address || payment)) {
+                setError("Required")
+                setLoading(false)
+                return
+            }
+            const newOrder = await axios.post('/order', {
+                streetAddress: address.address,
+                city: address.city,
+                zip: address.zip,
+                apt: address.apt ? address.apt : undefined,
+                state: address.state,
+                order: cart
+            })
+            .then(
+                console.log("Horray"),
+                localStorage.removeItem("Cart"),
+                navigate('/shop')
+            )
             setLoading(false)
         }, 1000)
     }
@@ -38,6 +57,8 @@ const Checkout = () => {
                 setAddress={setAddress}
                 payment={payment}
                 setPayment={setPayment}
+                error={error}
+                setError={setError}
             />
             <div style={{display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                 {cart && cart.items?.map((item) => {
@@ -57,6 +78,7 @@ const Checkout = () => {
                 <div style={{ height: "200px", width: '75%' }}>
                     <div className="checkout-button-total">
                         <button
+                            disabled={false}
                             onClick={() => confirmOrder()}
                             className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-2 rounded">
                             {loading ? <LoadingSpinner /> : 'Confirm Order'}

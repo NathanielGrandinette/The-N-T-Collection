@@ -4,17 +4,32 @@ import { FormHelperText, Input, InputLabel, TextField } from '@mui/material'
 import "./CheckoutForm.css"
 
 const CheckoutForm = ({
-    address, 
-    setAddress, 
-    payment, 
-    setPayment
+    address,
+    setAddress,
+    payment,
+    setPayment,
+    error,
+    setError
 }) => {
 
     const handleShippingAddress = (e) => {
-        setAddress({
-            ...address,
-            [e.target.name]: e.target.value
-        })
+        if (e.target.value === "") {
+            setError({
+                ...error,
+                [e.target.name]: "Required"
+            })
+            return
+        } else {
+            setError({
+                ...error,
+                [e.target.name]: ""
+            })
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
+
     }
 
     const handlePaymentMethod = (e) => {
@@ -23,20 +38,23 @@ const CheckoutForm = ({
         })
     }
 
-    console.log(address)
     return (
         <div className="checkout-form">
             <div className="checkout-form-section">
                 <h2>1. Shipping Address</h2>
                 <FormControl>
                     <TextField
+                        error={error?.address ? true : false}
                         required={true}
                         label="Address"
                         name="address"
                         color="secondary"
+                        helperText={error?.address ? error.address : false}
                         onChange={(e) => handleShippingAddress(e)}
                     />
                     <TextField
+                        error={error?.city ? true : false}
+                        helperText={error?.city ? error.city : false}
                         required={true}
                         label="City"
                         name="city"
@@ -44,9 +62,11 @@ const CheckoutForm = ({
                         onChange={(e) => handleShippingAddress(e)}
                     />
                     <TextField
+                        error={error?.zip ? true : false}
+                        helperText={error?.zip ? error.zip : false}
                         required={true}
                         label="Zip Code"
-                        name="zip-code"
+                        name="zip"
                         color="secondary"
                         onChange={(e) => handleShippingAddress(e)}
                     />
@@ -59,9 +79,11 @@ const CheckoutForm = ({
                         onChange={(e) => handleShippingAddress(e)}
                     />
                     <TextField
+                        error={error?.state ? true : false}
+                        helperText={error?.state ? error.state : false}
                         required={true}
                         label="State"
-                        name="sate"
+                        name="state"
                         color="secondary"
                         onChange={(e) => handleShippingAddress(e)}
                     />
@@ -71,9 +93,11 @@ const CheckoutForm = ({
                 <h2>2. Payment Method</h2>
                 <FormControl>
                     <TextField
+                        error={error?.cardNum ? true : false}
+                        helperText={error?.cardNum ? error.cardNum : false}
                         required={true}
                         type="text"
-                        inputMode='numberic'
+                        inputMode='numeric'
                         pattern='[0-9]*'
                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                         label="Card Number"
@@ -82,6 +106,8 @@ const CheckoutForm = ({
                         onChange={(e) => handlePaymentMethod(e)}
                     />
                     <TextField
+                        error={error?.cvv ? true : false}
+                        helperText={error?.cvv ? error.cvv : false}
                         required={true}
                         label="Security Code"
                         name="cvv"
@@ -89,6 +115,8 @@ const CheckoutForm = ({
                         onChange={(e) => handlePaymentMethod(e)}
                     />
                     <TextField
+                        error={error?.exp ? true : false}
+                        helperText={error?.exp ? error.exp : false}
                         required={true}
                         label="Expiration Date"
                         name="exp"
@@ -98,13 +126,13 @@ const CheckoutForm = ({
                 </FormControl>
                 <FormControl>
                     <TextField
-                        error={payment?.name ? false : true}
+                        error={error?.name ? true : false}
+                        helperText={error?.name ? error.name : false}
                         type="text"
                         required={true}
                         label="Name on Card"
                         name="name"
                         color="secondary"
-                        helperText={payment?.name ? "" : "Incorrect Entry"}
                         onChange={(e) => handlePaymentMethod(e)}
                     />
                     <TextField

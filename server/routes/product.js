@@ -1,5 +1,4 @@
 const express = require("express");
-
 const Product = require("../models/Product");
 const verifyToken = require("../middleware/auth");
 const upload = require("../config/multer");

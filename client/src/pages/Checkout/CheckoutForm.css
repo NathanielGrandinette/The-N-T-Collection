@@ -5,6 +5,8 @@
 }
 
 .checkout-form-section {
+    margin-bottom: 25px;
+    color: white;
     border-bottom: 1px solid black;
     padding: 30px;
     display: flex;
@@ -24,4 +26,12 @@
 
 .MuiTextField-root {
     margin: 10px !important;
+}
+
+.MuiInputBase-root {
+    background-color: white;
+}
+
+.Mui-focused {
+    font-weight: bolder !important;
 }
