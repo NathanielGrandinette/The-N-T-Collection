@@ -34,6 +34,17 @@ router
     async (req, res, next) => {
       const { name, price, description, quantity } = req.body;
 
+      if (
+        name === "undefined" ||
+        price === "undefined" ||
+        description === "undefined " ||
+        quantity === "undefined"
+      ) {
+        return res
+          .status(400)
+          .json({ error: "Add new product Canceled." });
+      }
+
       if (!req.file) {
         return res
           .status(400)
