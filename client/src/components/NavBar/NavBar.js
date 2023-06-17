@@ -44,7 +44,7 @@ const NavBar = () => {
   return (
     <div
       id="navigation"
-      className="flex items-center justify-between lg:justify-around border-b border-blue-500 shadow-lg h-24"
+      className="flex items-center justify-between p-8 lg:justify-around border-b border-blue-500 shadow-lg h-24"
     >
       <Link to="/">
         <img
@@ -82,6 +82,7 @@ const NavBar = () => {
             />
           </button>
           <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+            <div className="menu-blur">
             <ul
               className="menu-link-mobile-open flex flex-col items-center justify-between min-h-[250px]"
               onClick={() => setIsNavOpen(false)}
@@ -128,6 +129,8 @@ const NavBar = () => {
               )}
             </ul>
           </div>
+          </div>
+          
         </section>
 
         <ul className="desktop-menu-hidden hidden space-x-8 lg:flex text-lg">

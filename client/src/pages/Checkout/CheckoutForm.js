@@ -33,6 +33,12 @@ const CheckoutForm = ({
     }
 
     const handlePaymentMethod = (e) => {
+        if (e.target.value === "") {
+            setError({
+                ...error,
+                [e.target.name]: "Required"
+            })
+        }
         setPayment({
             [e.target.name]: e.target.value
         })
@@ -96,7 +102,7 @@ const CheckoutForm = ({
                         error={error?.cardNum ? true : false}
                         helperText={error?.cardNum ? error.cardNum : false}
                         required={true}
-                        type="text"
+                        type="number"
                         inputMode='numeric'
                         pattern='[0-9]*'
                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
@@ -109,6 +115,7 @@ const CheckoutForm = ({
                         error={error?.cvv ? true : false}
                         helperText={error?.cvv ? error.cvv : false}
                         required={true}
+                        type='text'
                         label="Security Code"
                         name="cvv"
                         color="secondary"
@@ -116,6 +123,7 @@ const CheckoutForm = ({
                     />
                     <TextField
                         error={error?.exp ? true : false}
+                        type="month"
                         helperText={error?.exp ? error.exp : false}
                         required={true}
                         label="Expiration Date"
