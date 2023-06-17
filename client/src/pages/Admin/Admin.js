@@ -43,7 +43,7 @@ const Admin = () => {
           My Products
         </button>
       </div>
-      <div>
+      <div className="admin-page">
         {page === "products" ? (
           <ProductList />
         ) : page === "users" ? (
