@@ -9,7 +9,7 @@ const Landing = () => {
   };
   return (
     <main>
-      <section className="flex flex-col flex-wrap">
+      <section className="flex flex-col h-screen content-center justify-center flex-wrap">
         <img src={nt} alt="company logo" />
         <button
           onClick={handleClick}

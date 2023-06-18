@@ -10,13 +10,23 @@ const MyProducts = ({ user }) => {
     products
       .filter((product) => product.productOwner?.email === user.email)
       .map((product) => (
-        <Product
-          key={product._id}
-          product={product}
-          user={user}
-          getProducts={getProducts}
-          toast={toast}
-        />
+        <div
+          style={{
+            backgroundColor: "#36454F",
+            padding: "25px",
+            minHeight: "90vh",
+            marginBottom: "75px",
+          }}
+        >
+          <Product
+            key={product._id}
+            product={product}
+            user={user}
+            getProducts={getProducts}
+            toast={toast}
+          />
+        </div>
+
       ));
 
   return myProducts.length > 0
