@@ -22,7 +22,7 @@ const Footer = () => {
       onMouseLeave={() => setOpen(false)}
     >
       {open ? (
-        <div>
+        <div className="cart-open">
           <h3 className="cart-header">Cart:</h3>
           <div className="cart">
             {cart.items?.length > 0

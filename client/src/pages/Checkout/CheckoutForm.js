@@ -47,7 +47,7 @@ const CheckoutForm = ({
     return (
         <div className="checkout-form">
             <div className="checkout-form-section">
-                <h2>1. Shipping Address</h2>
+                <h2 className="checkout-section-title">1. Shipping Address</h2>
                 <FormControl>
                     <TextField
                         error={error?.address ? true : false}
@@ -96,7 +96,7 @@ const CheckoutForm = ({
                 </FormControl>
             </div>
             <div className="checkout-form-section">
-                <h2>2. Payment Method</h2>
+                <h2 className="checkout-section-title">2. Payment Method</h2>
                 <FormControl>
                     <TextField
                         error={error?.cardNum ? true : false}
@@ -152,7 +152,7 @@ const CheckoutForm = ({
                 </FormControl>
             </div>
             <div className="checkout-form-last-section">
-                <h2>3. Review Order</h2>
+                <h2 className="checkout-section-title">3. Review Order</h2>
             </div>
         </div>
     )

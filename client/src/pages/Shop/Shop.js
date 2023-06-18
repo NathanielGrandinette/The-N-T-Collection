@@ -6,7 +6,7 @@ import "./shop.css";
 
 const Shop = () => {
   return (
-    <div>
+    <div className="shop">
       <ProductCarousel />
       <div className="home-products">
         <div className="product-display">
