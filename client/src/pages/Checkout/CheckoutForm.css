@@ -6,7 +6,6 @@
 
 .checkout-form-section {
     margin-bottom: 25px;
-    color: white;
     border-bottom: 1px solid black;
     padding: 30px;
     display: flex;
@@ -34,4 +33,8 @@
 
 .Mui-focused {
     font-weight: bolder !important;
+}
+
+.checkout-section-title {
+    color: white;
 }

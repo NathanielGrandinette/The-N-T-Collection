@@ -54,11 +54,30 @@
     cursor: pointer;
 }
 
+.cart-open {
+    -webkit-animation: riseup forwards 1s;
+    -moz-animation: riseup forwards 1s;
+    -o-animation: riseup forwards 1s;
+}
+
 @keyframes spin {
     from {
-        transform: rotateY(0deg); 
+        transform: rotateY(0deg);
     }
+
     to {
         transform: rotateY(360deg);
+    }
+}
+
+@keyframes riseup {
+    from {
+        height: 50px;
+        opacity: 0;
+    }
+
+    to {
+        height: 20vh;
+        opacity: 1;
     }
 }
