@@ -56,7 +56,7 @@ const NavBar = () => {
       <nav>
         <section className="mobile-menu flex lg:hidden">
           <button
-            className="flex flex-col h-12 w-12 border-2 border-black rounded justify-center items-center group"
+            className="flex flex-col h-12 w-12 border-2 border-black rounded justify-center items-center group nav-button"
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div
@@ -81,7 +81,7 @@ const NavBar = () => {
               }`}
             />
           </button>
-          <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+          <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"} style={{ display: isNavOpen ? '' : 'none'}}>
             <div className="menu-blur">
             <ul
               className="menu-link-mobile-open flex flex-col items-center justify-between min-h-[250px]"

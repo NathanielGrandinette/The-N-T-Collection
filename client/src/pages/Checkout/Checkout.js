@@ -42,9 +42,8 @@ const Checkout = () => {
                 order: cart
             })
             .then(
-                console.log("Horray"),
                 localStorage.removeItem("Cart"),
-                navigate('/shop')
+                navigate('/orderconfirmation')
             )
             setLoading(false)
         }, 1000)
