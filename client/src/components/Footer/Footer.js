@@ -27,41 +27,40 @@ const Footer = () => {
           <div className="cart">
             {cart.items?.length > 0
               ? cart.items.map((product, i) => {
-                  return (
-                    <div
-                      className="product"
-                      testId={product._id}
-                      key={i}
+                return (
+                  <div
+                    className="product"
+                    testId={product._id}
+                    key={i}
+                  >
+                    <TiDelete
+                      onClick={() => removeFromCart(product)}
+                    />
+                    <Badge
+                      badgeContent={
+                        product.shopped > 1 ? product.shopped : null
+                      }
+                      color="primary"
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}
                     >
-                      <TiDelete
-                        onClick={() => removeFromCart(product)}
-                      />
-                      <Badge
-                        badgeContent={
-                          product.shopped > 1 ? product.shopped : null
-                        }
-                        color="primary"
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                      >
-                        <img
-                          src={`/${
-                            product.photo.path || product.photo
+                      <img
+                        src={`/${product.photo.path || product.photo
                           }`}
-                          className="cart-product-img"
-                          alt={product.name}
-                        />
-                      </Badge>
-                    </div>
-                  );
-                })
+                        className="cart-product-img"
+                        alt={product.name}
+                      />
+                    </Badge>
+                  </div>
+                );
+              })
               : "Your cart is empty"}
           </div>
           <button
             onClick={() => {
-              if(cart.items?.length > 0) {
+              if (cart.items?.length > 0) {
                 navigate("/checkout", { replace: true })
               } else {
                 toast.error("Your cart is empty")
