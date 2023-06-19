@@ -24,7 +24,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[#36454F]">
+    <div className="bg-[#36454F] min-h-screen">
       <NavBar />
 
       <ToastContainer
