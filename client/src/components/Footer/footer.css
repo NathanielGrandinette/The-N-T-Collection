@@ -36,6 +36,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+
+    -webkit-animation: dropdown-footer forwards 1s;
+    -moz-animation: dropdown-footer forwards 1s;
+    -o-animation: dropdown-footer forwards 1s;
 }
 
 .subtotal {
@@ -67,6 +71,16 @@
 
     to {
         transform: rotateY(360deg);
+    }
+}
+
+@keyframes dropdown-footer {
+    from {
+        height: 20vh;
+    }
+
+    to {
+        height: 50px;
     }
 }
 
