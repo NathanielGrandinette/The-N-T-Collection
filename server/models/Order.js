@@ -42,6 +42,10 @@ const OrderSchema = new mongoose.Schema({
         ref: "User",
         required: true,
       },
+    confirmationNum: {
+        type: Number,
+        required: true
+    }
 })
 
 const Order = mongoose.model('Order', OrderSchema)
