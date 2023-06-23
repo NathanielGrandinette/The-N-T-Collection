@@ -1,0 +1,125 @@
+.confirm-page {
+    height: 90vh;
+    width: 100%;
+}
+
+.order-confirm {
+    width: 75%;
+    max-width: 850px;
+    min-width: 400px;
+    min-height: 65vh;
+    margin: 0 auto;
+    border: 1px solid black;
+    padding: 50px;
+    border-radius: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: bisque;
+}
+
+.thank-you-statement {
+    border-bottom: 1px solid gray;
+    height: 10%;
+    font-weight: bolder;
+    font-size: 20px;
+    padding-bottom: 50px;
+}
+
+.receipt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 25px;
+    width: 100%;
+    height: 55vh;
+}
+
+.receipt h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.receipt-items {
+    height: 50%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-shadow: inset 0 0 2px 2px black;
+}
+
+.receipt-items::-webkit-scrollbar {
+    display: none;
+}
+
+.items {
+    border: 1px solid gray;
+    height: 40%;
+
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.items img {
+    width: 25%;
+    height: 100%;
+}
+
+.items div {
+    display: flex;
+    width: 100%;
+    height: 75%;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.receipt-order-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.invoice {
+    min-width: 70%;
+}
+
+.invoice h4 {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.total-info {
+    min-width: 20%;
+}
+
+.total-info div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-info div h4 {
+    margin-right: 5px;
+}
+
+.confirm-num {
+    font-weight: bolder;
+}
+
+.date {
+    font-weight: bolder;
+}
+
+.total-paid {
+    margin-top: 25px;
+    font-size: 25px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: flex-end;
+}
