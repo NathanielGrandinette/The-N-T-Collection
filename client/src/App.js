@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register/Register";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
@@ -11,18 +11,20 @@ import Footer from "./components/Footer/Footer";
 import Admin from "./pages/Admin/Admin";
 import AdminRoutes from "./utils/PrivateRoutes/AdminRoutes";
 import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
+import Confirmation from "./pages/Confirmation/Confirmation";
 import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Checkout from "./pages/Checkout/Checkout";
 import WishList from "./pages/WishList/WishList";
 
 function App() {
+  const [order, setOrder] = useState()
   const { user } = useContext(AuthContext);
 
   const isLoggedIn = (user) => {
     return user ? true : false;
   };
-
+  console.log(order)
   return (
     <div className="bg-[#36454F]">
       <NavBar />
@@ -49,8 +51,8 @@ function App() {
           <Route element={<AdminRoutes />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
-
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orderconfirmation" element={<Confirmation order={order}/>} />
+          <Route path="/checkout" element={<Checkout setOrder={setOrder}/>} />
           <Route path="/shop" element={<Shop />} />
           <Route
             path="/productdetail/:productId"

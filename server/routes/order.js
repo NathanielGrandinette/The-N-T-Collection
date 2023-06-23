@@ -11,7 +11,9 @@ router
     })
     .post(verifyToken, async (req, res) => {
         console.log(req.user)
+        console.log(req)
         const { streetAddress, city, zip, apt, state, order } = req.body
+        const confirmationNum = Math.floor(Math.random() * 100000000)
         if(!(streetAddress || city || zip || state)) {
             return res.status(400).send({ error: "Please provide all required information" })
         }
@@ -32,7 +34,8 @@ router
                     items: order.items,
                     totalItems: order.totalItems
                 },
-                orderOwner: req.user.user_id
+                orderOwner: req.user.user_id,
+                confirmationNum: confirmationNum
             })
             return res.status(200).send(newOrder)
         } catch (error) {
