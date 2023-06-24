@@ -4,6 +4,8 @@ import "./productlist.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useGetProducts from "../../hooks/useGetProducts";
+import Fab from '@mui/material/Fab'
+import AddIcon from '@mui/icons-material/Add';
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductList = () => {
@@ -33,7 +35,7 @@ const ProductList = () => {
         })
       );
   };
-
+  console.log(window.scrollX)
   return (
     <div
       style={{
@@ -85,24 +87,26 @@ const ProductList = () => {
           })}
       </div>
       {window.location.pathname !== "/shop" ? (
-        <div className="w-full product-list-button">
-          <button
-            hidden={user?.role === "user"} //hide if user is not admin.
-            className="bg-green-600 p-2 w-1/3 rounded"
+        <div className="add-button">
+          <Fab color="primary"
+            hidden={user?.role === "user"}
             onClick={(e) => {
               setProducts([
-                ...products,
                 {
                   name: "",
                   price: "",
                   description: "",
                   quantity: "",
                 },
-              ]);
-            }}
-          >
-            Add Product
-          </button>
+                ...products,
+              ])
+              window.scrollTo({
+                top: 400,
+                behavior: 'smooth'
+              })
+            }} >
+            <AddIcon />
+          </Fab>
         </div>
       ) : (
         ""
