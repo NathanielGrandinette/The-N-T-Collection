@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useCartContext } from "../../context/CartContex";
 
-const UserProduct = ({ product, setLoading, loading }) => {
+const UserProduct = ({ product, setLoading, loading, itemKey }) => {
   const { addProductToCart } = useCartContext();
 
   return (
-    <div className="m-5 product-info" key={product._id}>
+    <div className="m-5 product-info" key={itemKey}>
       <Link
         to={`/productdetail/${product._id}`}
         state={{ product: product }}

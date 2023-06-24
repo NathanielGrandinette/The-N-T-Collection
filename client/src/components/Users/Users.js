@@ -66,7 +66,7 @@ const Users = () => {
           </input>
         {users && users.map((user) => {
           return (
-            <div className="user-card">
+            <div className="user-card" key={user._id}>
               <div className="user-info">
                 <div style={{fontWeight: "bolder", fontSize: "20px"}}>
                   {user.name}

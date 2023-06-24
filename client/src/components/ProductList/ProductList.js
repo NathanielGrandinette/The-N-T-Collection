@@ -73,6 +73,7 @@ const ProductList = () => {
             return (
               <Product
                 key={product._id}
+                itemKey={product._id}
                 user={user}
                 setRefresh={setRefresh}
                 refresh={refresh}

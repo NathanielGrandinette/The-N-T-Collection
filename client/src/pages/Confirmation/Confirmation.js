@@ -14,7 +14,7 @@ const Confirmation = ({ order }) => {
                     <div className="receipt-items">
                         {order && order?.order.items.map((item) => {
                             return (
-                                <div className="items">
+                                <div className="items" key={item._id}>
                                     <div>
                                         <img src={item.photo?.path || item.photo} alt={item.name} />
                                         <div style={{fontWeight: "bolder"}}>{item.name}</div>
