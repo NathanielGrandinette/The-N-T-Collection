@@ -11,7 +11,7 @@ const Admin = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div classname="admin">
+    <div className="admin">
       <div className="select-buttons">
         <button
           onClick={() => setPage("products")}

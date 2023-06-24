@@ -61,7 +61,7 @@ const Checkout = ({ setOrder }) => {
             <div style={{ display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 {cart && cart.items?.map((item) => {
                     return (
-                        <div className="checkout-item">
+                        <div className="checkout-item" key={item._id}>
                             <div className="checkout-item-img-name">
                                 <img src={item.photo.path || item.photo}></img>
                                 <h2>{item.name}</h2>
