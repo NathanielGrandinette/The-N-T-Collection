@@ -16,15 +16,16 @@ import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import Checkout from "./pages/Checkout/Checkout";
 import WishList from "./pages/WishList/WishList";
+import UserProfile from "./Profile/UserProfile";
 
 function App() {
-  const [order, setOrder] = useState()
+  const [order, setOrder] = useState();
   const { user } = useContext(AuthContext);
 
   const isLoggedIn = (user) => {
     return user ? true : false;
   };
-  console.log(order)
+  console.log(order);
   return (
     <div className="bg-[#36454F] min-h-screen">
       <NavBar />
@@ -51,8 +52,14 @@ function App() {
           <Route element={<AdminRoutes />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
-          <Route path="/orderconfirmation" element={<Confirmation order={order}/>} />
-          <Route path="/checkout" element={<Checkout setOrder={setOrder}/>} />
+          <Route
+            path="/orderconfirmation"
+            element={<Confirmation order={order} />}
+          />
+          <Route
+            path="/checkout"
+            element={<Checkout setOrder={setOrder} />}
+          />
           <Route path="/shop" element={<Shop />} />
           <Route
             path="/productdetail/:productId"
@@ -61,6 +68,7 @@ function App() {
           <Route path="/productcard" element={<ProductCards />} />
         </Route>
         <Route path="/wishlist" element={<WishList />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
 
       {isLoggedIn(user) ? <Footer /> : null}
