@@ -61,4 +61,21 @@ router
     }
   });
 
+router.route("/:userId").get(verifyToken, async (req, res) => {
+  const { userId } = req.params;
+  const currentUser = req.user.user_id;
+
+  if (userId.toString() !== currentUser.toString()) {
+    return res.status(401).json({
+      error: "Not authorized: You can only view your own orders.",
+    });
+  }
+
+  const userOrders = await Order.find({
+    orderOwner: userId,
+  }).populate({ path: "orderOwner", select: "name" });
+
+  res.status(200).send(userOrders);
+});
+
 module.exports = router;
