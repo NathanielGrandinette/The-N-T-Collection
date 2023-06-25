@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsBag } from "react-icons/bs";
 import "./NavBar.css";
 import logo from "../../assets/n-t-logo.png";
+import AvatarProfile from "../Avatar/Avatar";
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -81,56 +82,68 @@ const NavBar = () => {
               }`}
             />
           </button>
-          <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"} style={{ display: isNavOpen ? '' : 'none'}}>
+          <div
+            className={isNavOpen ? "showMenuNav" : "hideMenuNav"}
+            style={{ display: isNavOpen ? "" : "none" }}
+          >
             <div className="menu-blur">
-            <ul
-              className="menu-link-mobile-open flex flex-col items-center justify-between min-h-[250px]"
-              onClick={() => setIsNavOpen(false)}
-            >
-              <Link to="/">
-                <BsBag size={30} fill="white" />
-              </Link>
-              <li className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500">
-                <Link to="/">Home</Link>
-              </li>
-              <li className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500">
-                <Link to="/shop">Shop</Link>
-              </li>
-              {isUserAdmin(user) ? (
-                <li>
-                  {" "}
-                  <Link
-                    to="/admin"
-                    className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
-                  >
-                    Admin
-                  </Link>
+              <ul
+                className="menu-link-mobile-open flex flex-col items-center justify-between min-h-[250px]"
+                onClick={() => setIsNavOpen(false)}
+              >
+                <Link to="/">
+                  <BsBag size={30} fill="white" />
+                </Link>
+                <li className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500">
+                  <Link to="/">Home</Link>
                 </li>
-              ) : null}
-              {isLoggedIn(user) ? (
-                <li>
-                  <Link
-                    onClick={handleLogout}
-                    to="/"
-                    className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
-                  >
-                    Logout
-                  </Link>
+                <li className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500">
+                  <Link to="/shop">Shop</Link>
                 </li>
-              ) : (
-                <li>
-                  <Link
-                    to="/login"
-                    className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
-                  >
-                    Login
-                  </Link>
-                </li>
-              )}
-            </ul>
+                {isUserAdmin(user) ? (
+                  <li>
+                    {" "}
+                    <Link
+                      to="/admin"
+                      className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+                    >
+                      Admin
+                    </Link>
+                  </li>
+                ) : null}
+                {isLoggedIn(user) ? (
+                  <>
+                    <li>
+                      <Link
+                        onClick={handleLogout}
+                        to="/"
+                        className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+                      >
+                        Logout
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/profile"
+                        className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+                      >
+                        <AvatarProfile user={user} />
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link
+                      to="/login"
+                      className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+                    >
+                      Login
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
           </div>
-          </div>
-          
         </section>
 
         <ul className="desktop-menu-hidden hidden space-x-8 lg:flex text-lg">
@@ -166,15 +179,25 @@ const NavBar = () => {
           ) : null}
 
           {isLoggedIn(user) ? (
-            <li>
-              <Link
-                onClick={handleLogout}
-                to="/"
-                className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
-              >
-                Logout
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  onClick={handleLogout}
+                  to="/"
+                  className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+                >
+                  Logout
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/profile"
+                  className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500 "
+                >
+                  <AvatarProfile user={user} />
+                </Link>
+              </li>
+            </>
           ) : (
             <li>
               <Link
