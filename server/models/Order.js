@@ -1,53 +1,57 @@
-const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Schema.Types
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types;
 
 const OrderSchema = new mongoose.Schema({
-    address: {
-        streetAddress: {
-            type: String,
-            required: true
-        },
-        city: {
-            type: String,
-            required: true
-        },
-        zip: {
-            type: String,
-            required: true
-        },
-        apt: {
-            type: String,
-        },
-        state: {
-            type: String,
-            required: true
-        }
+  address: {
+    streetAddress: {
+      type: String,
+      required: true,
     },
-    order: {
-        cartTotal: {
-            type: Number,
-            required: true
-        },
-        items: {
-            type: Array,
-            required: true
-        },
-        totalItems: {
-            type: Number,
-            required: true
-        }
+    city: {
+      type: String,
+      required: true,
     },
-    orderOwner: {
-        type: ObjectId,
-        ref: "User",
-        required: true,
-      },
-    confirmationNum: {
-        type: Number,
-        required: true
-    }
-})
+    zip: {
+      type: String,
+      required: true,
+    },
+    apt: {
+      type: String,
+    },
+    state: {
+      type: String,
+      required: true,
+    },
+  },
+  order: {
+    cartTotal: {
+      type: Number,
+      required: true,
+    },
+    items: {
+      type: Array,
+      required: true,
+    },
+    totalItems: {
+      type: Number,
+      required: true,
+    },
+  },
+  orderOwner: {
+    type: ObjectId,
+    ref: "User",
+    required: true,
+  },
+  confirmationNum: {
+    type: Number,
+    required: true,
+  },
+  created: {
+    type: Date,
+    default: Date.now(),
+  },
+});
 
-const Order = mongoose.model('Order', OrderSchema)
+const Order = mongoose.model("Order", OrderSchema);
 
-module.exports = Order
+module.exports = Order;

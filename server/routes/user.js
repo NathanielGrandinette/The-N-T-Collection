@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
           role: checkExistingUser.role,
         },
         keys.jwt.secret,
-        { expiresIn: "12h" }
+        { expiresIn: "1d" }
       );
 
       const user = await User.findById({

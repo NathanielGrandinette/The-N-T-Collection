@@ -1,0 +1,16 @@
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::before {
+  content: "⇾";
+  color: blue;
+}
+
+details[open] summary::before {
+  content: "🅧";
+  color: rgb(0, 64, 255);
+}

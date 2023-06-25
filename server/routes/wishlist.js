@@ -20,8 +20,6 @@ router
         const { name, price, photo, description, quantity, _id } =
           product ?? {};
 
-        console.log(product);
-
         return {
           _id,
           name,

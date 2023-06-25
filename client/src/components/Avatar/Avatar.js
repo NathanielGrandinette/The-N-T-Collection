@@ -1,0 +1,18 @@
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import { deepOrange } from "@mui/material/colors";
+
+export default function AvatarProfile({ user }) {
+  return user ? (
+    <Avatar
+      sx={{ bgcolor: deepOrange[500] }}
+      alt="profile image"
+      src="/broken-image.jpg"
+    >
+      {user.name.charAt(0)}
+    </Avatar>
+  ) : (
+    <Avatar src="/broken-image.jpg" />
+  );
+}
