@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { Badge } from "@mui/material";
 import { BsBag } from "react-icons/bs";
@@ -11,7 +11,7 @@ import "./footer.css";
 const Footer = () => {
   const [open, setOpen] = useState(false); //for footer
   const [loading, setLoading] = useState(false);
-  const { cart, getCart, removeFromCart } = useCartContext();
+  const { cart, removeFromCart } = useCartContext();
 
   const navigate = useNavigate();
 
@@ -30,7 +30,6 @@ const Footer = () => {
                 return (
                   <div
                     className="product"
-                    testId={product._id}
                     key={i}
                   >
                     <TiDelete

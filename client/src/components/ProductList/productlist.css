@@ -22,3 +22,11 @@
     margin-bottom: 20px;
     border-radius: 5px;
 }
+
+.add-button {
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+}
