@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import FormControl from '@mui/material/FormControl'
-import { FormHelperText, Input, InputLabel, TextField } from '@mui/material'
+import { TextField } from '@mui/material'
 import "./CheckoutForm.css"
+import { errorMonitor } from 'events'
 
 const CheckoutForm = ({
     address,
@@ -12,6 +13,8 @@ const CheckoutForm = ({
     setError
 }) => {
 
+    console.log(error)
+
     const handleShippingAddress = (e) => {
         if (e.target.value === "") {
             setError({
@@ -20,10 +23,22 @@ const CheckoutForm = ({
             })
             return
         } else {
-            setError({
-                ...error,
-                [e.target.name]: ""
-            })
+            setError("")
+        }
+
+        if (e.target.name === 'zip') {
+            const regex = /^[0-9\b]+$/
+            regex.test(e.target.value) ?
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })
+                :
+                setError({
+                    ...error,
+                    [e.target.name]: "Invalid Zip Code"
+                })
+        } else {
             setAddress({
                 ...address,
                 [e.target.name]: e.target.value
@@ -38,11 +53,40 @@ const CheckoutForm = ({
                 ...error,
                 [e.target.name]: "Required"
             })
+        } else {
+            setError("")
         }
-        setPayment({
-            [e.target.name]: e.target.value
-        })
+
+        const regex = /^[0-9\b]+$/
+        if (e.target.name === 'cardNum' || e.target.name === 'cvv') {
+            regex.test(e.target.value) ?
+                setPayment({
+                    [e.target.name]: e.target.value
+                })
+                :
+                setError({
+                    ...error,
+                    [e.target.name]: "Invalid Input"
+                })
+        }
+        if (e.target.name === 'exp') {
+            const date = new Date()
+            new Date(e.target.value) < date ?
+                setError({
+                    ...error,
+                    [e.target.name]: "Card cannot be expired"
+                })
+                :
+                setPayment({
+                    [e.target.name]: e.target.value
+                })
+        } else {
+            setPayment({
+                [e.target.name]: e.target.value
+            })
+        }
     }
+
 
     return (
         <div className="checkout-form">
@@ -71,6 +115,7 @@ const CheckoutForm = ({
                         error={error?.zip ? true : false}
                         helperText={error?.zip ? error.zip : false}
                         required={true}
+                        inputProps={{ maxLength: 5 }}
                         label="Zip Code"
                         name="zip"
                         color="secondary"
@@ -102,10 +147,8 @@ const CheckoutForm = ({
                         error={error?.cardNum ? true : false}
                         helperText={error?.cardNum ? error.cardNum : false}
                         required={true}
-                        type="number"
-                        inputMode='numeric'
-                        pattern='[0-9]*'
-                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                        type="text"
+                        inputProps={{ maxLength: 12 }}
                         label="Card Number"
                         name="cardNum"
                         color="secondary"
@@ -117,6 +160,7 @@ const CheckoutForm = ({
                         required={true}
                         type='text'
                         label="Security Code"
+                        inputProps={{ maxLength: 4 }}
                         name="cvv"
                         color="secondary"
                         onChange={(e) => handlePaymentMethod(e)}
