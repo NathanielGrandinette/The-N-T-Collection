@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useCartContext } from "../../context/CartContex";
+import "./product.css";
 
 const UserProduct = ({ product, setLoading, loading, itemKey }) => {
   const { addProductToCart } = useCartContext();
@@ -12,11 +13,13 @@ const UserProduct = ({ product, setLoading, loading, itemKey }) => {
         to={`/productdetail/${product._id}`}
         state={{ product: product }}
       >
-        <img
-          src={product.photo?.path || product.photo}
-          className="product-img"
-          alt={product.name}
-        />
+        <div className="image-container">
+          <img
+            src={product.photo?.path || product.photo}
+            className="product-img"
+            alt={product.name}
+          />
+        </div>
       </Link>
       <h2>
         <strong>
