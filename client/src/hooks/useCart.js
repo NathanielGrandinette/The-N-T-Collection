@@ -13,6 +13,7 @@ const useCart = () => {
     savedCart ? savedCart : initialCart
   );
 
+  console.log(cart)
   const getCart = () => {
     if (savedCart && savedCart.cartTotal <= 0) {
       setCart(initialCart);
@@ -44,9 +45,7 @@ const useCart = () => {
   }, [cart]);
 
   const addProductToCart = (product) => {
-    console.log(product);
     const cartCopy = [...cart.items];
-    console.log(cartCopy);
     const checkExistingItemIndex = cartCopy.findIndex(
       (item) => item._id === product._id
     );
