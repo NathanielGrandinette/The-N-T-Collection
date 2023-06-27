@@ -25,7 +25,9 @@ const Checkout = ({ setOrder }) => {
     }
 
     getTotal()
-    const confirmOrder = () => {
+    const confirmOrder = (e) => {
+        console.log(e)
+        e.preventDefault()
         setLoading(true)
         setTimeout(async () => {
             if (!(address || payment)) {
@@ -50,7 +52,10 @@ const Checkout = ({ setOrder }) => {
 
     return (
         <div className="checkout">
-            <CheckoutForm
+            <form
+                onSubmit={confirmOrder}
+                >
+              <CheckoutForm
                 address={address}
                 setAddress={setAddress}
                 payment={payment}
@@ -76,8 +81,7 @@ const Checkout = ({ setOrder }) => {
                 <div style={{ height: "200px", width: '75%' }}>
                     <div className="checkout-button-total">
                         <button
-                            disabled={false}
-                            onClick={() => confirmOrder()}
+                            disabled={error ? true : false}
                             className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-2 rounded">
                             {loading ? <LoadingSpinner /> : 'Confirm Order'}
                         </button>
@@ -86,7 +90,9 @@ const Checkout = ({ setOrder }) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
+            </form>
+            
         </div>
     )
 }
