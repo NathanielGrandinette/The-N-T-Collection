@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "thentcollection",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +27,9 @@
     "server": "npm run start --workspace=server",
     "start": "concurrently --kill-others-on-fail \"npm run server\"  \"npm run client\"",
     "build": "react-scripts build",
-    "test": "cd client && react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
+    "test:client": "cd client && npm test",
+    "test:server": "cd server && jest",
+    "test": "npm run test:client && npm run test:server",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

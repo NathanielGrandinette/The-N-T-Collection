@@ -35,7 +35,7 @@ const ProductList = () => {
         })
       );
   };
-  console.log(window.scrollX)
+  
   return (
     <div
       style={{

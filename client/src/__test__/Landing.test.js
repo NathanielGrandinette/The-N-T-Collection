@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Landing from './Landing'
+import Landing from '../pages/Landing/Landing'
 import { BrowserRouter } from 'react-router-dom'
 
 const MockRouter = () => {
