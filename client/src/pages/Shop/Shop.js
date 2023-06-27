@@ -10,6 +10,17 @@ const Shop = () => {
       <ProductCarousel />
       <div className="home-products">
         <div className="product-display">
+          <h1
+            style={{
+              textAlign: "center",
+              color: "white",
+              fontWeight: "bolder",
+              fontSize: "50px",
+              padding: "25px",
+            }}
+          >
+            Shop Products
+          </h1>
           <ProductList />
         </div>
       </div>

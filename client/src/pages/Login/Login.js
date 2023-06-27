@@ -99,7 +99,7 @@ const Login = () => {
 
   return (
     <div className="w-full items-center h-screen ">
-      <div className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
+      <div data-testid="login-form" className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
         <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
           Welcome Back!
         </h1>
