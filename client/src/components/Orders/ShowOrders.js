@@ -21,13 +21,13 @@ const ShowOrders = () => {
 
     getUserOrders();
   }, [user._id]);
-  console.log(orders);
+
   return (
-    <div className="border bg-stone-300">
+    <div className=" bg-slate-500 rounded-lg">
       {orders &&
         orders.map((order) => (
           <div
-            className="w-full md:w-1/2 border-2 rounded-md shadow-lg border-slate-800 flex flex-col  flex-wrap content-center justify-between mx-auto  gap-2 mb-3"
+            className="w-full md:w-1/2 border-2 rounded-md shadow-xl border-slate-800 flex flex-col  flex-wrap content-center justify-between mx-auto  gap-2 mb-3"
             key={order._id}
           >
             <div className="flex justify-around gap-5 bg-zinc-300 border-b-2 w-full">
@@ -51,15 +51,17 @@ const ShowOrders = () => {
               </span>{" "}
             </div>
 
-            <details className=" flex-col  open:bg-slate-600 cursor-pointer">
+            <details className=" flex-col  open:bg-slate-500 ">
               <summary className="bg-white">
                 Order Details{" "}
                 <span className="float-right">
                   Ship to {order.orderOwner.name}
                 </span>
               </summary>
-              <span className="font-bold ">Shipping Address:</span>
-              <ul className="py-2 px-2">
+              <span className="font-bold ml-2 mt-2">
+                Shipping Address:
+              </span>
+              <ul className="shipping px-2 mb-2">
                 <li>{order.address.streetAddress}</li>
                 <li>
                   {order.address.city}, {order.address.state}{" "}
@@ -68,7 +70,7 @@ const ShowOrders = () => {
               </ul>
 
               {order.order.items.map((item) => (
-                <div className="flex" key={item._id}>
+                <div className="flex px-2 pb-2" key={item._id}>
                   {" "}
                   <img
                     src={item.photo.path || item.photo}
@@ -76,15 +78,17 @@ const ShowOrders = () => {
                     className="w-24 object-fit rounded-sm  "
                   />
                   <ul
-                    className="flex flex-col flex-wrap content-center items-center w-1/2 mx-auto"
+                    className="flex flex-col flex-wrap content-center items-center mx-auto"
                     key={item._id}
                   >
                     {" "}
-                    <h1 className="self-end font-bold text-cyan-700 ">
+                    <h1 className="self-end  font-bold text-cyan-500 ">
                       {item.name}
                     </h1>
-                    <li className="self-start">${item.price}</li>
-                    <span className="w-full  border-b-2">
+                    <li className="self-start mx-auto">
+                      Item Price: ${item.price}
+                    </li>
+                    <span className="w-full  text-center border-b-2">
                       <strong>Quantity:</strong>
                       {item.shopped}
                     </span>

@@ -1,11 +1,12 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import WishList from "../pages/WishList/WishList";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabPanel from "./TabPanel";
 import Box from "@mui/material/Box";
 import ShowOrders from "../components/Orders/ShowOrders";
+
+import "./userProfile.css";
 
 const UserProfile = () => {
   const [value, setValue] = useState(0);
@@ -27,11 +28,12 @@ const UserProfile = () => {
         >
           <Tabs
             className="justify-center"
+            textColor="info"
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab label="Wish List" />
+            <Tab color="#000000" label="Wish List" />
             <Tab label="Orders" />
             <Tab label="Edit Information" />
           </Tabs>
@@ -43,7 +45,7 @@ const UserProfile = () => {
           <ShowOrders />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          Edit user details component here.
         </TabPanel>
       </Box>
     </div>
