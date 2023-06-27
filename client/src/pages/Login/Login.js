@@ -121,6 +121,7 @@ const Login = () => {
               id="email"
               type="email"
               name="email"
+              data-testid="email-input"
               className="border py-2 px-3 "
               autoComplete="email"
               value={formData.email}
@@ -137,6 +138,7 @@ const Login = () => {
             <div className="password-input">
               <input
                 id="password"
+                data-testid="password-input"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 className="border py-2 px-3 pr-10 w-full"

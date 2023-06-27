@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=5000"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
