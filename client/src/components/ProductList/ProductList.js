@@ -45,21 +45,6 @@ const ProductList = () => {
         marginBottom: "75px",
       }}
     >
-      {window.location.pathname === "/shop" ? (
-        <h1
-          style={{
-            textAlign: "center",
-            color: "white",
-            fontWeight: "bolder",
-            fontSize: "50px",
-            padding: "25px",
-          }}
-        >
-          Shop Products
-        </h1>
-      ) : (
-        ""
-      )}
       <div className="w-full flex justify-center">
         <input
           className="product-search"

@@ -9,8 +9,8 @@ const Landing = () => {
   };
   return (
     <main>
-      <section className="flex flex-col h-screen content-center justify-center flex-wrap">
-        <img src={nt} alt="company logo" />
+      <section data-testid="landing-section" className="flex flex-col h-screen content-center justify-center flex-wrap">
+        <img src={nt} alt="company logo" className="landing-img"/>
         <button
           onClick={handleClick}
           className="w-1/3 h-10 mx-auto bg-teal-500 text-white"
