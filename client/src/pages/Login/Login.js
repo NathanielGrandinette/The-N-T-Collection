@@ -99,7 +99,7 @@ const Login = () => {
 
   return (
     <div className="w-full items-center h-screen ">
-      <div className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
+      <div data-testid="login-form" className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
         <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
           Welcome Back!
         </h1>
@@ -121,6 +121,7 @@ const Login = () => {
               id="email"
               type="email"
               name="email"
+              data-testid="email-input"
               className="border py-2 px-3 "
               autoComplete="email"
               value={formData.email}
@@ -137,6 +138,7 @@ const Login = () => {
             <div className="password-input">
               <input
                 id="password"
+                data-testid="password-input"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 className="border py-2 px-3 pr-10 w-full"
