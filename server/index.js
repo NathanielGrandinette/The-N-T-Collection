@@ -1,6 +1,5 @@
 const dotenv = require("dotenv").config();
 const cors = require("cors");
-const mongoose = require("mongoose");
 const express = require("express");
 const morgan = require("morgan");
 const router = require("./routes");
@@ -8,20 +7,13 @@ const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
 const addressRouter = require("./routes/address");
 const wishlistRouter = require("./routes/wishlist");
-const orderRouter = require("./routes/order")
-
+const orderRouter = require("./routes/order");
 const path = require("path");
-const { database } = require("./config/keys");
+const connectDB = require("./config/connectDB");
 
 const app = express();
 
-mongoose.connect(database.url, {}).catch((error) => {
-  console.log(error);
-});
-
-mongoose.connection.on("connected", () => {
-  console.log("Connected to database");
-});
+connectDB();
 
 app.use(cors());
 app.use(express.json());
@@ -34,7 +26,7 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/address", addressRouter);
 app.use("/wishlist", wishlistRouter);
-app.use("/order", orderRouter)
+app.use("/order", orderRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
