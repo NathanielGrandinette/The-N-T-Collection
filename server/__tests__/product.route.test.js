@@ -1,8 +1,13 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const { server } = require("../index");
+const keys = require("../config/keys");
 
 jest.useRealTimers();
+
+beforeEach(async () => {
+  await mongoose.connect(keys.database.url);
+});
 
 afterEach(async () => {
   await mongoose.connection.close();
@@ -27,5 +32,18 @@ describe("GET invalid product", () => {
     const response = await request(server).get("/product/invalid");
 
     expect(response.statusCode).toBe(500);
+  });
+});
+
+describe("GET product by ID", () => {
+  it("Should return a product by it's product id.", async () => {
+    const response = await request(server).get(
+      "/product/64869ca4317d4ca17275aa43"
+    );
+
+    const stringifyBody = JSON.stringify(response.body);
+
+    expect(response.statusCode).toBe(200);
+    expect(stringifyBody).toContain("Sony Playstation 5");
   });
 });
