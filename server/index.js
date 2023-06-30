@@ -10,6 +10,7 @@ const wishlistRouter = require("./routes/wishlist");
 const orderRouter = require("./routes/order");
 const path = require("path");
 const connectDB = require("./config/connectDB");
+const { ErrorHandler } = require("./middleware/ErrorHandler");
 
 const app = express();
 
@@ -28,6 +29,9 @@ app.use("/address", addressRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/order", orderRouter);
 
+//error handling
+app.use(ErrorHandler);
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -38,11 +42,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(3001, function (error) {
+const server = app.listen(3001, function (error) {
   if (error) {
     console.log(error);
   }
   console.log("Server listening on port", process.env.PORT);
 });
 
-module.exports = app;
+module.exports = { server, app };
