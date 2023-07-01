@@ -1,7 +1,6 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const { server } = require("../index");
-const Product = require("../models/Product");
 const keys = require("../config/keys");
 const { loginAsAdmin, createProduct } = require("./helpers");
 
