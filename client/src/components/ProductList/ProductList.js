@@ -4,8 +4,8 @@ import "./productlist.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useGetProducts from "../../hooks/useGetProducts";
-import Fab from '@mui/material/Fab'
-import AddIcon from '@mui/icons-material/Add';
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductList = () => {
@@ -35,7 +35,7 @@ const ProductList = () => {
         })
       );
   };
-  
+
   return (
     <div
       style={{
@@ -73,7 +73,8 @@ const ProductList = () => {
       </div>
       {window.location.pathname !== "/shop" ? (
         <div className="add-button">
-          <Fab color="primary"
+          <Fab
+            color="primary"
             hidden={user?.role === "user"}
             onClick={(e) => {
               setProducts([
@@ -84,12 +85,13 @@ const ProductList = () => {
                   quantity: "",
                 },
                 ...products,
-              ])
+              ]);
               window.scrollTo({
                 top: 400,
-                behavior: 'smooth'
-              })
-            }} >
+                behavior: "smooth",
+              });
+            }}
+          >
             <AddIcon />
           </Fab>
         </div>

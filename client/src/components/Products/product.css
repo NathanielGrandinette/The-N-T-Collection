@@ -1,68 +1,83 @@
 .product-input {
-    border: none;
-    outline: none;
-    border-radius: 15px;
-    padding: 0.5em;
-    background-color: #ffffff;
-    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
-    transition: 300ms ease-in-out;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  padding: 0.5em;
+  background-color: #ffffff;
+  box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: 300ms ease-in-out;
 }
 
 .product-input:focus {
-    background-color: white;
-    transform: scale(1.05);
-    box-shadow: 13px 13px 100px #969696,
-        -13px -13px 100px #ffffff;
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
 }
 
 .display-card {
-    min-width: 350px;
-    width: 350px;
-    height: 400px;
-    margin: 10px;
-    background-color: bisque;
-    border-radius: 10px;
-    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
-    transition: 300ms ease-in-out;
+  min-width: 350px;
+  width: 350px;
+  height: 400px;
+  margin: 10px;
+  background-color: bisque;
+  border-radius: 10px;
+  box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: 300ms ease-in-out;
 }
 
 .display-card:hover {
-    background-color: white;
-    transform: scale(1.05);
-    box-shadow: 13px 13px 100px #969696,
-        -13px -13px 100px #ffffff;
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
 }
 
 .product-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
 }
 
 .product-img {
-    background-color: red;
-    border-radius: 15px;
-    height: 150px;
-    width: 200px;
+  background-color: red;
+  border-radius: 15px;
+  height: 150px;
+  width: 200px;
 }
 
 .product-description {
-    height: 75px;
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  height: 75px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .product-description::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .addToCart {
-    min-height: 24px;
-    min-width: 128px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  min-height: 24px;
+  min-width: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  height: 200px;
+  width: 250px;
+  overflow: hidden;
+}
+
+.image-container .product-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 200ms ease-in;
+}
+
+.product-img:hover {
+  transform: scale(1.2);
 }
