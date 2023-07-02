@@ -51,7 +51,8 @@ const Register = () => {
         .catch((err) => {
           setFormData({
             ...formData,
-            error: err.response.data.error || err.name,
+            error:
+              err.response?.data.error || err?.name || err?.error,
           });
           setLoading(false);
         });
@@ -121,6 +122,7 @@ const Register = () => {
             </label>
             <div className="relative">
               <input
+                data-testid="password"
                 id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"

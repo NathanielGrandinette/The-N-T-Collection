@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
 import Avatar from "../components/Avatar/Avatar";
 
 //   screen.logTestingPlaygroundURL(); to get playground
