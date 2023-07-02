@@ -3,14 +3,27 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
-
+const verifyToken = require("../middleware/auth");
 const router = express.Router();
 
 // route starts with /user
-router.get("/", async (req, res, next) => {
-  const users = await User.find();
-  res.status(200).send(users);
-});
+router
+  .get("/", async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).send(users);
+  })
+  .get("/:id", verifyToken, async (req, res, next) => {
+    const { id } = req.params;
+    const user = await User.findById(id).select(
+      "-password -role -userType -wishList"
+    );
+
+    if (user._id.toString() !== req.user.user_id.toString()) {
+      return res.status(403).json({ error: "Forbidden." });
+    }
+
+    res.status(200).json(user);
+  });
 
 router
   .route("/:id")
