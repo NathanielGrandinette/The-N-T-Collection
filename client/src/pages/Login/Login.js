@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import TogglePasswordIcon from "../../components/TooglePasswordIcon";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import "./Login.css"
+import "./Login.css";
 
 const initialFormState = {
   email: "",
@@ -99,7 +99,10 @@ const Login = () => {
 
   return (
     <div className="w-full items-center h-screen ">
-      <div data-testid="login-form" className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
+      <div
+        data-testid="login-form"
+        className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto"
+      >
         <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
           Welcome Back!
         </h1>
@@ -154,26 +157,29 @@ const Login = () => {
               </span>
             </div>
           </div>
-          {loading ?
+          {loading ? (
             <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
               <LoadingSpinner />
             </button>
-            :
+          ) : (
             <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
               Submit
             </button>
-          }
+          )}
           <div className="text-red-500 text-center ml-5 mt-2">
             {formData.error && formData.error}
           </div>
         </form>
-        {loading ? "" :
+        {loading ? (
+          ""
+        ) : (
           <button
             onClick={() => testLogin()}
-            className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+            className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded"
+          >
             Test Login
           </button>
-        }
+        )}
         <span className="block w-full text-center no-underline hover:slate-300 text-sm">
           <Link to="/register" className="hover:blue">
             Need an account?

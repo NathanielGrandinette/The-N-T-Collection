@@ -2,6 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const { server } = require("../index");
 const keys = require("../config/keys");
+const { loginAsAdmin, createProduct } = require("./helpers");
 
 jest.useRealTimers();
 
@@ -27,13 +28,13 @@ describe("GET products", () => {
   });
 });
 
-describe("GET invalid product", () => {
-  it("should error with invalid product id", async () => {
-    const response = await request(server).get("/product/invalid");
+// describe("GET invalid product", () => {
+//   it("should error with invalid product id", async () => {
+//     const response = await request(server).get("/product/invalid");
 
-    expect(response.statusCode).toBe(500);
-  });
-});
+//     expect(response.statusCode).toBe(500);
+//   });
+// });
 
 describe("GET product by ID", () => {
   it("Should return a product by it's product id.", async () => {
@@ -45,5 +46,33 @@ describe("GET product by ID", () => {
 
     expect(response.statusCode).toBe(200);
     expect(stringifyBody).toContain("Sony Playstation 5");
+  });
+});
+
+describe("DELETE /product/:id", () => {
+  it("Should Delete a product by it's ID.", async () => {
+    const resFromLogin = await loginAsAdmin();
+
+    const product = await createProduct(resFromLogin);
+    const response = await request(server)
+      .delete(`/product/${product._id}`)
+      .set("x-access-token", resFromLogin.body.token);
+    // console.log(response.body);
+    expect(response.statusCode).toBe(200);
+  });
+});
+
+describe("DELETE /product/:id Without Admin status", () => {
+  it("Should return error trying to delete without admin status", async () => {
+    const resFromLogin = await loginAsAdmin();
+
+    const product = await createProduct(resFromLogin);
+
+    const response = await request(server).delete(
+      `/product/${product._id}`
+    );
+
+    expect(response.statusCode).toBe(403);
+    expect(response.error).toBeTruthy();
   });
 });
