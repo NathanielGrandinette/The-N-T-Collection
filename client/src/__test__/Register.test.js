@@ -74,7 +74,7 @@ test("It should submit the form with values and show btn loading, then clear nam
   user.keyboard("Test User");
 
   user.click(emailInput);
-  user.keyboard("test@aol.com");
+  user.keyboard("TESTTTT@aol.com");
 
   user.click(passwordInput);
   user.keyboard("test123456");
