@@ -145,7 +145,11 @@ const EditDetails = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="flex flex-col">
+    <form
+      onSubmit={handleFormSubmit}
+      className="flex flex-col"
+      data-testid="editDetailsForm"
+    >
       <Box
         sx={{
           display: "grid",
@@ -221,6 +225,7 @@ const EditDetails = () => {
             label="Address"
             type="text"
             name="address"
+            data-testid="address"
             error={!!errors?.address}
             autoComplete="on"
             value={userForm.address}
