@@ -25,7 +25,7 @@ function App() {
   const isLoggedIn = (user) => {
     return user ? true : false;
   };
-  console.log(order);
+  
   return (
     <div className="bg-[#36454F] min-h-screen">
       <NavBar />

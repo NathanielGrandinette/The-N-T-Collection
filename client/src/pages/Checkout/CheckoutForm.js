@@ -13,8 +13,6 @@ const CheckoutForm = ({
     setError
 }) => {
 
-    console.log(error)
-
     const handleShippingAddress = (e) => {
         if (e.target.value === "") {
             setError({
