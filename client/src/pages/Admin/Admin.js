@@ -17,6 +17,7 @@ const Admin = () => {
           className="admin-buttons"
           style={{
             backgroundColor: page === "products" ? "#1E90FF" : "",
+            color: "white"
           }}
         >
           Edit Products
@@ -27,6 +28,7 @@ const Admin = () => {
           className="admin-buttons"
           style={{
             backgroundColor: page === "users" ? "#1E90FF" : "",
+            color: "white"
           }}
         >
           Edit Users
@@ -37,6 +39,7 @@ const Admin = () => {
           className="admin-buttons"
           style={{
             backgroundColor: page === "myProducts" ? "#1E90FF" : "",
+            color: "white"
           }}
         >
           My Products

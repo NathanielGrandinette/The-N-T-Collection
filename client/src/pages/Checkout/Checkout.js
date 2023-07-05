@@ -24,8 +24,6 @@ const Checkout = ({ setOrder }) => {
         })
     }
 
-    console.log(cart)
-
     getTotal()
     const confirmOrder = (e) => {
         e.preventDefault()
