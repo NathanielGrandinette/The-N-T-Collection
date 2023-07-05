@@ -38,6 +38,9 @@ router
     }
   })
 
+  //endpoint to add item to wishlist
+  //if item is already in wishlist,
+  //it will remove that item from it
   .put(verifyToken, async (req, res, next) => {
     const { product } = req.body;
 
@@ -45,6 +48,10 @@ router
 
     try {
       const currUser = await User.findOne({ _id: user_id });
+
+      if (!currUser) {
+        return res.status(404).json({ error: "User not found." });
+      }
 
       const checkIfItemIsWished = currUser.wishList.find(
         (item) =>
