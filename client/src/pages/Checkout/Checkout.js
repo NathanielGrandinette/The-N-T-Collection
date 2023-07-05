@@ -24,9 +24,10 @@ const Checkout = ({ setOrder }) => {
         })
     }
 
+    console.log(cart)
+
     getTotal()
     const confirmOrder = (e) => {
-        console.log(e)
         e.preventDefault()
         setLoading(true)
         setTimeout(async () => {
@@ -86,7 +87,7 @@ const Checkout = ({ setOrder }) => {
                             {loading ? <LoadingSpinner /> : 'Confirm Order'}
                         </button>
                         <div className="checkout-total">
-                            Order Total: ${total}
+                            Order Total: ${total.toFixed(2)}
                         </div>
                     </div>
                 </div>

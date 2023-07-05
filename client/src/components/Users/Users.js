@@ -36,6 +36,9 @@ const Users = () => {
   }
 
   const confirmDelete = async () => {
+    if(selectedUser.email === "admin@gmail.com") {
+      return 
+    }
     await axios.delete(`/user/${selectedUser._id}`)
     setOpenModal(false)
     getUsers()
@@ -92,9 +95,10 @@ const Users = () => {
                   </span>
                 </div>
               </div>
+              {user.email !== "admin@gmail.com" ?
               <div className="delete-user" onClick={() => setUserToDelete(user)}>
                 <TiDelete />
-              </div>
+              </div> : ""}
             </div>
           )
         })}

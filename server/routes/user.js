@@ -39,7 +39,7 @@ router
       next()
     }
   })
-  .put(validateBodyParams("name", "email", "password", "role"), async (req, res) => {
+  .put(async (req, res) => {
     const { name, email, password, role } = req.body;
     const { id } = req.params;
 
@@ -53,6 +53,7 @@ router
 
       return res.status(200).send(user);
     } catch (error) {
+      console.log(error)
       next()
     }
   })
@@ -67,7 +68,12 @@ router
     }
 
     try {
-      await User.findByIdAndDelete(id);
+      const user = await User.findById(id) 
+      if(user.email === "admin@gmail.com") {
+        return res.status(401).send({ error: "Cannot delete Admin"})
+      }
+
+      await User.findByIdAndDelete(id)
       return res.status(200).send({ success: "User deleted" });
     } catch (error) {
       next()

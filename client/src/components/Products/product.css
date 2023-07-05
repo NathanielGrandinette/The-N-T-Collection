@@ -1,3 +1,8 @@
+.out-of-stock {
+  position: absolute;
+  width: 300px;
+}
+
 .product-input {
   border: none;
   outline: none;
