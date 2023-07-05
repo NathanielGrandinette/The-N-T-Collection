@@ -17,9 +17,9 @@ afterAll(() => {
   server.close();
 });
 
-describe("GET products", () => {
-  it("should get all the products", async () => {
-    const response = await request(server).get("/product");
+describe("GET users", () => {
+  it("Should get all the users", async () => {
+    const response = await request(server).get("/user");
 
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBeGreaterThan(0);
@@ -27,23 +27,23 @@ describe("GET products", () => {
   });
 });
 
-describe("GET invalid product", () => {
-  it("should error with invalid product id", async () => {
-    const response = await request(server).get("/product/invalid");
+describe("GET invalid user", () => {
+  it("Should error with invalid user ID", async () => {
+    const response = await request(server).get("/user/invalid");
 
     expect(response.statusCode).toBe(404);
   });
 });
 
-describe("GET product by ID", () => {
-  it("Should return a product by it's product id.", async () => {
+describe("GET user by ID", () => {
+  it("Should return a user by it's id.", async () => {
     const response = await request(server).get(
-      "/product/64869ca4317d4ca17275aa43"
+      "/user/6486867562d2a2fb9bf743b8"
     );
 
     const stringifyBody = JSON.stringify(response.body);
 
     expect(response.statusCode).toBe(200);
-    expect(stringifyBody).toContain("Sony Playstation 5");
+    expect(stringifyBody).toContain("Admin");
   });
 });

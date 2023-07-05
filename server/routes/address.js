@@ -1,6 +1,7 @@
 const express = require('express')
 const Address = require('../models/Address')
 const User = require('../models/User')
+const { validateBodyParams } = require('../middleware/ErrorHandler')
 
 const router = express.Router()
 
@@ -8,17 +9,12 @@ const router = express.Router()
 
 router
     .route('/')
-    .get(async (req, res) => {
+    .get(async (req, res, next) => {
         const address = await Address.find()
         return res.status(200).send(address)
     })
-    .post(async (req, res) => {
+    .post(validateBodyParams("_id", "address", "addressLine1", "city", "state", "zip"), async (req, res, next) => {
         const { _id, address, addressLine1, city, state, zip } = req.body
-
-        if (!(address && city && state && zip)) {
-            return res.status(422).send({ error: "Please fill out all required fields" })
-        }
-
         try {
             const newAddress = await Address.create({
                 address,
@@ -32,8 +28,7 @@ router
             })
             return res.status(200).send(user)
         } catch (error) {
-            console.log(error)
-            return res.status(500).send({ error: "Something went wrong" })
+            next()
         }
 
     })

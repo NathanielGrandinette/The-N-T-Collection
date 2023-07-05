@@ -3,6 +3,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
+const { validateBodyParams } = require('../middleware/ErrorHandler')
 
 const router = express.Router();
 
@@ -14,7 +15,17 @@ router.get("/", async (req, res, next) => {
 
 router
   .route("/:id")
-  .put(async (req, res) => {
+  .get(async (req, res, next) => {
+    const { id } = req.params
+
+    try {
+      const user = await User.findById(id)
+      return res.status(200).send(user)
+    } catch (error) {
+      next()
+    }
+  })
+  .put(validateBodyParams("name", "email", "password", "role"), async (req, res) => {
     const { name, email, password, role } = req.body;
     const { id } = req.params;
 
@@ -28,10 +39,7 @@ router
 
       return res.status(200).send(user);
     } catch (error) {
-      console.log(error);
-      return res
-        .status(500)
-        .send({ error: "Error processing your request" });
+      next()
     }
   })
   .delete(async (req, res) => {
@@ -47,19 +55,12 @@ router
       await User.findByIdAndDelete(id);
       return res.status(200).send({ success: "User deleted" });
     } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
+      next()
     }
   });
 
-router.post("/login", async (req, res) => {
+router.post("/login", validateBodyParams("email", "password"), async (req, res) => {
   const { email, password } = req.body;
-
-  if (!(email && password)) {
-    return res
-      .status(422)
-      .send({ error: "Please fill out all required fields." });
-  }
 
   try {
     const checkExistingUser = await User.findOne({ email });
@@ -93,20 +94,15 @@ router.post("/login", async (req, res) => {
         .json({ error: "Email or Password do not match." });
     }
   } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: "Something went wrong" });
+    next()
   }
 });
 
 //@POST http://localhost:3001/user/register
-router.post("/register", async (req, res) => {
+router.post("/register", validateBodyParams("name", "email", "password", "confirmPassword"), async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
 
-  if (!name || !password || !confirmPassword || !email) {
-    return res
-      .status(422)
-      .json({ error: "Please fill out all required fields." });
-  } else if (password !== confirmPassword) {
+  if (password !== confirmPassword) {
     return res.status(422).json({ error: "Passwords must match." });
   }
 
@@ -128,8 +124,7 @@ router.post("/register", async (req, res) => {
       return res.status(201).json(newUser);
     }
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Something went wrong." });
+    next()
   }
 });
 
