@@ -45,6 +45,9 @@ const useCart = () => {
   }, [cart]);
 
   const addProductToCart = (product) => {
+    if(product.quantity === 0) {
+      return 
+    }
     const cartCopy = [...cart.items];
     const checkExistingItemIndex = cartCopy.findIndex(
       (item) => item._id === product._id

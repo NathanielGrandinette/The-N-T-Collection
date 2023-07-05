@@ -5,6 +5,7 @@ const upload = require("../config/multer");
 const User = require("../models/User");
 const verifyRole = require("../middleware/role");
 const deleteProductImage = require("../utils/deleteProductImage");
+const { validateBodyParams } = require('../middleware/ErrorHandler')
 
 const router = express.Router();
 
@@ -22,8 +23,7 @@ router
       );
       return res.status(200).send(productList);
     } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
+      next()
     }
   })
 
@@ -80,10 +80,7 @@ router
             return res.status(201).send(newProduct);
           }
         } catch (error) {
-          console.log(error);
-          return res
-            .status(500)
-            .send({ error: "Something went wrong" });
+          next()
         }
       }
     }
@@ -106,8 +103,7 @@ router
         return res.status(200).send(product);
       }
     } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
+      next()
     }
   })
   .put(

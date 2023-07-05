@@ -1,3 +1,8 @@
+.out-of-stock {
+  position: absolute;
+  width: 300px;
+}
+
 .product-input {
   border: none;
   outline: none;
@@ -17,7 +22,7 @@
 .display-card {
   min-width: 350px;
   width: 350px;
-  height: 400px;
+  height: 425px;
   margin: 10px;
   background-color: bisque;
   border-radius: 10px;
@@ -75,9 +80,4 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-  transition: transform 200ms ease-in;
-}
-
-.product-img:hover {
-  transform: scale(1.2);
 }

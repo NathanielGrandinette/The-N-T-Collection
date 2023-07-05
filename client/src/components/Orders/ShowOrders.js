@@ -25,7 +25,7 @@ const ShowOrders = () => {
   return (
     <div className=" bg-slate-500 rounded-lg">
       {orders &&
-        orders.map((order) => (
+        orders.sort((a, b) => new Date(a.created) - new Date(b.created)).map((order) => (
           <div
             className="w-full md:w-1/2 border-2 rounded-md shadow-xl border-slate-800 flex flex-col  flex-wrap content-center justify-between mx-auto  gap-2 mb-3"
             key={order._id}

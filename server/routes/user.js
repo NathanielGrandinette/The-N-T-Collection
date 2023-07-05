@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const Address = require("../models/Address");
 const verifyToken = require("../middleware/auth");
+const { validateBodyParams } = require('../middleware/ErrorHandler')
 const router = express.Router();
 
 // route starts with /user
@@ -28,6 +29,16 @@ router
 
 router
   .route("/:id")
+  .get(async (req, res, next) => {
+    const { id } = req.params
+
+    try {
+      const user = await User.findById(id)
+      return res.status(200).send(user)
+    } catch (error) {
+      next()
+    }
+  })
   .put(async (req, res) => {
     const { name, email, password, role } = req.body;
     const { id } = req.params;
@@ -42,10 +53,8 @@ router
 
       return res.status(200).send(user);
     } catch (error) {
-      console.log(error);
-      return res
-        .status(500)
-        .send({ error: "Error processing your request" });
+      console.log(error)
+      next()
     }
   })
 
@@ -59,22 +68,20 @@ router
     }
 
     try {
-      await User.findByIdAndDelete(id);
+      const user = await User.findById(id) 
+      if(user.email === "admin@gmail.com") {
+        return res.status(401).send({ error: "Cannot delete Admin"})
+      }
+
+      await User.findByIdAndDelete(id)
       return res.status(200).send({ success: "User deleted" });
     } catch (error) {
-      console.log(error);
-      return res.status(500).send({ error: "Something went wrong" });
+      next()
     }
   });
 
-router.post("/login", async (req, res) => {
+router.post("/login", validateBodyParams("email", "password"), async (req, res) => {
   const { email, password } = req.body;
-
-  if (!(email && password)) {
-    return res
-      .status(422)
-      .send({ error: "Please fill out all required fields." });
-  }
 
   try {
     const checkExistingUser = await User.findOne({ email });
@@ -108,115 +115,98 @@ router.post("/login", async (req, res) => {
         .json({ error: "Email or Password do not match." });
     }
   } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: "Something went wrong" });
-  }
-});
-
-//@PATCH http://localhost:3001/user/edit/:id
-router.patch("/edit/:id", verifyToken, async (req, res) => {
-  const {
-    name,
-    email,
-    currPassword,
-    password,
-    confirmPassword,
-    address: streetAddress,
-    addressLine1,
-    city,
-    zip,
-    state,
-    _id: addressId,
-  } = req.body;
-
-  const { user_id } = req.user;
-  const { id: userIdFromParams } = req.params;
-
-  if (
-    !name ||
-    !password ||
-    !confirmPassword ||
-    !email ||
-    !streetAddress ||
-    !city ||
-    !zip ||
-    !state ||
-    !currPassword
-  ) {
-    return res
-      .status(422)
-      .json({ error: "Please fill out all required fields." });
-  } else if (password !== confirmPassword) {
-    return res.status(422).json({ error: "Passwords must match." });
-  }
-  try {
-    // check the user id from the params against the user id in the db first
-    const checkUser = await User.findById(userIdFromParams);
-
-    if (user_id.toString() !== checkUser._id.toString()) {
-      return res.status(403).json({ error: "Forbidden." });
-    }
-
-    const checkCurrPwd = await bcrypt.compare(
-      currPassword,
-      checkUser.password
-    );
-
-    //check that the current password matches the password in the db.
-    if (!checkCurrPwd) {
-      return res.status(401).json({ error: "Invalid credentials." });
-    }
-
-    //check that the new password isn't the same as the current password in the db.
-    const checkPrevPwd = await bcrypt.compare(
-      confirmPassword,
-      checkUser.password
-    );
-    if (checkPrevPwd) {
-      return res.status(400).json({
-        error:
-          "Cannot use the same password as your current password.",
-      });
-    }
-
-    //hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    let user = await User.findById(user_id).populate("address");
-
-    user.name = name;
-    user.password = hashedPassword;
-    user.email = email;
-
-    const address = await Address.findByIdAndUpdate(addressId, {
-      address: streetAddress,
-      addressLine1: addressLine1 ? addressLine1 : null,
-      city,
-      state,
-      zip,
-    });
-
-    user.address = address._id;
-
-    await user.save();
-    user = user.toJSON();
-    delete user.password;
-    return res.status(200).json(user);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error });
+    next()
   }
 });
 
 //@POST http://localhost:3001/user/register
-router.post("/register", async (req, res) => {
+// router.post("/register", validateBodyParams("name", "email", "password", "confirmPassword"), async (req, res) => {
+//   const { name, email, password, confirmPassword } = req.body;
+
+//   const { user_id } = req.user;
+//   const { id: userIdFromParams } = req.params;
+
+//   if (
+//     !name ||
+//     !password ||
+//     !confirmPassword ||
+//     !email ||
+//     !streetAddress ||
+//     !city ||
+//     !zip ||
+//     !state ||
+//     !currPassword
+//   ) {
+//     return res
+//       .status(422)
+//       .json({ error: "Please fill out all required fields." });
+//   } else if (password !== confirmPassword) {
+//     return res.status(422).json({ error: "Passwords must match." });
+//   }
+//   try {
+//     // check the user id from the params against the user id in the db first
+//     const checkUser = await User.findById(userIdFromParams);
+
+//     if (user_id.toString() !== checkUser._id.toString()) {
+//       return res.status(403).json({ error: "Forbidden." });
+//     }
+
+//     const checkCurrPwd = await bcrypt.compare(
+//       currPassword,
+//       checkUser.password
+//     );
+
+//     //check that the current password matches the password in the db.
+//     if (!checkCurrPwd) {
+//       return res.status(401).json({ error: "Invalid credentials." });
+//     }
+
+//     //check that the new password isn't the same as the current password in the db.
+//     const checkPrevPwd = await bcrypt.compare(
+//       confirmPassword,
+//       checkUser.password
+//     );
+//     if (checkPrevPwd) {
+//       return res.status(400).json({
+//         error:
+//           "Cannot use the same password as your current password.",
+//       });
+//     }
+
+//     //hash the new password
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     let user = await User.findById(user_id).populate("address");
+
+//     user.name = name;
+//     user.password = hashedPassword;
+//     user.email = email;
+
+//     const address = await Address.findByIdAndUpdate(addressId, {
+//       address: streetAddress,
+//       addressLine1: addressLine1 ? addressLine1 : null,
+//       city,
+//       state,
+//       zip,
+//     });
+
+//     user.address = address._id;
+
+//     await user.save();
+//     user = user.toJSON();
+//     delete user.password;
+//     return res.status(200).json(user);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: error });
+//   }
+// });
+
+//@POST http://localhost:3001/user/register
+router.post("/register", validateBodyParams("name", "email", "password", "confirmPassword"), async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
 
-  if (!name || !password || !confirmPassword || !email) {
-    return res
-      .status(422)
-      .json({ error: "Please fill out all required fields." });
-  } else if (password !== confirmPassword) {
+  if (password !== confirmPassword) {
     return res.status(422).json({ error: "Passwords must match." });
   }
 
@@ -242,8 +232,7 @@ router.post("/register", async (req, res) => {
       return res.status(201).json(newUser);
     }
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Something went wrong." });
+    next()
   }
 });
 

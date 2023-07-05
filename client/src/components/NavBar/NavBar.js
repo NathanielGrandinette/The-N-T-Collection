@@ -48,7 +48,7 @@ const NavBar = () => {
   return (
     <div
       id="navigation"
-      className="flex items-center justify-between p-8 lg:justify-around border-b border-blue-500 shadow-lg h-24"
+      className="flex items-center justify-between lg:justify-around border-b border-blue-500 shadow-lg h-24"
     >
       <Link to="/">
         <img
