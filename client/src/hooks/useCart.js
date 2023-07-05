@@ -12,6 +12,7 @@ const useCart = () => {
   const [cart, setCart] = useState(
     savedCart ? savedCart : initialCart
   );
+  const [toggleCart, setToggleCart] = useState(false);
 
   const getCart = () => {
     if (savedCart && savedCart.cartTotal <= 0) {
@@ -96,6 +97,8 @@ const useCart = () => {
     getCart,
     setCart,
     removeFromCart,
+    setToggleCart,
+    toggleCart,
   };
 };
 

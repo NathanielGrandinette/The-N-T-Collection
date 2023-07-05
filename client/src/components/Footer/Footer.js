@@ -9,23 +9,19 @@ import { toast } from "react-toastify";
 import "./footer.css";
 
 const Footer = () => {
-  const [open, setOpen] = useState(false); //for footer
   const [loading, setLoading] = useState(false);
-  const { cart, removeFromCart } = useCartContext();
+  const { cart, removeFromCart, toggleCart, setToggleCart } =
+    useCartContext();
 
   const navigate = useNavigate();
-
-  if (window.location.pathname === "/profile") {
-    return null;
-  }
 
   return (
     <div
       className="footer"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => setToggleCart(true)}
+      onMouseLeave={() => setToggleCart(false)}
     >
-      {open ? (
+      {toggleCart ? (
         <div className="cart-open">
           <h3 className="cart-header">Cart:</h3>
           <div className="cart">

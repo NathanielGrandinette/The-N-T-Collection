@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useCartContext } from "../../context/CartContex";
 import { Link, useNavigate } from "react-router-dom";
+import { Badge } from "@mui/material";
 import { BsBag } from "react-icons/bs";
 import "./NavBar.css";
 import logo from "../../assets/n-t-logo.png";
@@ -9,6 +11,7 @@ import AvatarProfile from "../Avatar/Avatar";
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { user, setUser } = useContext(AuthContext);
+  const { cart, setToggleCart } = useCartContext();
 
   const navigate = useNavigate();
 
@@ -91,9 +94,15 @@ const NavBar = () => {
                 className="menu-link-mobile-open flex flex-col items-center justify-between min-h-[250px]"
                 onClick={() => setIsNavOpen(false)}
               >
-                <Link to="/">
+                <Badge
+                  badgeContent={cart?.totalItems}
+                  color="primary"
+                  onMouseEnter={() => setToggleCart(true)}
+                  onMouseLeave={() => setToggleCart(false)}
+                >
                   <BsBag size={30} fill="white" />
-                </Link>
+                </Badge>
+
                 <li className="lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-500">
                   <Link to="/">Home</Link>
                 </li>
