@@ -1,4 +1,4 @@
-import useGetWishList from "../../hooks/useGetWishList";
+import useGetWishList from "../../hooks/useWishList";
 import WishListCard from "./WishListCard";
 import "../../components/Products/product.css";
 import { useEffect } from "react";
@@ -9,7 +9,8 @@ import "./wishList.css";
 const WishList = () => {
   const navigate = useNavigate();
 
-  const { wishList, error } = useGetWishList();
+  const { wishList, removeProductFromWishList, error } =
+    useGetWishList();
 
   useEffect(() => {
     if (error) {
@@ -22,7 +23,10 @@ const WishList = () => {
       {wishList &&
         wishList.list.map((product) => (
           <div className=" md:basis-1/3 wish-info" key={product._id}>
-            <WishListCard product={product} />
+            <WishListCard
+              product={product}
+              removeProductFromWishList={removeProductFromWishList}
+            />
           </div>
         ))}
     </div>

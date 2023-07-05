@@ -4,15 +4,16 @@ import axios from "../../utils/axiosConfig";
 import { useCartContext } from "../../context/CartContex";
 import WishListBtn from "../Buttons/WishListBtn";
 import { toast } from "react-toastify";
-import useGetWishList from "../../hooks/useGetWishList";
+import useGetWishList from "../../hooks/useWishList";
 
-const ProductDetail = ({ wishedListPage }) => {
+const ProductDetail = () => {
   const [product, setProduct] = useState("");
-  console.log(wishedListPage);
+
   const navigate = useNavigate();
   const { productId } = useParams();
 
   const { addProductToCart } = useCartContext();
+  const { wishList, addProductToWishList } = useGetWishList();
 
   useEffect(() => {
     axios
@@ -58,11 +59,14 @@ const ProductDetail = ({ wishedListPage }) => {
           >
             Add to cart
           </button>
-          {wishedListPage ? (
-            ""
-          ) : (
-            <WishListBtn product={product} productId={productId} />
-          )}
+
+          <WishListBtn
+            product={product}
+            productId={productId}
+            addProductToWishList={addProductToWishList}
+            wishList={wishList}
+          />
+
           <button
             className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-[#ffe4c4] focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl"
             onClick={handleBackBtn}

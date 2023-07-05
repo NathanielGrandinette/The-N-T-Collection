@@ -3,7 +3,7 @@ import axios from "../utils/axiosConfig";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
-function useGetWishList() {
+function useWishList() {
   const [wishList, setWishList] = useState(null);
 
   const user = useContext(AuthContext);
@@ -15,7 +15,7 @@ function useGetWishList() {
         setWishList(list.data);
       } catch (error) {
         console.log(error);
-        console.error("From useGetWishList: Error with user token.");
+        console.error("From useWishList: Error with user token.");
       }
     } else {
       return;
@@ -48,7 +48,36 @@ function useGetWishList() {
       });
   };
 
-  return { getWishList, wishList, setWishList, addProductToWishList };
+  const removeProductFromWishList = async (product) => {
+    await axios
+      .put(`wishlist`, { product }, { baseURL: "/" })
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          setWishList(res.data);
+        }
+
+        toast.success(
+          `${
+            product.name //only toast the last item in the wish list array which would be the most recent.
+          } removed from wishlist.`
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          err.response.data.error || "Something went wrong.."
+        );
+      });
+  };
+
+  return {
+    getWishList,
+    wishList,
+    setWishList,
+    addProductToWishList,
+    removeProductFromWishList,
+  };
 }
 
-export default useGetWishList;
+export default useWishList;

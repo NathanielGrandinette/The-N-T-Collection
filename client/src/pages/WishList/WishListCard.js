@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/CartContex";
+import { TiDelete } from "react-icons/ti";
 import { formatDate } from "../../utils/formatDate";
+import useGetWishList from "../../hooks/useWishList";
 import "./wishList.css";
 
-const WishListCard = ({ product }) => {
+const WishListCard = ({ product, removeProductFromWishList }) => {
   const { addProductToCart } = useCartContext();
 
-  console.log(product);
+  const { wishList } = useGetWishList();
 
   return (
     <div className="wish-card">
+      <TiDelete
+        fill={"red"}
+        onClick={() => {
+          removeProductFromWishList(product);
+        }}
+      />
       <div className="wish-image-container">
         <Link to={`/productdetail/${product._id}`}>
           <img
@@ -24,11 +32,9 @@ const WishListCard = ({ product }) => {
           {product.name}
         </div>
       </Link>
-
       <div className="text-1xl text-blue-500 font-medium text-center">
         Price: ${product.price}
       </div>
-
       <div className="wish-product-description">
         {product.description}
       </div>
