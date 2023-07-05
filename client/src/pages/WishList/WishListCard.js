@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/CartContex";
 import { formatDate } from "../../utils/formatDate";
 import "./wishList.css";
@@ -10,16 +11,19 @@ const WishListCard = ({ product }) => {
   return (
     <div className="wish-card">
       <div className="wish-image-container">
-        <img
-          src={`/${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
-          className="wish-product-img"
-          alt={product.name}
-        />
+        <Link to={`/productdetail/${product._id}`}>
+          <img
+            src={`/${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
+            className="wish-product-img"
+            alt={product.name}
+          />
+        </Link>
       </div>
-
-      <div className="mt-2 text-lg md:text-1xl  font-medium text-center">
-        {product.name}
-      </div>
+      <Link to={`/productdetail/${product._id}`}>
+        <div className="mt-2 text-lg md:text-1xl  font-medium text-center">
+          {product.name}
+        </div>
+      </Link>
 
       <div className="text-1xl text-blue-500 font-medium text-center">
         Price: ${product.price}

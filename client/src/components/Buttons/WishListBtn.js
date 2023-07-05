@@ -6,12 +6,10 @@ const WishListBtn = ({ product, productId }) => {
   const isProductWished = () => {
     return (
       wishList &&
-      wishList.list?.some(
-        (product) => product.productId === productId
-      )
+      wishList.list?.some((product) => product._id === productId)
     );
   };
-  console.log(wishList);
+
   return (
     <div className="w-full md:w-1/3 px-2">
       <button
