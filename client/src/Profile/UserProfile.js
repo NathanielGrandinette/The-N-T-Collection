@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import ShowOrders from "../components/Orders/ShowOrders";
 
 import "./userProfile.css";
+import EditDetails from "./EditDetails";
 
 const UserProfile = () => {
   const [value, setValue] = useState(0);
@@ -45,7 +46,7 @@ const UserProfile = () => {
           <ShowOrders />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Edit user details component here.
+          <EditDetails />
         </TabPanel>
       </Box>
     </div>

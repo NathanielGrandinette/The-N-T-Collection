@@ -1,7 +1,7 @@
 const request = require("supertest");
-
 const mongoose = require("mongoose");
 const { server } = require("../index");
+const loginAsAdmin = require("./helpers");
 
 jest.useRealTimers();
 
@@ -16,10 +16,7 @@ afterAll(() => {
 describe("POST /product", () => {
   it("Should add a product to the database and the return of the photo file path should include 'upload'", async () => {
     //res contains the response from logging in
-    const res = await request(server).post("/user/login").send({
-      email: process.env.EMAIL,
-      password: process.env.PASSWORD,
-    });
+    const res = await loginAsAdmin();
 
     // https://stackoverflow.com/questions/38402244/how-to-unit-test-file-upload-with-supertest-and-send-a-token
     const buffer = Buffer.from("test photo buffer");
