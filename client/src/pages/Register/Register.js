@@ -45,10 +45,11 @@ const Register = () => {
         .then((res) => {
           console.log(res);
           setFormData(initialFormState);
-
+          setLoading(false);
           navigate("/login", { replace: true }); //receive token  from login
         })
         .catch((err) => {
+          console.log(err);
           setFormData({
             ...formData,
             error:

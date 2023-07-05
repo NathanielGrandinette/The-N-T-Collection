@@ -229,11 +229,15 @@ router.post("/register", async (req, res) => {
       }); //409 code means conflict.
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
+
       let newUser = await User.create({
         name,
         email,
         password: hashedPassword,
-      }).select("-password");
+      });
+
+      newUser = newUser.toJSON();
+      delete newUser.password;
 
       return res.status(201).json(newUser);
     }
