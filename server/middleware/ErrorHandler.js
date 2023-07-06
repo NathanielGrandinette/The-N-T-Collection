@@ -10,6 +10,7 @@ const ErrorHandler = (err, req, res, next) => {
     message: checkErr(err),
     stack: node.env === "development" ? err.stack : {},
   });
+  console.log(err)
 };
 
 const validateBodyParams = (...params) => {

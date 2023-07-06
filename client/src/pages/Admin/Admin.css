@@ -11,3 +11,26 @@
     margin: 5px;
     border-radius: 5px;
 }
+
+.my-products {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 0) {
+    .my-products {
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 775px) {
+    .my-products {
+        flex-direction: row;
+    }
+}
+
+
+.my-product-card {
+    display: flex;
+}
