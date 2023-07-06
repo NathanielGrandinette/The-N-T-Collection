@@ -64,7 +64,7 @@ test("It should submit the form with values, show loading button, and loading bu
   const emailInput = screen.getByRole("textbox", {
     name: /email:/i,
   });
-  const passwordInput = screen.getByTestId(/password/i);
+  const passwordInput = screen.getByTestId(/password1/i);
 
   const confirmPasswordInput =
     screen.getByLabelText(/confirm password:/i);
@@ -113,7 +113,7 @@ test("It should set the formData back to initial values after successful respons
   const emailInput = screen.getByRole("textbox", {
     name: /email:/i,
   });
-  const passwordInput = screen.getByTestId(/password/i);
+  const passwordInput = screen.getByTestId(/password1/i);
 
   const confirmPasswordInput =
     screen.getByLabelText(/confirm password:/i);

@@ -126,8 +126,8 @@ const Register = () => {
             </label>
             <div className="password-input">
               <input
+                data-testid="password1"
                 id="password"
-                data-testid="password-input"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 className="border py-2 px-3 pr-10 w-full"
