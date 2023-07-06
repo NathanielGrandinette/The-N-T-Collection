@@ -10,7 +10,7 @@ export default function AvatarProfile({ user }) {
       alt="profile image"
       src="/broken-image.jpg"
     >
-      {user.name.charAt(0)}
+      {user.name.charAt(0).toUpperCase()}
     </Avatar>
   ) : (
     <Avatar src="/broken-image.jpg" />
