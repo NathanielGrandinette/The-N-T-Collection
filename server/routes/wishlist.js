@@ -38,6 +38,9 @@ router
     }
   })
 
+  //endpoint to add item to wishlist
+  //if item is already in wishlist,
+  //it will remove that item from it
   .put(verifyToken, async (req, res, next) => {
     const { product } = req.body;
 
@@ -46,35 +49,70 @@ router
     try {
       const currUser = await User.findOne({ _id: user_id });
 
+      if (!currUser) {
+        return res.status(404).json({ error: "User not found." });
+      }
+
       const checkIfItemIsWished = currUser.wishList.find(
         (item) =>
-          item.product._id.toString() === product._id.toString()
+          item.product?._id.toString() === product?._id.toString()
       );
 
       if (checkIfItemIsWished) {
-        return res
-          .status(400)
-          .json({ error: "Item is already in wishlist." });
-      }
-
-      const user = await User.findByIdAndUpdate(
-        user_id,
-        {
-          $addToSet: { wishList: { product: product._id } },
-        },
-        { new: true }
-      )
-        .populate({
-          path: "wishList",
-
-          populate: {
-            path: "product",
-            select: " photo.path name price description updatedAt",
+        const user = await User.findByIdAndUpdate(
+          user_id,
+          {
+            $pull: { wishList: { product: product._id } },
           },
-        })
-        .select("-password");
+          { new: true }
+        )
+          .populate({
+            path: "wishList",
 
-      return res.status(200).send(user.wishList);
+            populate: {
+              path: "product",
+              select: " photo.path name price description updatedAt",
+            },
+          })
+          .select("-password");
+
+        const wishListItems = user.wishList.map((item) => {
+          const { product, dateAdded } = item ?? {};
+          const { name, price, photo, description, quantity, _id } =
+            product ?? {};
+
+          return {
+            _id,
+            name,
+            price,
+            dateAdded,
+            photo,
+            description,
+            quantity,
+          };
+        });
+
+        return res.status(200).send({ list: wishListItems });
+      } else {
+        const user = await User.findByIdAndUpdate(
+          user_id,
+          {
+            $addToSet: { wishList: { product: product._id } },
+          },
+          { new: true }
+        )
+          .populate({
+            path: "wishList",
+
+            populate: {
+              path: "product",
+              select: " photo.path name price description updatedAt",
+            },
+          })
+          .select("-password");
+
+        return res.status(200).send({ list: user.wishList });
+      }
     } catch (error) {
       console.log(error);
       return res.status(500).send({ error: "Something went wrong" });
