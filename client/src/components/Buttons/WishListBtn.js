@@ -23,7 +23,6 @@ const WishListBtn = ({
   return (
     <div className="w-full md:w-1/3 px-2">
       <Tooltip
-        enterDelay
         title={
           isProductWished() || wished
             ? `${product.name} is in your list.`
