@@ -2,22 +2,30 @@ import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/CartContex";
 import { TiDelete } from "react-icons/ti";
 import { formatDate } from "../../utils/formatDate";
-import useGetWishList from "../../hooks/useWishList";
+import Tooltip from "@mui/material/Tooltip";
 import "./wishList.css";
 
 const WishListCard = ({ product, removeProductFromWishList }) => {
   const { addProductToCart } = useCartContext();
-
-  const { wishList } = useGetWishList();
-
+  console.log(product);
   return (
     <div className="wish-card">
-      <TiDelete
-        fill={"red"}
-        onClick={() => {
-          removeProductFromWishList(product);
-        }}
-      />
+      <Tooltip
+        disableFocusListener
+        disableTouchListener
+        title="Delete from Wishlist"
+        placement="bottom-start"
+      >
+        <div>
+          <TiDelete
+            fill={"red"}
+            size={25}
+            onClick={() => {
+              removeProductFromWishList(product);
+            }}
+          />
+        </div>
+      </Tooltip>
       <div className="wish-image-container">
         <Link to={`/productdetail/${product._id}`}>
           <img
@@ -32,7 +40,7 @@ const WishListCard = ({ product, removeProductFromWishList }) => {
           {product.name}
         </div>
       </Link>
-      <div className="text-1xl text-blue-500 font-medium text-center">
+      <div className="text-1xl text-[#324C70] font-medium text-center">
         Price: ${product.price}
       </div>
       <div className="wish-product-description">
@@ -44,7 +52,7 @@ const WishListCard = ({ product, removeProductFromWishList }) => {
       >
         Add to cart
       </button>
-      <div className="text-1xl text-blue-500 font-medium text-center">
+      <div className="text-1xl text-[#324C70] font-medium text-center">
         Added to list: {formatDate(product.dateAdded)}
       </div>
     </div>

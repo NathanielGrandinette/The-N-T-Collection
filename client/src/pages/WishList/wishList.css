@@ -3,14 +3,14 @@
   width: 30px;
   height: 425px;
   margin: 5px;
-  background-color: bisque;
+  background-color: rgb(226 232 240);
   border-radius: 10px;
   box-shadow: inset 1px 3px 10px rgba(0, 0, 0, 0.3);
   transition: 200ms ease-in-out;
 }
 
 .wish-card:hover {
-  background-color: bisque;
+  background-color: rgb(226 232 240);
   transform: scale(1.05);
 
   box-shadow: 13px 13px 100px #cec7c757, -13px -13px 100px #58595b;
@@ -69,4 +69,49 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.noItems-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  gap: 10px;
+  margin: 10% auto 0 auto;
+}
+
+.noItems-para {
+  font-size: 24px;
+  color: white;
+}
+
+.noItems-link {
+  font-size: 30px;
+  color: blanchedalmond;
+  text-align: center;
+  margin-top: 10%;
+  border-radius: 10%;
+
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+.noItems-link:hover {
+  font-size: 25px;
+  color: rgb(200, 168, 119);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.95);
+  }
 }
