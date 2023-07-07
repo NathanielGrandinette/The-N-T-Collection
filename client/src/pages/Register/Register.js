@@ -37,6 +37,12 @@ const Register = () => {
         ...formData,
         error: "Password must be atleast 7 characters.",
       });
+    } else if (!formData.name || !formData.email) {
+      setLoading(false);
+      return setFormData({
+        ...formData,
+        error: "Please enter a Name/Email",
+      });
     }
 
     setTimeout(async () => {
