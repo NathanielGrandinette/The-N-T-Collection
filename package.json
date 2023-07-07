@@ -1,6 +1,7 @@
 {
   "name": "thentcollection",
   "version": "0.1.0",
+  "homepage": "https://the-n-t-collection.vercel.app/",
   "private": true,
   "dependencies": {
     "@mui/icons-material": "^5.11.16",
