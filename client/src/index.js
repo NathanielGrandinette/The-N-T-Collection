@@ -13,7 +13,7 @@ root.render(
   <ErrorBoundary fallback="There has been an error...">
     <CartProvider>
       <ProvideAuth>
-        <BrowserRouter basename="/">
+        <BrowserRouter>
           <App />
         </BrowserRouter>
       </ProvideAuth>
