@@ -152,10 +152,8 @@ const EditDetails = () => {
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          // gridTemplateColumns: "1fr 1fr",
-
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
           gap: "1rem",
         }}
       >
