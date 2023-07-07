@@ -36,7 +36,6 @@ const EditDetails = () => {
       .get(`/user/${user._id}`)
       .then((res) => {
         const { address } = res.data;
-        console.log(res.data);
         setUserForm({ ...res.data, ...address });
       })
 
@@ -174,7 +173,7 @@ const EditDetails = () => {
         />
 
         <TextField
-          id="email"
+          id="edit-email"
           label="Email"
           type="email"
           name="email"
