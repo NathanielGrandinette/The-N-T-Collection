@@ -25,7 +25,7 @@ function App() {
   const isLoggedIn = (user) => {
     return user ? true : false;
   };
-  
+
   return (
     <div className="bg-[#36454F] min-h-screen">
       <NavBar />
@@ -47,11 +47,12 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
         <Route element={<UserRoutes />}>
           <Route element={<AdminRoutes />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
+          <Route path="/wishlist" element={<WishList />} />
+          <Route path="/profile" element={<UserProfile />} />
           <Route
             path="/orderconfirmation"
             element={<Confirmation order={order} />}
@@ -67,8 +68,7 @@ function App() {
           />
           <Route path="/productcard" element={<ProductCards />} />
         </Route>
-        <Route path="/wishlist" element={<WishList />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="*" element={isLoggedIn(user) ? <Shop /> : <Landing />} />
       </Routes>
 
       {isLoggedIn(user) ? <Footer /> : null}
