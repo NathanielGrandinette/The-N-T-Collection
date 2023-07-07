@@ -27,7 +27,7 @@
     "client": "npm start --workspace=client",
     "server": "npm run start --workspace=server",
     "start": "concurrently --kill-others-on-fail \"npm run server\"  \"npm run client\"",
-    "build": "react-scripts build",
+    "build": "npm run build --workspace=client",
     "test:client": "cd client && npm test",
     "test:server": "cd server && jest",
     "test": "npm run test:client && npm run test:server",
