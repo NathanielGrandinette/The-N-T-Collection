@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "./client/build", 
+        "src": "./client", 
         "use": "react-scripts build"
       },
       {
