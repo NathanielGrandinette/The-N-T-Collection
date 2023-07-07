@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "build": "nodemone index.js",
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles --testTimeout=5000 --watch"
   },
   "author": "",

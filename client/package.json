@@ -6,7 +6,8 @@
   "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "build": "react-scripts build"
   },
   "jest": {
     "moduleNameMapper": {
