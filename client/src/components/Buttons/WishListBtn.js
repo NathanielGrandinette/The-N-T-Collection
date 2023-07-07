@@ -24,14 +24,14 @@ const WishListBtn = ({
     <div className="w-full md:w-1/3 px-2">
       <Tooltip
         title={
-          isProductWished()
+          isProductWished() || wished
             ? `${product.name} is in your list.`
             : null
         }
       >
         <span>
           <button
-            disabled={isProductWished() ? true : false}
+            disabled={isProductWished() || wished ? true : false}
             className="flex flex-wrap w-half ml-0 py-4 px-2 items-center justify-center leading-8 font-heading font-medium tracking-tighter text-xl text-center bg-white focus:ring-2 focus:ring-gray-200 focus:ring-opacity-50 hover:bg-opacity-60 rounded-xl"
             onClick={() => handleAddToWishList(product)}
           >

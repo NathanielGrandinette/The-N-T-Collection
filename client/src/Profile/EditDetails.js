@@ -144,6 +144,7 @@ const EditDetails = () => {
   };
 
   return (
+    // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fe-autocomplete-street-address
     <form
       onSubmit={handleFormSubmit}
       className="flex flex-col"
@@ -153,86 +154,83 @@ const EditDetails = () => {
         sx={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-
           gap: "1rem",
         }}
       >
-        <FormControl error={errors ? true : false}>
-          <TextField
-            id="name"
-            label="Name"
-            type="text"
-            name="name"
-            error={!!errors?.name} //Turn to boolean with !! otherwise MUI complains about expecting a boolean
-            value={userForm.name}
-            onChange={handleChange}
-            helperText={errors?.name}
-            onBlur={() => clearErrorMsg("name")}
-          />
+        <TextField
+          id="name"
+          label="Name"
+          type="text"
+          name="name"
+          error={!!errors?.name} //Turn to boolean with !! otherwise MUI complains about expecting a boolean
+          value={userForm.name}
+          onChange={handleChange}
+          helperText={errors?.name}
+          autoComplete="name"
+          onBlur={() => clearErrorMsg("name")}
+        />
 
-          <TextField
-            id="edit-email"
-            label="Email"
-            type="email"
-            name="email"
-            error={!!errors?.email}
-            autoComplete="email"
-            value={userForm.email}
-            onChange={handleChange}
-            helperText={errors?.email}
-            onBlur={() => clearErrorMsg("email")}
-          />
-        </FormControl>
-        <FormControl error={errors ? true : false}>
-          <TextField
-            id="password"
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            error={!!errors?.password}
-            autoComplete="on"
-            value={userForm.password}
-            onChange={handleChange}
-            helperText={errors?.password}
-            onBlur={() => clearErrorMsg("password")}
-            sx={{ mb: 6 }}
-            InputProps={{
-              startAdornment: showTogglePwd(),
-            }}
-          />
+        <TextField
+          id="edit-email"
+          label="Email"
+          type="email"
+          name="email"
+          error={!!errors?.email}
+          autoComplete="email"
+          value={userForm.email}
+          onChange={handleChange}
+          helperText={errors?.email}
+          onBlur={() => clearErrorMsg("email")}
+        />
 
-          <TextField
-            id="confirmPassword"
-            label="Confirm Password"
-            type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            error={!!errors?.confirmPassword}
-            autoComplete="on"
-            value={userForm.confirmPassword}
-            onChange={handleChange}
-            helperText={errors?.confirmPassword}
-            onBlur={() => clearErrorMsg("confirmPassword")}
-            sx={{ mb: 4 }}
-            InputProps={{
-              startAdornment: showTogglePwd(),
-            }}
-          />
-        </FormControl>
-        <FormControl error={errors ? true : false}>
-          <TextField
-            id="address"
-            label="Address"
-            type="text"
-            name="address"
-            data-testid="address"
-            error={!!errors?.address}
-            autoComplete="on"
-            value={userForm.address}
-            onChange={handleChange}
-            helperText={errors?.address}
-            onBlur={() => clearErrorMsg("address")}
-          />
-        </FormControl>
+        <TextField
+          id="password"
+          label="Password"
+          type={showPassword ? "text" : "password"}
+          name="password"
+          error={!!errors?.password}
+          autoComplete="new-password"
+          value={userForm.password}
+          onChange={handleChange}
+          helperText={errors?.password}
+          onBlur={() => clearErrorMsg("password")}
+          sx={{ mb: 6 }}
+          InputProps={{
+            startAdornment: showTogglePwd(),
+          }}
+        />
+
+        <TextField
+          id="confirmPassword"
+          label="Confirm Password"
+          type={showPassword ? "text" : "password"}
+          name="confirmPassword"
+          error={!!errors?.confirmPassword}
+          autoComplete="new-password"
+          value={userForm.confirmPassword}
+          onChange={handleChange}
+          helperText={errors?.confirmPassword}
+          onBlur={() => clearErrorMsg("confirmPassword")}
+          sx={{ mb: 4 }}
+          InputProps={{
+            startAdornment: showTogglePwd(),
+          }}
+        />
+
+        <TextField
+          id="address"
+          label="Address"
+          type="text"
+          name="address"
+          data-testid="address"
+          error={!!errors?.address}
+          autoComplete="address-line1"
+          value={userForm.address}
+          onChange={handleChange}
+          helperText={errors?.address}
+          onBlur={() => clearErrorMsg("address")}
+        />
+
         <TextField
           id="addressLine1"
           label="Address Line 1"
@@ -249,7 +247,7 @@ const EditDetails = () => {
           type="text"
           name="city"
           error={!!errors?.city}
-          autoComplete="on"
+          autoComplete="home city"
           value={userForm.city}
           onChange={handleChange}
           helperText={errors?.city}
@@ -261,51 +259,49 @@ const EditDetails = () => {
           type="text"
           name="state"
           error={!!errors?.state}
-          autoComplete="on"
+          autoComplete="address-level11"
           value={userForm.state}
           onChange={handleChange}
           helperText={errors?.state}
           onBlur={() => clearErrorMsg("state")}
         />
-        <FormControl error={errors ? true : false}>
-          <TextField
-            id="zip"
-            label="Zip Code"
-            type="text"
-            name="zip"
-            error={!!errors?.zip}
-            autoComplete="on"
-            value={userForm.zip}
-            onChange={handleChange}
-            helperText={errors?.zip}
-            onBlur={() => clearErrorMsg("zip")}
-          />
-        </FormControl>
-        <FormControl error={errors ? true : false}>
-          <TextField
-            id="currPassword"
-            label="Current Password"
-            type={showPassword ? "text" : "password"}
-            name="currPassword"
-            error={!!errors?.currPassword}
-            autoComplete="on"
-            value={userForm.currPassword}
-            onChange={handleChange}
-            helperText={errors?.currPassword}
-            onBlur={() => clearErrorMsg("currPassword")}
-            sx={{ mb: 6 }}
-            InputProps={{
-              startAdornment: showTogglePwd(),
-            }}
-          />
-          {userForm.currPassword === "" ? (
-            <p className="text-center text-xs font-semibold text-zinc-50">
-              Enter your current password to make these changes.
-            </p>
-          ) : (
-            ""
-          )}
-        </FormControl>
+
+        <TextField
+          id="zip"
+          label="Zip Code"
+          type="text"
+          name="zip"
+          error={!!errors?.zip}
+          autoComplete="postal-code"
+          value={userForm.zip}
+          onChange={handleChange}
+          helperText={errors?.zip}
+          onBlur={() => clearErrorMsg("zip")}
+        />
+
+        <TextField
+          id="currPassword"
+          label="Current Password"
+          type={showPassword ? "text" : "password"}
+          name="currPassword"
+          error={!!errors?.currPassword}
+          autoComplete="current-password"
+          value={userForm.currPassword}
+          onChange={handleChange}
+          helperText={errors?.currPassword}
+          onBlur={() => clearErrorMsg("currPassword")}
+          sx={{ mb: 6 }}
+          InputProps={{
+            startAdornment: showTogglePwd(),
+          }}
+        />
+        {userForm.currPassword === "" ? (
+          <p className="text-center text-xs font-semibold text-zinc-50">
+            Enter your current password to make these changes.
+          </p>
+        ) : (
+          ""
+        )}
       </Box>
       <Button
         sx={{

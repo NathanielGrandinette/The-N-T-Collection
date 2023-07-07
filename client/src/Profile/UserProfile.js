@@ -5,8 +5,6 @@ import Tab from "@mui/material/Tab";
 import TabPanel from "./TabPanel";
 import Box from "@mui/material/Box";
 import ShowOrders from "../components/Orders/ShowOrders";
-
-import "./userProfile.css";
 import EditDetails from "./EditDetails";
 
 const UserProfile = () => {
@@ -28,13 +26,13 @@ const UserProfile = () => {
           }}
         >
           <Tabs
-            className="justify-center"
-            textColor="info"
+            className="justify-center text-[#fdf3e7]"
+            textColor="inherit"
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab color="#000000" label="Wish List" />
+            <Tab color="#fdf3e7" label="Wish List" />
             <Tab label="Orders" />
             <Tab label="Edit Information" />
           </Tabs>

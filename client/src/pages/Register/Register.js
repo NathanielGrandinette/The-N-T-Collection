@@ -37,6 +37,12 @@ const Register = () => {
         ...formData,
         error: "Password must be atleast 7 characters.",
       });
+    } else if (!formData.name || !formData.email) {
+      setLoading(false);
+      return setFormData({
+        ...formData,
+        error: "Please enter a Name/Email",
+      });
     }
 
     setTimeout(async () => {
@@ -69,7 +75,10 @@ const Register = () => {
 
   return (
     <div className="w-full items-center h-screen ">
-      <div className="md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto">
+      <div
+        data-testid="login-form"
+        className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto"
+      >
         <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
           Register
         </h1>
@@ -77,13 +86,13 @@ const Register = () => {
           Please enter your details
         </h2>
         <form
-          className="mb-4 md:flex md:flex-wrap shadow:lg md:justify-between"
+          className="mb-4 shadow:lg md:justify-between login-form"
           onSubmit={handleSubmitForm}
         >
           <div className="flex flex-col mb-4 md:w-full">
             <label
               htmlFor="name"
-              className="mb-2 tracking-wide font-bold text-lg py-2 px-3"
+              className="mb-2 tracking-wide font-bold text-lg"
             >
               Name:
             </label>
@@ -100,7 +109,7 @@ const Register = () => {
           <div className="flex flex-col mb-4 md:w-full">
             <label
               htmlFor="email"
-              className="mb-2 tracking-wide font-bold text-lg py-2 px-3"
+              className="mb-2 tracking-wide font-bold text-lg"
             >
               Email:
             </label>
@@ -121,19 +130,19 @@ const Register = () => {
             >
               Password:
             </label>
-            <div className="relative">
+            <div className="password-input">
               <input
-                data-testid="password"
+                data-testid="password1"
                 id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 className="border py-2 px-3 pr-10 w-full"
-                autoComplete="on"
+                autoComplete="new-password"
                 value={formData.password}
                 onChange={handleInputChange}
               />
               <span
-                className={`absolute m-0 top-1/2 transform -translate-y-1/2 cursor-pointer`}
+                className={`hide-password relative m-0 top-1/2 transform cursor-pointer`}
                 onClick={() => setShowPassword(!showPassword)}
               >
                 <TogglePasswordIcon showPassword={showPassword} />
@@ -147,29 +156,42 @@ const Register = () => {
             >
               Confirm Password:
             </label>
-            <div className="relative">
+            <div className="password-input">
               <input
                 id="confirmPassword"
+                data-testid="password-input"
                 type={showPassword ? "text" : "password"}
                 name="confirmPassword"
                 className="border py-2 px-3 pr-10 w-full"
-                autoComplete="on"
+                autoComplete="new-password"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
               />
+              <span
+                className={`hide-password relative m-0 top-1/2 transform cursor-pointer`}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <TogglePasswordIcon showPassword={showPassword} />
+              </span>
             </div>
           </div>
-          <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
-            {loading ? <LoadingSpinner /> : "Submit"}
-          </button>
-          <div className="text-red-500 text-center mt-2">
+          {loading ? (
+            <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+              <LoadingSpinner />
+            </button>
+          ) : (
+            <button className="block bg-slate-500 text-white hover:bg-slate-700 uppercase p-4 mx-auto rounded">
+              Submit
+            </button>
+          )}
+          <div className="text-red-500 text-center ml-5 mt-2">
             {formData.error && formData.error}
           </div>
         </form>
 
         <span className="block w-full text-center no-underline hover:slate-300 text-sm">
           <Link to="/login" className="hover:blue">
-            Have an account?
+            Already have an account?
           </Link>
         </span>
       </div>

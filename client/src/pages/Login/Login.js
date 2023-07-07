@@ -23,15 +23,21 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     if (formData.email.length === 0 || formData.password === 0) {
-      return setFormData({
-        ...formData,
-        error: "Did you forget to type a field?",
-      });
+      return (
+        setFormData({
+          ...formData,
+          error: "Please enter Email and Password.",
+        }),
+        setLoading(false)
+      );
     } else if (formData.password.length < 7) {
-      return setFormData({
-        ...formData,
-        error: "Password must be atleast 7 characters.",
-      });
+      return (
+        setFormData({
+          ...formData,
+          error: "Password must be at least 7 characters.",
+        }),
+        setLoading(false)
+      );
     }
     setTimeout(async () => {
       await axios
