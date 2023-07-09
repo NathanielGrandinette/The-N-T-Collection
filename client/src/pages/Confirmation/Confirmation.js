@@ -20,7 +20,7 @@ const Confirmation = ({ order }) => {
                                     return (
                                         <div className="items" key={item._id}>
                                             <div>
-                                                <img src={item.photo?.path || item.photo} alt={item.name} />
+                                                <img src={`https://the-n-t-collection-server.vercel.app/${item.photo?.path}` || `https://the-n-t-collection-server.vercel.app/${item.photo}`} alt={item.name} />
                                                 <div style={{ fontWeight: "bolder" }}>{item.name}</div>
                                             </div>
                                             <div>

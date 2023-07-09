@@ -75,7 +75,7 @@ const Checkout = ({ setOrder }) => {
                                 return (
                                     <div className="checkout-item" key={item._id}>
                                         <div className="checkout-item-img-name">
-                                            <img src={item.photo.path || item.photo}></img>
+                                            <img src={`https://the-n-t-collection-server.vercel.app/${item.photo.path}` || `${item.photo}`}></img>
                                             <h2>{item.name}</h2>
                                         </div>
                                         <div className="quantity-price">
