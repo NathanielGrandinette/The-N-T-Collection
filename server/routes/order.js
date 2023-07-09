@@ -2,7 +2,7 @@ const express = require("express");
 const Order = require("../models/Order");
 const Address = require("../models/Address");
 const User = require("../models/User");
-const Product = require("../models/Product")
+const Product = require("../models/Product");
 const verifyToken = require("../middleware/auth");
 const router = express.Router();
 
@@ -55,11 +55,11 @@ router
 
       user.save(); //save the address to the user in db.
 
-      order.items.forEach(async(item) => {
+      order.items.forEach(async (item) => {
         await Product.findByIdAndUpdate(item._id, {
-          quantity: item.quantity - item.shopped
-        })
-      })
+          quantity: item.quantity - item.shopped,
+        });
+      });
 
       return res.status(200).send(newOrder);
     } catch (error) {
@@ -80,8 +80,11 @@ router.route("/:userId").get(verifyToken, async (req, res) => {
 
   const userOrders = await Order.find({
     orderOwner: userId,
-  }).populate({ path: "orderOwner", select: "name" });
+  })
 
+    .populate({ path: "orderOwner", select: "name" })
+    .sort({ created: 1 });
+  console.log(userOrders);
   res.status(200).send(userOrders);
 });
 
