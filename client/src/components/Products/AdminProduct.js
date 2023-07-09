@@ -184,7 +184,7 @@ const AdminProduct = ({
             state={{ product: product }}
           >
             <img
-              src={`server/${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
+              src={`${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
               className="product-img"
               alt={product.name}
             />
