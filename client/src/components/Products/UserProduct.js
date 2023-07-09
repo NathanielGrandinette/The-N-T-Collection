@@ -18,7 +18,7 @@ const UserProduct = ({ product, setLoading, loading, itemKey }) => {
       >
         <div className="image-container">
           <img
-            src={product.photo?.path || product.photo}
+            src={`https://the-n-t-collection-server.vercel.app/${product.photo?.path}` || `https://the-n-t-collection-server.vercel.app/${product.photo}`}
             className="product-img"
             alt={product.name}
           />

@@ -27,7 +27,7 @@ const ProductCarousel = () => {
               key={product._id}
             >
               <img
-                src={product.photo.path || product.photo}
+                src={`https://the-n-t-collection-server.vercel.app/${product.photo.path}` || `https://the-n-t-collection-server.vercel.app/${product.photo}`}
                 alt={product.name}
               />
             </div>
