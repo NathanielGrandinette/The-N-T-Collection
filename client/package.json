@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
+  "homepage": "https://the-n-t-collection.vercel.app/",
   "description": "",
   "main": "index.js",
   "proxy": "http://localhost:3001",
