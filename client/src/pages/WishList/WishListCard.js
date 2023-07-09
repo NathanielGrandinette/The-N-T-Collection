@@ -7,7 +7,7 @@ import "./wishList.css";
 
 const WishListCard = ({ product, removeProductFromWishList }) => {
   const { addProductToCart } = useCartContext();
-  console.log(product);
+
   return (
     <div className="wish-card">
       <Tooltip
