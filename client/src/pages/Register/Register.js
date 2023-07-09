@@ -47,7 +47,7 @@ const Register = () => {
 
     setTimeout(async () => {
       await axios
-        .post("http://localhost:3001/user/register", formData)
+        .post("/user/register", formData)
         .then((res) => {
           console.log(res);
           setFormData(initialFormState);

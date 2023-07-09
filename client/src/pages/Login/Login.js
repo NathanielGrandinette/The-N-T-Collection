@@ -41,7 +41,7 @@ const Login = () => {
     }
     setTimeout(async () => {
       await axios
-        .post("http://localhost:3001/user/login", formData)
+        .post("/user/login", formData)
         .then((res) => {
           setFormData(initialFormState);
           localStorage.setItem(
@@ -70,7 +70,7 @@ const Login = () => {
     setLoading(true);
     setTimeout(async () => {
       await axios
-        .post("http://localhost:3001/user/login", {
+        .post("/user/login", {
           email: "admin@gmail.com",
           password: "admintest",
         })
