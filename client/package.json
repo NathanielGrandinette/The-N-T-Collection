@@ -4,7 +4,7 @@
   "homepage": "https://the-n-t-collection.vercel.app/",
   "description": "",
   "main": "index.js",
-  "proxy": "http://localhost:3001",
+  "proxy": "https://the-n-t-collection-server.vercel.app/",
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
