@@ -6,7 +6,7 @@ const verifyToken = () => {
 };
 
 const instance = axios.create({
-  baseURL: "https://the-n-t-collection-server.vercel.app/",
+  baseURL: process.env.REACT_BASE_URL,
   timeout: 5000,
 });
 
