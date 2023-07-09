@@ -80,7 +80,7 @@ router
             return res.status(201).send(newProduct);
           }
         } catch (error) {
-          next()
+          next(error)
         }
       }
     }
