@@ -5,15 +5,22 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const Address = require("../models/Address");
 const verifyToken = require("../middleware/auth");
+const verifyRole = require("../middleware/role");
 const { validateBodyParams } = require("../middleware/ErrorHandler");
 const router = express.Router();
 
 // route starts with /user
+
 router
-  .get("/", async (req, res, next) => {
-    const users = await User.find();
-    res.status(200).send(users);
-  })
+  .get(
+    "/",
+    verifyToken,
+    verifyRole(["admin"]),
+    async (req, res, next) => {
+      const users = await User.find();
+      res.status(200).send(users);
+    }
+  )
   .get("/:id", verifyToken, async (req, res, next) => {
     const { id } = req.params;
     const user = await User.findById(id)
@@ -39,7 +46,7 @@ router
       next();
     }
   })
-  .put(async (req, res) => {
+  .put(async (req, res, next) => {
     const { name, email, password, role } = req.body;
     const { id } = req.params;
 
@@ -54,11 +61,11 @@ router
       return res.status(200).send(user);
     } catch (error) {
       console.log(error);
-      next();
+      next(error);
     }
   })
 
-  .delete(async (req, res) => {
+  .delete(async (req, res, next) => {
     const { id } = req.params;
 
     if (!id) {
@@ -76,14 +83,14 @@ router
       await User.findByIdAndDelete(id);
       return res.status(200).send({ success: "User deleted" });
     } catch (error) {
-      next();
+      next(error);
     }
   });
 
 router.post(
   "/login",
   validateBodyParams("email", "password"),
-  async (req, res) => {
+  async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
@@ -122,7 +129,7 @@ router.post(
           .json({ error: "Email or Password do not match." });
       }
     } catch (error) {
-      next();
+      next(error);
     }
   }
 );

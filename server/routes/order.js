@@ -4,11 +4,12 @@ const Address = require("../models/Address");
 const User = require("../models/User");
 const Product = require("../models/Product");
 const verifyToken = require("../middleware/auth");
+const verifyRole = require("../middleware/role");
 const router = express.Router();
 
 router
   .route("/")
-  .get(async (req, res) => {
+  .get(verifyToken, verifyRole(["admin"]), async (req, res) => {
     const orderList = await Order.find();
     res.status(200).send(orderList);
   })
@@ -84,7 +85,7 @@ router.route("/:userId").get(verifyToken, async (req, res) => {
 
     .populate({ path: "orderOwner", select: "name" })
     .sort({ created: 1 });
-  console.log(userOrders);
+
   res.status(200).send(userOrders);
 });
 
