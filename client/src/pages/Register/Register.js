@@ -1,5 +1,5 @@
 import { useState, React } from "react";
-import { axios } from "../../utils/axiosConfig";
+import axios from "../../utils/axiosConfig";
 import TogglePasswordIcon from "../../components/TooglePasswordIcon";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
