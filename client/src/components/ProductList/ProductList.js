@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import Product from "../Products/Product";
 import "./productlist.css";
 import { toast } from "react-toastify";
@@ -7,34 +7,48 @@ import useGetProducts from "../../hooks/useGetProducts";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { AuthContext } from "../../context/AuthContext";
-
+import Select from "../Select";
 const ProductList = () => {
   const [refresh, setRefresh] = useState(false);
   const [productSearch, setProductSearch] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const { products, setProducts, getProducts } = useGetProducts();
 
   const { user } = useContext(AuthContext);
 
   const searchProduct = (e) => {
-    setProductSearch(e.target.value);
+    setProductSearch(e.target.value.toLowerCase());
+
+    const results = products.filter((product) => {
+      const nameMatch = product.name
+        .toLowerCase()
+        .includes(productSearch);
+
+      return nameMatch;
+    });
+
+    setProducts([...results]);
+
     if (e.target.value.length === 0) {
       getProducts();
       return;
     }
-    productSearch &&
-      setProducts(
-        products.filter((product) => {
-          if (
-            product.name
-              .toLowerCase()
-              .includes(productSearch.toLowerCase())
-          ) {
-            return product;
-          }
-        })
-      );
   };
+
+  const filteredProducts = useMemo(() => {
+    let filteredData = products;
+
+    if (selectedCategory === "") {
+      return products;
+    } else if (selectedCategory !== "") {
+      filteredData = filteredData.filter(
+        (product) => product.category === selectedCategory
+      );
+    }
+
+    return filteredData;
+  }, [products, productSearch, selectedCategory]);
 
   return (
     <div
@@ -47,16 +61,19 @@ const ProductList = () => {
     >
       <div className="w-full flex justify-center">
         <input
-          className="product-search"
+          className="md:m-0 product-search"
           placeholder="Search Products"
           value={productSearch}
           onChange={(e) => searchProduct(e)}
         ></input>
+        <div className=" md:mr-20">
+          <Select setSelectedCategory={setSelectedCategory} />
+        </div>
       </div>
 
       <div className="product-list-cards">
-        {products &&
-          products.map((product) => {
+        {products && filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => {
             return (
               <Product
                 key={product._id}
@@ -69,7 +86,12 @@ const ProductList = () => {
                 toast={toast}
               />
             );
-          })}
+          })
+        ) : (
+          <div className="flex justify-center items-center h-24">
+            <p className="text-gray-500">No results found.</p>
+          </div>
+        )}
       </div>
       {window.location.pathname !== "/shop" ? (
         <div className="add-button">

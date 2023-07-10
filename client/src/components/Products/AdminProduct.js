@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FileUpload } from "../FileUpload/FileUpload";
 import axios from "../../utils/axiosConfig";
 import fileAxios from "../../utils/axiosFileConfig";
+import Select from "../Select";
+
 const AdminProduct = ({
   product,
   toast,
@@ -66,6 +68,7 @@ const AdminProduct = ({
       form.append("name", item.name);
       form.append("price", item.price);
       form.append("description", item.description);
+      form.append("category", item.category);
       form.append("quantity", item.quantity);
 
       await fileAxios
@@ -75,8 +78,11 @@ const AdminProduct = ({
           toast.success("Product created");
         })
         .catch((err) => {
-          console.log(err);
-          toast.error(err.response.data.error || err.statusText);
+          toast.error(
+            err.response.data.message ||
+              err.response.data.error ||
+              err.statusText
+          );
           setError(err.response.data.error || err.statusText);
         });
     } else {
@@ -85,6 +91,7 @@ const AdminProduct = ({
       form.append("name", item.name);
       form.append("price", item.price);
       form.append("description", item.description);
+      form.append("category", item.category);
       form.append("quantity", item.quantity);
 
       await fileAxios
@@ -96,6 +103,11 @@ const AdminProduct = ({
         })
         .catch((err) => {
           console.log(err);
+          toast.error(
+            err.response.data.message ||
+              err.response.data.error ||
+              err.statusText
+          );
           setError(err.response.data.error || err.statusText);
           return;
         });
@@ -162,6 +174,10 @@ const AdminProduct = ({
               className="product-input"
               onChange={(e) => handleChange(e)}
             ></input>
+            <Select
+              handleChange={handleChange}
+              item={item.category}
+            />
             <FileUpload
               handleSelectedFiles={handleSelectedFiles}
               selected={selected}
@@ -184,7 +200,10 @@ const AdminProduct = ({
             state={{ product: product }}
           >
             <img
-              src={`https://the-n-t-collection-server.vercel.app/${product?.photo?.path}` || `https://the-n-t-collection-server.vercel.app/${product.photo}`} // || product.photo because of the previous structure of the old photo paths.
+              src={
+                `https://the-n-t-collection-server.vercel.app/${product?.photo?.path}` ||
+                `https://the-n-t-collection-server.vercel.app/${product.photo}`
+              } // || product.photo because of the previous structure of the old photo paths.
               className="product-img"
               alt={product.name}
             />

@@ -18,6 +18,24 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  category: {
+    type: String,
+    required: [true, "Please enter a category for this product."],
+    enum: {
+      values: [
+        "Electronics",
+        "Toys",
+        "Automotive",
+        "Pets",
+        "Health and Beauty",
+        "Clothing",
+        "Jewelry",
+        "General Household",
+        "Other",
+      ],
+      message: `{VALUE} is not a valid category`,
+    },
+  },
   photo: {
     name: {
       type: String,
