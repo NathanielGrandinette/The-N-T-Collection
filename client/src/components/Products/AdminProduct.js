@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FileUpload } from "../FileUpload/FileUpload";
 import axios from "../../utils/axiosConfig";
 import fileAxios from "../../utils/axiosFileConfig";
+import Select from "../Select";
+
 const AdminProduct = ({
   product,
   toast,
@@ -66,6 +68,7 @@ const AdminProduct = ({
       form.append("name", item.name);
       form.append("price", item.price);
       form.append("description", item.description);
+      form.append("category", item.category);
       form.append("quantity", item.quantity);
 
       await fileAxios
@@ -88,6 +91,7 @@ const AdminProduct = ({
       form.append("name", item.name);
       form.append("price", item.price);
       form.append("description", item.description);
+      form.append("category", item.category);
       form.append("quantity", item.quantity);
 
       await fileAxios
@@ -170,6 +174,10 @@ const AdminProduct = ({
               className="product-input"
               onChange={(e) => handleChange(e)}
             ></input>
+            <Select
+              handleChange={handleChange}
+              item={item.category}
+            />
             <FileUpload
               handleSelectedFiles={handleSelectedFiles}
               selected={selected}

@@ -5,7 +5,7 @@ const upload = require("../config/multer");
 const User = require("../models/User");
 const verifyRole = require("../middleware/role");
 const deleteProductImage = require("../utils/deleteProductImage");
-const { validateBodyParams } = require('../middleware/ErrorHandler')
+const { validateBodyParams } = require("../middleware/ErrorHandler");
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router
       );
       return res.status(200).send(productList);
     } catch (error) {
-      next()
+      next();
     }
   })
 
@@ -32,7 +32,8 @@ router
     verifyRole(["admin"]),
     upload,
     async (req, res, next) => {
-      const { name, price, description, quantity } = req.body;
+      const { name, price, description, quantity, category } =
+        req.body;
 
       if (
         name === "undefined" ||
@@ -69,6 +70,7 @@ router
               name,
               price,
               description,
+              category,
               quantity,
               photo: {
                 name: originalname,
@@ -80,7 +82,7 @@ router
             return res.status(201).send(newProduct);
           }
         } catch (error) {
-          next(error)
+          next(error);
         }
       }
     }
@@ -103,7 +105,7 @@ router
         return res.status(200).send(product);
       }
     } catch (error) {
-      next()
+      next();
     }
   })
   .put(
@@ -111,27 +113,39 @@ router
     verifyRole(["admin"]),
     upload, //multer middleware
     async (req, res, next) => {
-      const { name, price, description, quantity } = req.body;
-
-      const { path, originalname, mimetype } = req.file;
-
       const { id } = req.params;
       const userId = req.user.user_id;
+      const { name, price, description, quantity, category } =
+        req.body;
 
-      const checkIsAdmin = await User.findOne({ _id: userId });
-
-      if (checkIsAdmin.role !== "admin") {
-        return res.status(401).json({ error: "Not Authorized." });
-      } else if (!id) {
+      if (!id) {
         return res
           .status(409)
           .send({ error: "No product ID provided" });
-      } else {
-        try {
+      }
+      try {
+        let product = await Product.findById(id);
+
+        // if (product.productOwner.toString() !== userId) {
+        //   return res
+        //     .status(401)
+        //     .json({ error: "You can only edit your products." });
+        // }
+
+        const checkIsAdmin = await User.findOne({ _id: userId });
+
+        if (checkIsAdmin.role !== "admin") {
+          return res.status(401).json({ error: "Not Authorized." });
+        }
+
+        //if there is a file then  update the whole product, if not, only update the ones provided.
+        if (req.file) {
+          const { path, originalname, mimetype } = req.file;
           const updateProduct = await Product.findByIdAndUpdate(id, {
             name,
             price,
             description,
+            category,
             quantity,
             photo: {
               name: originalname,
@@ -140,12 +154,34 @@ router
             },
           });
           return res.status(200).send(updateProduct);
-        } catch (error) {
-          console.log(error);
-          return res
-            .status(500)
-            .send({ error: "Something went wrong" });
         }
+
+        if (price) {
+          product.price = price;
+        }
+        if (description) {
+          product.description = description;
+        }
+
+        if (quantity) {
+          product.quantity = quantity;
+        }
+
+        if (name) {
+          product.name = name;
+        }
+        if (category) {
+          product.category = category;
+        }
+
+        await product.save();
+        product = product.toJSON();
+        res.status(200).json(product);
+      } catch (error) {
+        console.log(error);
+        return res
+          .status(500)
+          .send({ error: "Something went wrong" });
       }
     }
   )
