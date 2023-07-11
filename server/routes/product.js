@@ -153,6 +153,8 @@ router
               contentType: mimetype,
             },
           });
+
+          deleteProductImage(product); // delete the previous product photo.
           return res.status(200).send(updateProduct);
         }
 
