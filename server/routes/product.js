@@ -126,11 +126,14 @@ router
       try {
         let product = await Product.findById(id);
 
-        // if (product.productOwner.toString() !== userId) {
-        //   return res
-        //     .status(401)
-        //     .json({ error: "You can only edit your products." });
-        // }
+        if (process.env.NODE_ENV !== "production") {
+          //used in production, easier to test other products in dev.
+          if (product.productOwner.toString() !== userId) {
+            return res
+              .status(401)
+              .json({ error: "You can only edit your products." });
+          }
+        }
 
         const checkIsAdmin = await User.findOne({ _id: userId });
 
