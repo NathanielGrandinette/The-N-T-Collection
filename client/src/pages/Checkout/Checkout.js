@@ -61,6 +61,7 @@ const Checkout = ({ setOrder }) => {
                 <div className="checkout">
                     <form
                         onSubmit={confirmOrder}
+                        className='checkout-page-form'
                     >
                         <CheckoutForm
                             address={address}

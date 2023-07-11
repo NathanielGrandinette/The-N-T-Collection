@@ -59,14 +59,14 @@ const ProductList = () => {
         marginBottom: "75px",
       }}
     >
-      <div className="w-full flex justify-center">
+      <div className="flex justify-center">
         <input
           className="md:m-0 product-search"
           placeholder="Search Products"
           value={productSearch}
           onChange={(e) => searchProduct(e)}
         ></input>
-        <div className=" md:mr-20">
+        <div>
           <Select setSelectedCategory={setSelectedCategory} />
         </div>
       </div>

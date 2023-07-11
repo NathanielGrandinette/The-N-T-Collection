@@ -76,7 +76,7 @@
 
 @keyframes dropdown-footer {
     from {
-        height: 20vh;
+        height: 250px;
     }
 
     to {
@@ -91,7 +91,7 @@
     }
 
     to {
-        height: 20vh;
+        height: 250px;
         opacity: 1;
     }
 }

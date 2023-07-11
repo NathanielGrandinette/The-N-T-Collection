@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[#36454F] min-h-screen">
+    <div className="bg-[#36454F]" style={{ minHeight: "100vh", paddingBottom: "50px"}}>
       <NavBar />
 
       <ToastContainer

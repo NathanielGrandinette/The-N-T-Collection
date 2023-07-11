@@ -10,10 +10,13 @@
     width: 75%;
 }
 
+.checkout-page-form {
+}
+
 .checkout {
     min-height: 100vh;
-    min-width: 550px;
-    margin-bottom: 75px;
+    width: 100%;
+    margin-bottom: 70px;
 }
 
 .checkout-item-img-name {
