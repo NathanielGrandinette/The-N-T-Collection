@@ -38,3 +38,9 @@
 .checkout-section-title {
     color: white;
 }
+
+@media screen and (max-width: 500px) {
+    .checkout-form-section {
+        flex-direction: column;
+    }
+}

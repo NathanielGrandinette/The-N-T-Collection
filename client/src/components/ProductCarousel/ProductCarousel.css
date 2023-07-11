@@ -1,5 +1,6 @@
 .carousel {
-  min-height: 750px;
+  height: auto;
+  max-height: 750px;
   width: 100%;
   border: 1px solid black;
   display: flex;
@@ -12,10 +13,12 @@
 }
 
 .carousel-img {
-  height: 750px;
+  height: auto;
+  max-height: 750px;
   cursor: pointer;
 }
 
 .carousel-img img {
-  height: 100%;
+  height: auto;
+  max-height: 750px;
 }
