@@ -65,7 +65,6 @@ router
           //upload image to cloudinary
           const imageResult = await cloudinary.uploader.upload(path, {
             public_id: name, // keep product name in cloudinary file name.
-            overwrite: true,
           });
 
           if (checkForProduct) {
@@ -156,7 +155,6 @@ router
           //upload image to cloudinary
           const imageResult = await cloudinary.uploader.upload(path, {
             public_id: name, // keep product name in cloudinary file name.
-            overwrite: true,
           });
 
           const updateProduct = await Product.findByIdAndUpdate(id, {
@@ -226,7 +224,7 @@ router
         try {
           const deleteProduct = await Product.findByIdAndDelete(id);
 
-          deleteProductImage(deleteProduct);
+          await deleteProductImage(deleteProduct);
 
           return res.status(200).send(deleteProduct);
         } catch (error) {
