@@ -60,7 +60,6 @@ const useCart = () => {
       product.shopped = 1;
       cartCopy.push(product);
     }
-    product.quantity = product.quantity - 1
     setCart({
       ...cart,
       items: cartCopy,

@@ -5,11 +5,20 @@ import { useCartContext } from "../../context/CartContex";
 import "./product.css";
 
 const UserProduct = ({ product, setLoading, loading, itemKey }) => {
-  const { addProductToCart } = useCartContext();
+  const { addProductToCart, cart } = useCartContext();
+
+  const getProductQuantity = (product) => {
+    let productItem = cart.items.filter((item) => item.name === product.name)
+    if(productItem.length > 0) {
+      return product.quantity - productItem[0].shopped
+    } else {
+      return product.quantity
+    }
+  }
 
   return (
     <div className="m-5 product-info" key={itemKey}>
-      {product.quantity <= 0 ? (
+      {getProductQuantity(product) <= 0 ? (
         <img className="out-of-stock" src="Out-of-stock.png" />
       ) : (
         ""
@@ -38,12 +47,12 @@ const UserProduct = ({ product, setLoading, loading, itemKey }) => {
         </strong>
       </h2>
       <div>Price: {product.price}</div>
-      <div>Quantity: {product.quantity}</div>
+      <div>Quantity: {getProductQuantity(product)}</div>
       <div className="product-description">
         Description: {product.description}
       </div>
       <div className="w-64 mx-auto flex flex-row justify-center">
-        {product.quantity === 0 ? (
+        {getProductQuantity(product) <= 0 ? (
           <button className="m-2 bg-red-600 w-1/2">
             Out of stock
           </button>
