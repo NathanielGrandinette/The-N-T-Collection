@@ -24,7 +24,8 @@ const ShowOrders = () => {
 
   return (
     <div className=" bg-slate-500 rounded-lg mb-20 p-5">
-      {orders &&
+      {orders.length > 0 ? (
+        orders.length &&
         orders
           .sort((a, b) => new Date(b.created) - new Date(a.created))
           .map((order) => (
@@ -99,7 +100,12 @@ const ShowOrders = () => {
                 ))}
               </details>
             </div>
-          ))}
+          ))
+      ) : (
+        <div className="flex justify-center items-center h-24">
+          <p className="text-gray-800">No orders found.</p>
+        </div>
+      )}
     </div>
   );
 };

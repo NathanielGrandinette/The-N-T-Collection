@@ -28,7 +28,7 @@ function useWishList() {
 
   const addProductToWishList = async (product) => {
     await axios
-      .put(`wishlist`, { product }, { baseURL: "/" })
+      .put(`/wishlist`, product)
       .then((res) => {
         if (res.data) {
           setWishList(res.data);
@@ -50,7 +50,7 @@ function useWishList() {
 
   const removeProductFromWishList = async (product) => {
     await axios
-      .put(`wishlist`, { product }, { baseURL: "/" })
+      .put(`/wishlist`, product)
       .then((res) => {
         console.log(res);
         if (res.data) {
