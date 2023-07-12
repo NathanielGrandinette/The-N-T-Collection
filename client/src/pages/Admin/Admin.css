@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.admin {
+    padding-bottom: 50px;
+}
+
 .admin-buttons {
     padding: 2px;
     margin: 5px;
@@ -15,21 +19,9 @@
 .my-products {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
 }
-
-@media screen and (min-width: 0) {
-    .my-products {
-        flex-direction: column;
-    }
-}
-
-@media screen and (min-width: 775px) {
-    .my-products {
-        flex-direction: row;
-    }
-}
-
 
 .my-product-card {
     display: flex;
