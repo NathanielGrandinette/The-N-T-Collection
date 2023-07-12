@@ -4,7 +4,7 @@ const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: keys.cloudinary.cloud_name,
   api_key: keys.cloudinary.api_key,
-    api_secret: keys.cloudinary.api_secret,
+  api_secret: keys.cloudinary.api_secret,
 
 });
 

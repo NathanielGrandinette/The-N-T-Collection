@@ -78,6 +78,7 @@ const Users = () => {
                   {user.email}
                 </div>
                 <div className='role-select-div'>
+                  {user.email !== "admin@gmail.com" ? 
                   <span
                     className='role-select'
                     style={{ backgroundColor: user.role === "user" ? '#A9B7A1' : "#F5F5F5", color: user.role === 'user' ? "black" : "#888888", cursor: 'pointer' }}
@@ -85,7 +86,7 @@ const Users = () => {
                   >
                     User
                   </span>
-                  &nbsp;|&nbsp;
+                  : "" }
                   <span
                     className='role-select'
                     style={{ backgroundColor: user.role === "admin" ? '#A9B7A1' : "#F5F5F5", color: user.role === 'admin' ? "black" : "#888888", cursor: 'pointer' }}
