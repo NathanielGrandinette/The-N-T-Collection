@@ -9,7 +9,7 @@ const UserProduct = ({ product, setLoading, loading, itemKey }) => {
 
   return (
     <div className="m-5 product-info" key={itemKey}>
-      {product.quantity === 0 ? (
+      {product.quantity <= 0 ? (
         <img className="out-of-stock" src="Out-of-stock.png" />
       ) : (
         ""
