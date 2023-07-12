@@ -68,7 +68,6 @@ router
               public_id: name, // keep product name in cloudinary file name.
               overwrite: true,
             })
-            .then((result) => console.log(result));
 
           if (checkForProduct) {
             return res.status(409).send({
