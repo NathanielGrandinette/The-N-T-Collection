@@ -29,7 +29,7 @@ const WishListCard = ({ product, removeProductFromWishList }) => {
       <div className="wish-image-container">
         <Link to={`/productdetail/${product._id}`}>
           <img
-            src={`/${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
+            src={`${product?.photo?.path || product.photo}`} // || product.photo because of the previous structure of the old photo paths.
             className="wish-product-img"
             alt={product.name}
           />

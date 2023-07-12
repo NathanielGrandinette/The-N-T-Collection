@@ -43,9 +43,10 @@ const Footer = () => {
                         }}
                       >
                         <img
-                          src={`https://the-n-t-collection-server.vercel.app/${
-                            product.photo.path}` || `https://the-n-t-collection-server.vercel.app/${product.photo
-                          }`}
+                          src={
+                            `${product.photo.path}` ||
+                            `${product.photo}`
+                          }
                           className="cart-product-img"
                           alt={product.name}
                         />

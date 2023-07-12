@@ -75,10 +75,7 @@ const ShowOrders = () => {
                   <div className="flex px-2 pb-2" key={item._id}>
                     {" "}
                     <img
-                      src={
-                        `https://the-n-t-collection-server.vercel.app/${item.photo.path}` ||
-                        `https://the-n-t-collection-server.vercel.app/${item.photo}`
-                      }
+                      src={`${item.photo.path}` || `${item.photo}`}
                       alt={item.name}
                       className="w-24 object-fit rounded-sm  "
                     />

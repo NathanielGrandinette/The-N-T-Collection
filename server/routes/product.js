@@ -6,6 +6,7 @@ const User = require("../models/User");
 const verifyRole = require("../middleware/role");
 const deleteProductImage = require("../utils/deleteProductImage");
 const { validateBodyParams } = require("../middleware/ErrorHandler");
+const cloudinary = require("../middleware/cloudinary");
 
 const router = express.Router();
 
@@ -61,6 +62,14 @@ router
         try {
           const checkForProduct = await Product.findOne({ name });
 
+          //upload image to cloudinary
+          const imageResult = await cloudinary.uploader
+            .upload(path, {
+              public_id: name, // keep product name in cloudinary file name.
+              overwrite: true,
+            })
+            .then((result) => console.log(result));
+
           if (checkForProduct) {
             return res.status(409).send({
               error: "A product with that name already exists",
@@ -74,8 +83,9 @@ router
               quantity,
               photo: {
                 name: originalname,
-                path: path,
+                path: imageResult.secure_url,
                 contentType: mimetype,
+                cloudinaryId: imageResult.public_id,
               },
               productOwner: req.user.user_id,
             });
@@ -126,11 +136,14 @@ router
       try {
         let product = await Product.findById(id);
 
-        // if (product.productOwner.toString() !== userId) {
-        //   return res
-        //     .status(401)
-        //     .json({ error: "You can only edit your products." });
-        // }
+        if (process.env.NODE_ENV !== "production") {
+          //used in production, easier to test other products in dev.
+          if (product.productOwner.toString() !== userId) {
+            return res
+              .status(401)
+              .json({ error: "You can only edit your products." });
+          }
+        }
 
         const checkIsAdmin = await User.findOne({ _id: userId });
 
@@ -141,6 +154,15 @@ router
         //if there is a file then  update the whole product, if not, only update the ones provided.
         if (req.file) {
           const { path, originalname, mimetype } = req.file;
+
+          //upload image to cloudinary
+          const imageResult = await cloudinary.uploader.upload(path, {
+            public_id: name, // keep product name in cloudinary file name.
+            overwrite: true,
+          });
+
+          console.log("image result", imageResult);
+
           const updateProduct = await Product.findByIdAndUpdate(id, {
             name,
             price,
@@ -149,10 +171,14 @@ router
             quantity,
             photo: {
               name: originalname,
-              path: path,
+              path: imageResult.secure_url,
               contentType: mimetype,
+              cloudinaryId: imageResult.public_id,
             },
           });
+
+          deleteProductImage(product); // delete the previous product photo.
+
           return res.status(200).send(updateProduct);
         }
 

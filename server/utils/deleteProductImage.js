@@ -1,22 +1,26 @@
-const fs = require("fs");
-const path = require("path");
+const cloudinary = require("../middleware/cloudinary");
 
-function deleteProductImage(product) {
+async function deleteProductImage(product) {
   if (!product.photo || !product.photo.path) {
     console.log("Product photo path is undefined or null.");
     return;
   }
-  const filePath = path.resolve(__dirname, "..", product.photo.path);
+  console.log(product);
+  try {
+    const result = await cloudinary.uploader.destroy(
+      product.photo?.cloudinaryId
+    );
 
-  fs.unlink(filePath, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
+    if (result.result === "ok") {
       console.log(
-        `Associated product image ${filePath} was deleted from your server.`
+        "Associated product image was deleted from cloudinary."
       );
     }
-  });
+
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = deleteProductImage;
