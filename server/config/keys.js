@@ -15,4 +15,9 @@ module.exports = {
   node: {
     env: process.env.NODE_ENV,
   },
+  cloudinary: {
+    api_key: process.env.API_KEY,
+    cloud_name: process.env.CLOUD_NAME,
+    api_secret: process.env.API_SECRET,
+  },
 };

@@ -200,10 +200,7 @@ const AdminProduct = ({
             state={{ product: product }}
           >
             <img
-              src={
-                `https://the-n-t-collection-server.vercel.app/${product?.photo?.path}` ||
-                `https://the-n-t-collection-server.vercel.app/${product.photo}`
-              } // || product.photo because of the previous structure of the old photo paths.
+              src={`${product?.photo?.path}` || `${product.photo}`} // || product.photo because of the previous structure of the old photo paths.
               className="product-img"
               alt={product.name}
             />
