@@ -81,7 +81,7 @@ const useCart = () => {
         cartCopy.splice(existingItemIndex, 1); //delete item if shopped is 0
       }
     }
-    product.quantity = product.quantity + 1
+    
     setCart({
       ...cart,
       items: cartCopy,
