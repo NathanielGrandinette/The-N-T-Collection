@@ -71,8 +71,8 @@ const Login = () => {
     setTimeout(async () => {
       await axios
         .post("/user/login", {
-          email: "admin@gmail.com",
-          password: "admintest",
+          email: "test@test.com",
+          password: "test1234",
         })
         .then((res) => {
           localStorage.setItem(
