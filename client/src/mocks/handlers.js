@@ -24,6 +24,24 @@ export const handlers = [
       );
     }
   ),
+  rest.post("http://localhost/user/register", (req, res, ctx) => {
+    const { name, email } = req.body;
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        createdAt: "2023-07-05T01:59:07.834Z",
+        email: `${email}`,
+        name: `${name}`,
+        role: "user",
+        updatedAt: "2023-07-05T01:59:07.834Z",
+        userType: "User",
+        wishList: [],
+        __v: 0,
+        _id: "64a4ce6b30eca09919a26b1a",
+      })
+    );
+  }),
   rest.get("/api"),
   rest.get(
     "http://localhost/user/6486867562d2a2fb9bf743b8",
