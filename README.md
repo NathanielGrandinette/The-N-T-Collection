@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# The N-T Collection
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is deployed on Vercel and can be accessed by here: https://the-n-t-collection.vercel.app/
 
-## Available Scripts
+The N-T Collection is an E-Commerce app built by [@NathanielGrandinette](https://www.github.com/NathanielGrandinette) and [@Tim-Quattrochi](https://github.com/Tim-Quattrochi). It contains a wide variety of products, including a shopping cart, checkout page, wishlist, edit user details, register, and login features, as well as admin privileges to add new products, edit Product Photo, Quanity, Description, Price, and delete.
 
-In the project directory, you can run:
+The admin is also able to "Feature" a product and it will show up in the product carousel on the shop page that is dynamically linked to the product.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![shop](./shop-page.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![filter](./filter.png)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<p style="text-align: center;">Front-End</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [React] - React is a free and open-source front-end JavaScript library for building user interfaces based on components. It is maintained by Meta and a community of individual developers and companies. React can be used to develop single-page, mobile, or server-rendered applications with frameworks like Next.js..
 
-### `npm run eject`
+- [Tailwind CSS] - A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- [CSS] - Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML (including XML dialects such as SVG, MathML or XHTML). CSS describes how elements should be rendered on screen, on paper, in speech, or on other media.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<p style="text-align: center;">Back-End</p>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+- [Mongoose] - Mongoose is an object modeling tool for MongoDB and Node.js.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Node.js] - Cross-platform, open-source server environment that can run on Windows, Linux, Unix, macOS, and more. Node.js is a back-end JavaScript runtime environment, runs on the V8 JavaScript Engine, and executes JavaScript code outside a web browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Express] - Express.js, or simply Express, is a back end web application framework for building RESTful APIs with Node.js.
 
-### Code Splitting
+- [MongoDB] - MongoDB Atlas is a fully managed cloud database service that allows you to easily deploy, scale, and operate MongoDB databases in the cloud.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Cloudinary] - is a cloud-based media management platform that helps you store, optimize, and deliver media assets (such as images, videos, and audio files) for your websites or applications. It provides a range of services and features that make it easier to manage and manipulate your media files.
 
-### Analyzing the Bundle Size
+## What we Learned
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+Nathaniel and Tim jointly created this project to solidify our development knowledge that we learned at Kenzie Academy's Full Stack Web Development program. One of the challenges we faced was deploying our app to Vercel. Vercel is serverless and designed for static frontends and Serverless Functions.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Originally we used Multer to save the image uploads to a directory on our server. We had to pivot and learn how to use Cloudinary's Node.js SDK to implement image uploads to allow us to host our app on Vercel while still allowing images to be uploaded and served.
 
-### Advanced Configuration
+We successfully implemented image uploads and image deletions with Cloudinary, and also learned about other great features that Cloudinary offers like image transformations. All by reading and following their documentation and using our research skills.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Some skills we solidified but are not limited to are:
 
-### Deployment
+- Authentication.
+- SEO and Image optimization.
+- Relational Data.
+- Uploading images in a serverless
+  environment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Reusing React Components.
+- Writing custom React Hooks.
+- Responsive layout.
+- Global State.
 
-### `npm run build` fails to minify
+# Development
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p style="text-align: center;">Prerequisites</p>
+
+---
+
+- You will need a MongoDB account [Mongodb] to get a DB URI connection string if you do not already have one.
+
+- You will need to sign up for [Cloudinary] to retreive your cloudname, api key, and api secret key.
+
+---
+
+The N-T Collections requires [Node.js](https://nodejs.org/) v10+ to run. Tested on version `16.14.2`
+
+---
+
+This App uses [NPM](https://www.npmjs.com/) Node Package Manager to manage it's dependencies and packages.
+
+---
+
+<p style="text-align: center;">From the root directory run:</p>
+
+```
+npm install
+```
+
+---
+
+Create a .env file in the server folder and add your values.
+
+For example:
+
+```
+NODE_ENV=development
+MONGODB_STRING=mongodb+srv://<username>:<password>@cluster0.zu0uvhq.mongodb.net/My-Data-base-name?retryWrites=true
+PORT=3001
+JWT_SECRET="my secret"
+EMAIL=myemail@myemail.com
+PASSWORD=mypassword
+CLOUD_NAME='MY CLOUDINARY CLOUD NAME'
+API_KEY='MY CLOUDINARY API KEY'
+API_SECRET=MY CLOUDINARY SECRET KEY
+```
+
+Double check your MongoDB connection URI and add your username and password. For example:
+
+```
+mongodb+srv://<username>:<password>@cluster0.zu0uvhq.mongodb.net/My-Data-base-name?retryWrites=true
+```
+
+This App uses `concurrently` to start both the client and server. We have configured the root `package.json` to define workspaces with the client and server. So in the ROOT directory:
+
+```
+npm start
+```
+
+---
+
+## Contributing
+
+---
+
+Find a bug?
+We welcome contributions. Simply open a pull request with your changes and we will review them.
+
+[tailwind css]: https://tailwindcss.com/docs/guides/vite
+[mongoose]: https://mongoosejs.com/
+[mongodb]: https://www.mongodb.com/atlas/database
+[node.js]: http://nodejs.org
+[css]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[express]: http://expressjs.com
+[react]: https://react.dev/
+[Cloudinary]: https://cloudinary.com/
+[http://54.90.137.205/]: http://54.90.137.205/
