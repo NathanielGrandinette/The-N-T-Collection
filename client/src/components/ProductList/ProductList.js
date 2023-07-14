@@ -20,13 +20,15 @@ const ProductList = () => {
   const searchProduct = (e) => {
     setProductSearch(e.target.value.toLowerCase());
 
-    const results = products.filter((product) => {
-      const nameMatch = product.name
-        .toLowerCase()
-        .includes(productSearch);
+    const results =
+      products &&
+      products.filter((product) => {
+        const nameMatch = product.name
+          .toLowerCase()
+          .includes(productSearch);
 
-      return nameMatch;
-    });
+        return nameMatch;
+      });
 
     setProducts([...results]);
 
