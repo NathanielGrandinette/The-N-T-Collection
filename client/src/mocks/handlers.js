@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import { mockedProducts } from "./products.mock";
 
 // Bear in mind that without a DOM-like environment, like the jsdom from Jest, you must use absolute request URLs in NodeJS.
 // mswjs.io/docs/getting-started/integrate/node
@@ -59,4 +60,8 @@ export const handlers = [
       );
     }
   ),
+
+  rest.get("http://localhost/product", (req, res, ctx) => {
+    return res(ctx.json(mockedProducts));
+  }),
 ];
