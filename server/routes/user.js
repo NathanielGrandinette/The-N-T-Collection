@@ -3,14 +3,16 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
-const Address = require("../models/Address");
 const verifyToken = require("../middleware/auth");
 const verifyRole = require("../middleware/role");
 const { validateBodyParams } = require("../middleware/ErrorHandler");
 const router = express.Router();
 
-// route starts with /user
-
+/**
+ * GET /user
+ *  @description this route is a GET request to get all users.
+ *  protected
+ */
 router
   .get(
     "/",
@@ -21,6 +23,13 @@ router
       res.status(200).send(users);
     }
   )
+  /**
+   * GET /user/:id
+   * @description This route is a GET request for a user to view their own information.
+   * @param {string} user id
+   * @returns {object}
+   * protected
+   */
   .get("/:id", verifyToken, async (req, res, next) => {
     const { id } = req.params;
     const user = await User.findById(id)
@@ -36,16 +45,9 @@ router
 
 router
   .route("/:id")
-  .get(async (req, res, next) => {
-    const { id } = req.params;
-
-    try {
-      const user = await User.findById(id);
-      return res.status(200).send(user);
-    } catch (error) {
-      next();
-    }
-  })
+  /**
+   * PUT /user/:id
+   */
   .put(async (req, res, next) => {
     const { name, email, password, role } = req.body;
     const { id } = req.params;
@@ -64,7 +66,9 @@ router
       next(error);
     }
   })
-
+  /**
+   *  DELETE /user/:id
+   */
   .delete(async (req, res, next) => {
     const { id } = req.params;
 
@@ -86,7 +90,10 @@ router
       next(error);
     }
   });
-
+/**
+ * POST /user/login
+ *
+ */
 router.post(
   "/login",
   validateBodyParams("email", "password"),
@@ -133,8 +140,10 @@ router.post(
     }
   }
 );
-
-//@POST http://localhost:3001/user/register
+/**
+ * POST
+ * /user/register
+ */
 router.post(
   "/register",
   validateBodyParams("name", "email", "password", "confirmPassword"),
