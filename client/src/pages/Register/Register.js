@@ -97,10 +97,10 @@ const Register = () => {
               Name:
             </label>
             <input
-              id="name"
+              // id="name"
               type="text"
               name="name"
-              className="border py-2 px-3 "
+              className="border border-solid border-black py-2 px-3 "
               autoComplete="name"
               value={formData.name}
               onChange={handleInputChange}
@@ -162,7 +162,7 @@ const Register = () => {
                 data-testid="password-input"
                 type={showPassword ? "text" : "password"}
                 name="confirmPassword"
-                className="border py-2 px-3 pr-10 w-full"
+                className="border-none py-2 px-3 pr-10 w-full"
                 autoComplete="new-password"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
