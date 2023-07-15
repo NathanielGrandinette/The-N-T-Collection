@@ -66,9 +66,11 @@ router
       next(error);
     }
   })
+
   /**
    *  DELETE /user/:id
    */
+
   .delete(async (req, res, next) => {
     const { id } = req.params;
 
@@ -119,7 +121,7 @@ router.post(
             role: checkExistingUser.role,
           },
           keys.jwt.secret,
-          { expiresIn: "60s" }
+          { expiresIn: "1d" }
         );
 
         const user = await User.findById({
@@ -140,6 +142,7 @@ router.post(
     }
   }
 );
+
 /**
  * POST
  * /user/register
