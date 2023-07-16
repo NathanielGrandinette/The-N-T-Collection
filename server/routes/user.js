@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
+const Address = require("../models/Address");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
@@ -138,6 +139,105 @@ router.post(
           .json({ error: "Email or Password do not match." });
       }
     } catch (error) {
+      next(error);
+    }
+  }
+);
+/**
+ * PATCH /user/edit/:id
+ */
+router.patch(
+  "/edit/:id",
+  verifyToken,
+  validateBodyParams(
+    "name",
+    "email",
+    "password",
+    "confirmPassword",
+    "address",
+    "city",
+    "zip",
+    "state",
+    "currPassword"
+  ),
+  async (req, res, next) => {
+    const {
+      name,
+      email,
+      password,
+      confirmPassword,
+      address: streetAddress,
+      addressLine1,
+      city,
+      zip,
+      state,
+      currPassword,
+      _id: addressId,
+    } = req.body;
+
+    const { user_id } = req.user;
+    const { id: userIdFromParams } = req.params;
+
+    if (password !== confirmPassword) {
+      return res.status(422).json({ error: "Passwords must match." });
+    }
+    try {
+      // check the user id from the params against the user id in the db first
+      const checkUser = await User.findById(userIdFromParams);
+
+      if (user_id.toString() !== checkUser._id.toString()) {
+        return res.status(403).json({ error: "Forbidden." });
+      }
+
+      const checkCurrPwd = await bcrypt.compare(
+        currPassword,
+        checkUser.password
+      );
+
+      //check that the current password matches the password in the db.
+      if (!checkCurrPwd) {
+        return res
+          .status(401)
+          .json({ error: "Invalid credentials." });
+      }
+
+      //check that the new password isn't the same as the current password in the db.
+      const checkPrevPwd = await bcrypt.compare(
+        confirmPassword,
+        checkUser.password
+      );
+      if (checkPrevPwd) {
+        return res.status(400).json({
+          error:
+            "Cannot use the same password as your current password.",
+        });
+      }
+
+      //hash the new password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      let user = await User.findById(user_id).populate("address");
+
+      user.name = name;
+      user.password = hashedPassword;
+      user.email = email;
+
+      const address = await Address.findByIdAndUpdate(addressId, {
+        address: streetAddress,
+        addressLine1: addressLine1 ? addressLine1 : null,
+        city,
+        state,
+        zip,
+      });
+
+      user.address = address._id;
+
+      await user.save();
+      user = user.toJSON();
+      delete user.password;
+      return res.status(200).json(user);
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   }
