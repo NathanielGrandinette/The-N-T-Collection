@@ -9,7 +9,7 @@ const instance = axios.create({
   baseURL:
     process.env.REACT_APP_BASE_URL ||
     "https://the-n-t-collection-server.vercel.app/",
-  timeout: 5000,
+  timeout: 2 * 60 * 1000,
 });
 
 instance.interceptors.request.use((config) => {

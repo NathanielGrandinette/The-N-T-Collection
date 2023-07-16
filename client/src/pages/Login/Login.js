@@ -1,6 +1,6 @@
 import axios from "../../utils/axiosConfig";
 import { useState, React, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import TogglePasswordIcon from "../../components/TooglePasswordIcon";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
@@ -17,6 +17,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { setUser } = useContext(AuthContext);
 
   const handleSubmitForm = async (e) => {
@@ -109,12 +110,16 @@ const Login = () => {
         data-testid="login-form"
         className="login-card md:w-full  bg-[#FDF3E7] rounded shadow-lg mt-10 p-8 m-4 md:max-w-sm md:mx-auto"
       >
-        <h1 className="block w-full  text-4xl  text-center mb-6 text-[#36454F] ">
-          Welcome Back!
+        <h1 className="block w-full  text-2xl  text-center mb-6 text-[#36454F] ">
+          {location.state?.newUser
+            ? `Thanks for Registering, ${location.state?.newUser}.`
+            : "Welcome Back!"}
         </h1>
-        <h2 className="text-center text-gray-600">
-          Please enter your details
+
+        <h2 className="text-center text-gray-600 m-1 p-1">
+          Please enter your details{" "}
         </h2>
+
         <form
           className="mb-4 shadow:lg md:justify-between login-form"
           onSubmit={handleSubmitForm}

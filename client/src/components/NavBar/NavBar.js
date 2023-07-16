@@ -53,7 +53,7 @@ const NavBar = () => {
       <Link to="/">
         <img
           src={logo}
-          alt=""
+          alt="company logo"
           className="object-fit h-20 bg-clip-content"
         />
       </Link>
