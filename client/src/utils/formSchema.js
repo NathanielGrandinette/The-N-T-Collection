@@ -14,7 +14,7 @@ export const validationSchema = yup.object().shape({
   password: yup
     .string()
     .required("Please enter a password")
-    .min(8, "Password must be at least 8 characters"),
+    .min(7, "Password must be at least 7 characters"),
   confirmPassword: yup
     .string()
     .required("Please re-type your new password")
