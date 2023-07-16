@@ -15,7 +15,7 @@ const Checkout = ({ setOrder }) => {
 
   const navigate = useNavigate();
   let total;
-  console.log(cart);
+
   const getTotal = () => {
     if (cart.totalItems === 0) {
       return;

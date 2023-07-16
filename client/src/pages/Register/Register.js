@@ -49,10 +49,14 @@ const Register = () => {
       await axios
         .post("/user/register", formData)
         .then((res) => {
-          console.log(res);
+          const { name } = formData;
+
           setFormData(initialFormState);
           setLoading(false);
-          navigate("/login", { replace: true }); //receive token  from login
+          navigate("/login", {
+            replace: true,
+            state: { newUser: name },
+          }); //receive token  from login
         })
         .catch((err) => {
           console.log(err);
@@ -184,11 +188,10 @@ const Register = () => {
               Submit
             </button>
           )}
-          <div className="text-red-500 text-center ml-5 mt-2">
-            {formData.error && formData.error}
-          </div>
         </form>
-
+        <div className="text-red-500 text-center">
+          {formData.error && formData.error}
+        </div>
         <span className="block w-full text-center no-underline hover:slate-300 text-sm">
           <Link to="/login" className="hover:blue">
             Already have an account?
