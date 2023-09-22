@@ -14,6 +14,7 @@ import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import { AuthContext } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
+import { inject } from '@vercel/analytics'
 import Checkout from "./pages/Checkout/Checkout";
 import WishList from "./pages/WishList/WishList";
 import UserProfile from "./Profile/UserProfile";
@@ -25,6 +26,8 @@ function App() {
   const isLoggedIn = (user) => {
     return user ? true : false;
   };
+
+  inject()
 
   return (
     <div className="bg-[#36454F]" style={{ minHeight: "100vh", paddingBottom: "50px"}}>
